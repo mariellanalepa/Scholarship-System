@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -17,19 +18,22 @@ public class LoginController {
 	protected Parent root;
 	@FXML 
 	private Button signIn;
+	@FXML
+	private TextField studentID;
+	
+	//Store for static access
+	public static String studentIDString;
 	
 	@FXML
 	protected void handleSignInButtonAction(ActionEvent event) throws Exception
-	{	
-		System.out.println("Got here");
-		//getClass().getResource(path) loads resource from classpath
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ApplicationForm.fxml"));
-		AnchorPane appForm = (AnchorPane) loader.load();
-		Scene newScene = new Scene(appForm);
-
+	{	 
+		//Get student ID
+		studentIDString = studentID.getText();
+		
 		//Get the primary stage of our App
 		Stage stage = (Stage) signIn.getScene().getWindow();
-		stage.setScene(newScene);			
+		//Set new scene
+		stage.setScene(AppFormController.getScene());			
 		stage.show();
 	}
 	
@@ -41,5 +45,12 @@ public class LoginController {
 		//Create and return scene for root node
 		return new Scene(root);
 	}
+	
+	public static String getStudentID() 
+	{
+		//Retrieve the student number
+		return studentIDString;
+	}
+
 	
 }

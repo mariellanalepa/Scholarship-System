@@ -1,4 +1,4 @@
-package Scholarship;
+package model;
 
 class Student {
 	private int studentID;
