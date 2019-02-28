@@ -1,6 +1,6 @@
 package model;
 
-class Student {
+public class Student {
 	private int studentID;
 	private String firstName;
 	private String lastName;
@@ -10,7 +10,7 @@ class Student {
 	private String faculty;
 	private float GPA;
 	
-	Student(int studentID) {
+	public Student(int studentID) {
 		CsvReader c = new CsvReader(12345678);
 		String[] data = c.data;
 		this.studentID = Integer.valueOf(data[0]);
@@ -36,4 +36,9 @@ class Student {
 		
 	}
 
+	public String getFirstName() 
+	{
+		return this.firstName + " " + this.studentID;
+	}
+	
 }

@@ -24,6 +24,7 @@ public class LoginController {
 	
 	//Store for static access
 	public static String studentIDString;
+	public static String studentName;
 	
 	@FXML
 	protected void handleSignInButtonAction(ActionEvent event) throws Exception
@@ -32,6 +33,7 @@ public class LoginController {
 		studentIDString = studentID.getText();
 		// Create new login session
 		LoginSession login = new LoginSession(Integer.valueOf(studentIDString));
+		studentName = login.getStudent().getFirstName();
 		
 		//Get the primary stage of our App
 		Stage stage = (Stage) signIn.getScene().getWindow();
@@ -53,6 +55,12 @@ public class LoginController {
 	{
 		//Retrieve the student number
 		return studentIDString;
+	}
+	
+	public static String getStudentName() 
+	{
+		//Retrieve the student number
+		return studentName;
 	}
 
 	
