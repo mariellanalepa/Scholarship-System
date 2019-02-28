@@ -1,11 +1,12 @@
 package model;
 
-class LoginSession {
+public class LoginSession {
 	Student s;
 	
 	
-	LoginSession(int studentID){
-		this.s = new Student(studentID);
+	public LoginSession(int studentID){
+		//this.s = new Student(studentID);
+		System.out.println("Made login sess");
 	}
 
 	public static void main(String[] args) {

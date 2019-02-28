@@ -1,5 +1,6 @@
 package application;
 
+import model.LoginSession;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -29,6 +30,8 @@ public class LoginController {
 	{	 
 		//Get student ID
 		studentIDString = studentID.getText();
+		// Create new login session
+		LoginSession login = new LoginSession(Integer.valueOf(studentIDString));
 		
 		//Get the primary stage of our App
 		Stage stage = (Stage) signIn.getScene().getWindow();
@@ -38,7 +41,7 @@ public class LoginController {
 	}
 	
 	public static Scene getScene() throws Exception
-	{
+	{	
 		//Inflate FXML and instantiate a LoginController object
 		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/view/LoginLayout.fxml"));
 		Parent root = (Parent) loader.load();
