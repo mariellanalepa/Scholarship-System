@@ -1,22 +1,15 @@
 package model;
 
-public class Application {
+class Application {
+	private int applicationID;
 	
-	private int studentID;
-	private int awardID;
-	private String status;
-	private int priority;
-	
-	public Application(int studentID, int awardID)
-	{
-		this.studentID = studentID;
-		this.awardID = awardID; 
-		this.status = "active";
+	Application() {
+		// placeholder application ID
+		this.applicationID = 0000001;	
 	}
 	
-	public void setPriority(int value) 
-	{
-		this.priority = value;
+	int getApplicationID(){
+		return applicationID;
 	}
 
 }
