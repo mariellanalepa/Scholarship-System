@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.LoginSession;
 
 public class LoginController {
 	
@@ -29,7 +30,7 @@ public class LoginController {
 	{	 
 		//Get student ID
 		studentIDString = studentID.getText();
-		
+		LoginSession login = new LoginSession(Integer.valueOf(studentIDString));
 		//Get the primary stage of our App
 		Stage stage = (Stage) signIn.getScene().getWindow();
 		//Set new scene
