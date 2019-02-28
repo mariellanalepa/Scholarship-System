@@ -12,7 +12,7 @@ class CsvReader {
 	}
 	
 	private void readCSV(int studentID) {
-		String csvFile = "C:\\Users\\nd34n\\OneDrive\\300\\eclipse-workspace\\ScholarshipSoftware\\bin\\Scholarship\\studentDatabase.csv";
+		String csvFile = "/res/studentDatabase.csv";
 		BufferedReader buffread = null;
 		String line = "";
 		String delimiter = ",";
