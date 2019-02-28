@@ -31,7 +31,7 @@ public class AppFormController implements Initializable
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//First get name and last name for student
-		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentID());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
 		
 	}
 
