@@ -3,16 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppFormController">
+<BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppFormController">
    <center>
-      <GridPane hgap="20.0" prefHeight="434.0" prefWidth="611.0" vgap="20.0">
+      <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="434.0" prefWidth="611.0" vgap="20.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="250.0" />
@@ -26,23 +25,26 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="First name" />
+            <Label text="Student ID" />
             <Label text="Last name" GridPane.rowIndex="1" />
-            <TextField prefHeight="27.0" prefWidth="185.0" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button mnemonicParsing="false" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Label text="GPA" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Faculty" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label prefHeight="17.0" prefWidth="104.0" text="Department" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Year" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Student ID" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="First Name" GridPane.rowIndex="2" />
+            <Label id="SID_FIELD" fx:id="ID_FIELD" text="Label" GridPane.columnIndex="1" />
+            <Label id="LNAME_FIELD" fx:id="LNAME_FIELD" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label id="FNAME_FIELD" fx:id="FNAME_FIELD" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label id="GPA_FIELD" fx:id="GPA_FIELD" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="FACULTY_FIELD" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="DEPT_FIELD" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="YEAR_FIELD" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="Student Type" GridPane.rowIndex="7" />
+            <Label fx:id="TYPE_FIELD" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
    </center>

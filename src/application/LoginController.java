@@ -24,17 +24,27 @@ public class LoginController {
 	private TextField studentID;
 	
 	//Store for static access
-	public static String studentIDString;
-	public static String studentName;
+	protected static String studentIDString;
+	protected static String studentFirstName, studentLastName, studentDept, studentFaculty, studentYearString, studentGPAString, studentType;
+	
 	
 	@FXML
 	protected void handleSignInButtonAction(ActionEvent event) throws Exception
 	{	 
 		//Get student ID
 		studentIDString = studentID.getText();
+		
 		// Create new login session
 		LoginSession login = new LoginSession(Integer.valueOf(studentIDString));
-		studentName = login.getStudent().getFirstName();
+		
+		// Get student attributes and assign to the login session
+		studentFirstName = login.getStudent().getFirstName();
+		studentLastName = login.getStudent().getLastName();
+		studentYearString = login.getStudent().getStudentYear();
+		studentDept = login.getStudent().getStudentDepartment();
+		studentFaculty = login.getStudent().getStudentFaculty();
+		studentGPAString = login.getStudent().getStudentGPA();
+		studentType = login.getStudent().getStudentType();
 		
 		//Get the primary stage of our App
 		Stage stage = (Stage) signIn.getScene().getWindow();
@@ -61,7 +71,7 @@ public class LoginController {
 	public static String getStudentName() 
 	{
 		//Retrieve the student number
-		return studentName;
+		return studentFirstName;
 	}
 
 	

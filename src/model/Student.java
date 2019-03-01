@@ -2,43 +2,53 @@ package model;
 
 public class Student {
 	private int studentID;
-	private String firstName;
-	private String lastName;
-	private int year;
-	private String type;
-	private String department;
-	private String faculty;
-	private float GPA;
+	private String studentFirstName;
+	private String studentLastName;
+	private int studentYear;
+	private String studentType;
+	private String studentDepartment;
+	private String studentFaculty;
+	private float studentGPA;
 	
 	public Student(int studentID) {
-		CsvReader c = new CsvReader(12345678);
+		CsvReader c = new CsvReader(studentID);
 		String[] data = c.data;
 		this.studentID = Integer.valueOf(data[0]);
-		this.firstName = data[1];
-		this.lastName = data[2];
-		this.type = data[3];
-		this.year = Integer.valueOf(data[4]);
-		this.faculty = data[6];
-		this.department = data[5];
-		this.GPA = Float.valueOf(data[7]);
-		
-		
+		this.studentFirstName = data[1];
+		this.studentLastName = data[2];
+		this.studentType = data[3];
+		this.studentYear = Integer.valueOf(data[4]);
+		this.studentFaculty = data[6];
+		this.studentDepartment = data[5];
+		this.studentGPA = Float.valueOf(data[7]);
 	}
-	public void printS() {
-		System.out.println(this.studentID);
-		System.out.println(this.firstName);
-		System.out.println(this.lastName);
-		System.out.println(this.year);
-		System.out.println(this.type);
-		System.out.println(this.department);
-		System.out.println(this.faculty);
-		System.out.println(this.GPA);
-		
-	}
+	
 
 	public String getFirstName() 
 	{
-		return this.firstName + " " + this.studentID;
+		return this.studentFirstName;
+	}
+	public String getLastName() {
+		return this.studentLastName;
+	}
+	public String getStudentID() {
+		return Integer.toString(this.studentID);
+	}
+	public String getStudentYear() {
+		return Integer.toString(this.studentYear);
+	}
+	public String getStudentDepartment() {
+		return this.studentDepartment;
+	}
+	public String getStudentFaculty() {
+		return this.studentFaculty;
+	}
+	public String getStudentType() {
+		String type = "Undergraduate";
+		return type;
+	}
+	public String getStudentGPA() {
+		return Float.toString(studentGPA);
 	}
 	
 }

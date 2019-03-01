@@ -18,6 +18,8 @@ import javafx.scene.text.Text;
 public class AppFormController implements Initializable
 {	
 	@FXML protected Label welcomeLabel;
+	@FXML protected Label FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
+
 
 	public static Scene getScene() throws Exception 
 	{
@@ -32,7 +34,15 @@ public class AppFormController implements Initializable
 	public void initialize(URL location, ResourceBundle resources) {
 		//First get name and last name for student
 		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
-		
+		FNAME_FIELD.setText(LoginController.studentFirstName);
+		LNAME_FIELD.setText(LoginController.studentLastName);
+		ID_FIELD.setText(LoginController.studentIDString);
+		YEAR_FIELD.setText(LoginController.studentYearString);
+		DEPT_FIELD.setText(LoginController.studentDept);
+		FACULTY_FIELD.setText(LoginController.studentFaculty);
+		GPA_FIELD.setText(LoginController.studentGPAString);
+		TYPE_FIELD.setText(LoginController.studentType);
+
 	}
 
 }
