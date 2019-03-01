@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 
 class CsvReader {
 	String[] data; 
@@ -23,7 +22,6 @@ class CsvReader {
 			buffread = new BufferedReader(new FileReader(f));
 			while ((line = buffread.readLine()) != null) {
 				if(line.startsWith(Integer.toString(studentID))) {
-					System.out.println("Line: " + line);
 					this.data = line.split(delimiter);
 					break;
 				}
