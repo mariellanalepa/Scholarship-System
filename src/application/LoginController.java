@@ -1,5 +1,6 @@
 package application;
 
+import model.LoginSession;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -9,37 +10,69 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.LoginSession;
 
 public class LoginController {
 	
 	protected Parent root;
 	@FXML 
 	private Button signIn;
+	@FXML
+	private TextField studentID;
+	
+	//Store for static access
+	protected static String studentIDString;
+	protected static String studentFirstName, studentLastName, studentDept, studentFaculty, studentYearString, studentGPAString, studentType;
+	
 	
 	@FXML
 	protected void handleSignInButtonAction(ActionEvent event) throws Exception
-	{	
-		System.out.println("Got here");
-		//getClass().getResource(path) loads resource from classpath
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ApplicationForm.fxml"));
-		AnchorPane appForm = (AnchorPane) loader.load();
-		Scene newScene = new Scene(appForm);
-
+	{	 
+		//Get student ID
+		studentIDString = studentID.getText();
+		
+		// Create new login session
+		LoginSession login = new LoginSession(Integer.valueOf(studentIDString));
+		
+		// Get student attributes and assign to the login session
+		studentFirstName = login.getStudent().getFirstName();
+		studentLastName = login.getStudent().getLastName();
+		studentYearString = login.getStudent().getStudentYear();
+		studentDept = login.getStudent().getStudentDepartment();
+		studentFaculty = login.getStudent().getStudentFaculty();
+		studentGPAString = login.getStudent().getStudentGPA();
+		studentType = login.getStudent().getStudentType();
+		
 		//Get the primary stage of our App
 		Stage stage = (Stage) signIn.getScene().getWindow();
-		stage.setScene(newScene);			
+		//Set new scene
+		stage.setScene(AppFormController.getScene());			
 		stage.show();
 	}
 	
 	public static Scene getScene() throws Exception
-	{
+	{	
 		//Inflate FXML and instantiate a LoginController object
 		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/view/LoginLayout.fxml"));
 		Parent root = (Parent) loader.load();
 		//Create and return scene for root node
 		return new Scene(root);
 	}
+	
+	public static String getStudentID() 
+	{
+		//Retrieve the student number
+		return studentIDString;
+	}
+	
+	public static String getStudentName() 
+	{
+		//Retrieve the student number
+		return studentFirstName;
+	}
+
 	
 }

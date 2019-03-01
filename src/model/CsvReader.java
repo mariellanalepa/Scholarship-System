@@ -1,5 +1,6 @@
 package model;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,12 +13,13 @@ class CsvReader {
 	}
 	
 	private void readCSV(int studentID) {
-		String csvFile = "/res/studentDatabase.csv";
+		//URL csvFile = CsvReader.class.getResource("/res/studentDatabase.csv");
 		BufferedReader buffread = null;
 		String line = "";
 		String delimiter = ",";
 		try {
-			buffread = new BufferedReader(new FileReader(csvFile));
+			File f = new File("res/studentDatabase.csv");
+			buffread = new BufferedReader(new FileReader(f));
 			while ((line = buffread.readLine()) != null) {
 				if(line.startsWith(Integer.toString(studentID))) {
 					this.data = line.split(delimiter);
@@ -40,5 +42,5 @@ class CsvReader {
 
 	 }
 
-	}
+}
 	

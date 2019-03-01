@@ -1,16 +1,21 @@
 package model;
 
-class LoginSession {
-	Student s;
+public class LoginSession {
+	private Student s;
+	private int sessionID;
 	
 	
-	LoginSession(int studentID){
+	public LoginSession(int studentID){
 		this.s = new Student(studentID);
+		this.sessionID = 1;
 	}
 
-	public static void main(String[] args) {
-		LoginSession l = new LoginSession(12345678);
-		l.s.printS();
-		
+	public Student getStudent() {
+		return this.s;
 	}
+	
+//	public static void main(String[] args) {
+//		LoginSession l = new LoginSession(12345678);
+//		
+//	}
 }
