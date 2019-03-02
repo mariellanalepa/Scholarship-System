@@ -1,6 +1,8 @@
 package application;
 
 import model.LoginSession;
+import model.Student;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -23,20 +26,43 @@ public class LoginController implements Initializable {
 	protected Parent root;
 	@FXML private Button signIn;
 	@FXML private TextField studentID;
+	@FXML private Label errorLabel;
 	
 	//Store for static access
-	protected static String studentIDString;
-	protected static String studentFirstName, studentLastName, studentDept, studentFaculty, studentYearString, studentGPAString, studentType;
-	
+	static String studentIDString;
+	static String studentFirstName, studentLastName, studentDept, studentFaculty, studentYearString, studentGPAString, studentType;
+	protected static String loginErrorMsg = "ERROR: invalid student ID number";
 	
 	@FXML
 	protected void handleSignInButtonAction(ActionEvent event) throws Exception
 	{	 
-		//Get student ID
+		//Get student ID from text field
 		studentIDString = studentID.getText();
 		
-		// Create new login session
-		LoginSession login = new LoginSession(Integer.valueOf(studentIDString));
+		/* check string format: length */
+		if(studentIDString.length() != 8) {
+			errorLabel.setText(loginErrorMsg);
+			return;
+		} 
+		
+		
+		/* Create new login session
+		 * try to create new student, if input is not valid (integer) 
+		 * or student ID not in database
+		 * LoginSession instantiation will fail
+		 */
+		LoginSession login = null;
+		try {
+			login = new LoginSession(Integer.valueOf(studentIDString));
+			
+		} catch(NullPointerException | NumberFormatException invalidID){
+			errorLabel.setText(loginErrorMsg);
+				
+			// Reset stage
+			Stage stage = (Stage) errorLabel.getScene().getWindow();
+			stage.setScene(LoginController.getScene());			
+			stage.show();
+			} 
 		
 		// Get student attributes and assign to the login session
 		studentFirstName = login.getStudent().getFirstName();
@@ -50,7 +76,7 @@ public class LoginController implements Initializable {
 		//Get the primary stage of our App
 		Stage stage = (Stage) signIn.getScene().getWindow();
 		//Set new scene
-		stage.setScene(AppFormController.getScene());			
+		stage.setScene(StudentMainController.getScene());			
 		stage.show();
 	}
 	
@@ -71,8 +97,9 @@ public class LoginController implements Initializable {
 	
 	public static String getStudentName() 
 	{
-		//Retrieve the student number
-		return studentFirstName;
+		//Retrieve the student name
+		String name = studentFirstName + " " + studentLastName;
+		return name;
 	}
 
 	@Override
