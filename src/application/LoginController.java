@@ -2,10 +2,13 @@ package application;
 
 import model.LoginSession;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,13 +18,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.LoginSession;
 
-public class LoginController {
+public class LoginController implements Initializable {
 	
 	protected Parent root;
-	@FXML 
-	private Button signIn;
-	@FXML
-	private TextField studentID;
+	@FXML private Button signIn;
+	@FXML private TextField studentID;
 	
 	//Store for static access
 	protected static String studentIDString;
@@ -56,7 +57,7 @@ public class LoginController {
 	public static Scene getScene() throws Exception
 	{	
 		//Inflate FXML and instantiate a LoginController object
-		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/view/LoginLayout.fxml"));
+		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/view/Login.fxml"));
 		Parent root = (Parent) loader.load();
 		//Create and return scene for root node
 		return new Scene(root);
@@ -72,6 +73,12 @@ public class LoginController {
 	{
 		//Retrieve the student number
 		return studentFirstName;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
+		
 	}
 
 	
