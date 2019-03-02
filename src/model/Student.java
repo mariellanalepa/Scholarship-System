@@ -11,8 +11,9 @@ public class Student {
 	private float studentGPA;
 	
 	public Student(int studentID) {
+		System.out.println(studentID);
 		CsvReader c = new CsvReader(studentID);
-		String[] data = c.data;
+		String[] data = c.getStudentData();
 		this.studentID = Integer.valueOf(data[0]);
 		this.studentFirstName = data[1];
 		this.studentLastName = data[2];
@@ -44,8 +45,7 @@ public class Student {
 		return this.studentFaculty;
 	}
 	public String getStudentType() {
-		String type = "Undergraduate";
-		return type;
+		return this.studentType;
 	}
 	public String getStudentGPA() {
 		return Float.toString(studentGPA);
