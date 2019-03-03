@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 public class AppFormController implements Initializable
 {	
 	@FXML protected Label welcomeLabel, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
-	@FXML protected Button signOut, confirmButton, submitButton; 
+	@FXML protected Button signOut, previewButton, submitButton; 
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
 	
 	
@@ -75,13 +75,22 @@ public class AppFormController implements Initializable
 		stage.setScene(LoginController.getScene());			
 		stage.show();
 	}
-
-	protected void handleConfirmButtonAction(ActionEvent event) throws Exception
-	{
-		//Get the primary stage of our App
-		Stage stage = (Stage) signOut.getScene().getWindow();
-		//Set new scene
-		stage.setScene(LoginController.getScene());			
-		stage.show();
-	}
+//	@FXML
+//	protected void handlePreviewButtonAction(ActionEvent event) throws Exception
+//	{
+//		//Get the primary stage of our App
+//		Stage stage = (Stage) previewButton.getScene().getWindow();
+//		//Set new scene
+//		stage.setScene(AppFormController.getScene());			
+//		stage.show();
+//	}
+//	@FXML
+//	protected void handleSubmitButtonAction(ActionEvent event) throws Exception
+//	{
+//		//Get the primary stage of our App
+//		Stage stage = (Stage) submitButton.getScene().getWindow();
+//		//Set new scene
+//		stage.setScene(StudentMainController.getScene());			
+//		stage.show();
+//	}
 }

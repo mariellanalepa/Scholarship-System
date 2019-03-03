@@ -42,7 +42,7 @@
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
                </font></Label>
-            <Button fx:id="confirmButton" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="59.0" text="Preview" GridPane.rowIndex="9" />
+            <Button fx:id="previewButton" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="59.0" text="Preview" GridPane.rowIndex="9" />
             <Label text="GPA" GridPane.rowIndex="4">
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
