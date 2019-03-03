@@ -9,12 +9,10 @@ class CsvReader {
 	private String[] studentData; 
 	
 	CsvReader(int studentID) {
-		System.out.println(studentID);
 		this.readCSV(studentID);
 	}
 	
 	private void readCSV(int studentID) {
-		System.out.println(studentID);
 		BufferedReader buffread = null;
 		String line = "";
 		String delimiter = ",";
@@ -22,8 +20,6 @@ class CsvReader {
 			File f = new File("res/studentDatabase.csv");
 			buffread = new BufferedReader(new FileReader(f));
 			while ((line = buffread.readLine()) != null) {
-				System.out.println(line);
-				System.out.println(Integer.toString(studentID));
 				if(line.startsWith(Integer.toString(studentID))) {
 					this.studentData = line.split(delimiter);
 					break;

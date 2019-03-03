@@ -11,7 +11,6 @@ public class Student {
 	private float studentGPA;
 	
 	public Student(int studentID) {
-		System.out.println(studentID);
 		CsvReader c = new CsvReader(studentID);
 		String[] data = c.getStudentData();
 		this.studentID = Integer.valueOf(data[0]);
