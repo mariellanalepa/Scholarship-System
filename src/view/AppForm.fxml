@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppFormController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppFormController">
    <center>
       <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="503.0" prefWidth="800.0" vgap="20.0">
          <columnConstraints>
@@ -42,7 +42,7 @@
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
                </font></Label>
-            <Button fx:id="previewButton" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="59.0" text="Preview" GridPane.rowIndex="9" />
+            <Button fx:id="previewButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="153.0" text="Preview" GridPane.rowIndex="9" />
             <Label text="GPA" GridPane.rowIndex="4">
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
@@ -84,9 +84,9 @@
                   <Font name="SansSerif Bold" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="submitButton" contentDisplay="CENTER" layoutX="296.0" layoutY="487.0" mnemonicParsing="false" prefWidth="59.0" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <Button fx:id="submitButton" contentDisplay="CENTER" layoutX="296.0" layoutY="487.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </Button>
          </children>
@@ -107,9 +107,9 @@
                   </Button>
                </children>
             </HBox>
-            <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="800.0">
+            <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="800.0">
                <children>
-                  <ImageView fitHeight="61.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="67.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../res/uc-horz-rgb-white-text.png" />
                      </image>
@@ -125,7 +125,8 @@
                            </font>
                            <padding>
                               <Insets top="5.0" />
-                           </padding></Label>
+                           </padding>
+                        </Label>
                      </children>
                      <HBox.margin>
                         <Insets />

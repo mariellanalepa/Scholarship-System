@@ -31,36 +31,10 @@ public class Main extends Application {
 		launch(args);
 	}
 	
-	/*private void initLoginLayout() 
+	@Override
+	public void init() 
 	{
-		LoginController controller = new LoginController();
-		
-		//Inflate FXML
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginLayout.fxml"));
-		loader.setController(controller);
-		try {
-			controller.root = loader.load();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//Create scene from scene graph node
-		Scene scene = new Scene((Parent) controller.root);
-		
-		
-		try 
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/view/LoginLayout.fxml"));
-			VBox rootLayout = (VBox) loader.load();
-			Scene scene = new Scene(rootLayout);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}*/
+		//Implement reading and initialization of Scholarships, Students in "database" here
+		// Must create static (or otherwise make accessible) arrays for scholarships, students in "database"
+	}
 }
