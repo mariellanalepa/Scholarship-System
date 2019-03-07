@@ -25,19 +25,20 @@ public class LoginController implements Initializable {
 	
 	protected Parent root;
 	@FXML private Button signIn;
-	@FXML private TextField studentID;
+	@FXML private TextField idNumber;
 	@FXML private Label errorLabel;
 	
 	//Store for static access
-	static String studentIDString;
+	static String studentIDString, adminIDString;
 	static String studentFirstName, studentLastName, studentDept, studentFaculty, studentYearString, studentGPAString, studentType;
+	static String adminFirstName, adminLastName;
 	protected static String loginErrorMsg = "ERROR: invalid student ID number";
 	
 	@FXML
 	protected void handleSignInButtonAction(ActionEvent event) throws Exception
 	{	 
 		//Get student ID from text field
-		studentIDString = studentID.getText();
+		studentIDString = idNumber.getText();
 		
 		/* check string format: length */
 		if(studentIDString.length() != 8) {
