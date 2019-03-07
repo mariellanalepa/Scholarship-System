@@ -40,7 +40,7 @@ public class StudentMainController implements Initializable {
 		//Get the primary stage of our App
 		Stage stage = (Stage) newApplicationButton.getScene().getWindow();
 		//Set new scene
-		stage.setScene(AppFormController.getScene());			
+		stage.setScene(ApplicationFormController.getScene());			
 		stage.show();
 	}
 	

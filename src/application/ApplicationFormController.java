@@ -20,7 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AppFormController implements Initializable
+public class ApplicationFormController implements Initializable
 {	
 	@FXML protected Label welcomeLabel, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
 	@FXML protected Button signOut, previewButton, submitButton; 
@@ -34,7 +34,7 @@ public class AppFormController implements Initializable
 	public static Scene getScene() throws Exception 
 	{
 		//getClass().getResource(path) loads resource from classpath
-		FXMLLoader loader = new FXMLLoader(AppFormController.class.getResource("/view/AppForm.fxml"));
+		FXMLLoader loader = new FXMLLoader(ApplicationFormController.class.getResource("/view/AppForm.fxml"));
 		Parent root = (Parent) loader.load();
 		Scene newScene = new Scene(root);
 		return newScene;
