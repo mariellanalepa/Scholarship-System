@@ -9,17 +9,17 @@ class CsvReader {
 	private String[] studentData; 
 	private String[] adminData; 
 	
-	CsvReader(int idNumber, int userType) {
+	CsvReader(String username, int userType) {
 		if(userType == 0) {
-			this.readAdminCSV(idNumber);
+			this.readAdminCSV(username);
 		} else {
-			this.readStudentCSV(idNumber);
+			this.readStudentCSV(username);
 		}
 		
 	}
 	
 	
-	private void readAdminCSV(int adminID) {
+	private void readAdminCSV(String username) {
 		BufferedReader buffread = null;
 		String line = "";
 		String delimiter = ",";
@@ -28,7 +28,7 @@ class CsvReader {
 			buffread = new BufferedReader(new FileReader(f));
 			while ((line = buffread.readLine()) != null) {
 				//System.out.println(line);
-				if(line.startsWith(Integer.toString(adminID))) {
+				if(line.startsWith(username)) {
 					this.adminData = line.split(delimiter);
 					break;
 				}
@@ -50,7 +50,7 @@ class CsvReader {
 	}
 
 
-	private void readStudentCSV(int studentID) {
+	private void readStudentCSV(String username) {
 		BufferedReader buffread = null;
 		String line = "";
 		String delimiter = ",";
@@ -58,7 +58,7 @@ class CsvReader {
 			File f = new File("res/studentDatabase.csv");
 			buffread = new BufferedReader(new FileReader(f));
 			while ((line = buffread.readLine()) != null) {
-				if(line.startsWith(Integer.toString(studentID))) {
+				if(line.startsWith(username)) {
 					this.studentData = line.split(delimiter);
 					break;
 				}

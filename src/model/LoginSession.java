@@ -7,22 +7,20 @@ public class LoginSession {
 	private int sessionID;	
 	
 	
-	public LoginSession(int idNumber) throws InvalidUserException{
-		System.out.println(idNumber);
+	public LoginSession(String username) throws InvalidUserException{
+		System.out.println(username);
+		int tempSessionID = 1;
 		try {
-			Admin u = new Admin(idNumber);
+			Admin u = new Admin(username);
 			this.a = u;
 			this.userType = 0;
-			this.sessionID = 1;
-			System.out.println("Success");
-			//return;
+			this.sessionID = tempSessionID;
 		} catch(NullPointerException notAdmin) {
 			try {
-			this.s = new Student(idNumber);
+			Student u = new Student(username);
+			this.s = u;
 			this.userType = 1;
-			this.sessionID = 1;
-			System.out.println("Success");
-			//return;
+			this.sessionID = tempSessionID;
 			} catch(NullPointerException notStudent) {
 				String err = "User not found";
 				InvalidUserException e = new InvalidUserException(err);
@@ -43,8 +41,4 @@ public class LoginSession {
 		return this.s;
 	}
 	
-//	public static void main(String[] args) {
-//		LoginSession l = new LoginSession(12345678);
-//		
-//	}
 }

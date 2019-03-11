@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
-	
 	private Stage primaryStage;
 	
 	@Override
@@ -37,4 +36,6 @@ public class Main extends Application {
 		//Implement reading and initialization of Scholarships, Students in "database" here
 		// Must create static (or otherwise make accessible) arrays for scholarships, students in "database"
 	}
+	
+	
 }

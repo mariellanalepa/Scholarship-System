@@ -2,15 +2,17 @@ package model;
 
 public class Admin {
 	private int adminID;
+	private String username;
 	private String adminFirstName;
 	private String adminLastName;
 	
-	public Admin(int idNumber) {
-		CsvReader c = new CsvReader(idNumber, 0);
+	public Admin(String usr) {
+		CsvReader c = new CsvReader(usr, 0);
 		String[] data = c.getAdminData();
-		this.adminID = Integer.valueOf(data[0]);
-		this.adminFirstName = data[1];
-		this.adminLastName = data[2];
+		this.username = data[0];
+		this.adminID = Integer.valueOf(data[1]);
+		this.adminFirstName = data[2];
+		this.adminLastName = data[3];
 	}
 
 	public String getFirstName() {

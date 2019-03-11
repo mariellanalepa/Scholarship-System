@@ -59,7 +59,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label prefHeight="6.0" prefWidth="258.0" text="Welcome to Student Scholarships" textFill="WHITE" wrapText="true" />
+                        <Label prefHeight="6.0" prefWidth="258.0" text="Welcome to Student Scholarships  (Admin)" textFill="WHITE" wrapText="true" />
                      </children>
                      <HBox.margin>
                         <Insets />

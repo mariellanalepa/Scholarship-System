@@ -25,7 +25,7 @@
             </ImageView>
          </children>
       </HBox>
-      <Label prefHeight="82.0" prefWidth="400.0" text="Welcome to the University of Calgary's Student Scholarship Management System" textAlignment="CENTER" textFill="#a6192e" wrapText="true">
+      <Label prefHeight="82.0" prefWidth="400.0" text="Welcome to the University of Calgary's Scholarship Management System" textAlignment="CENTER" textFill="#a6192e" wrapText="true">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -43,7 +43,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Student ID">
+            <Label text="Username">
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Font name="SansSerif Regular" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="idNumber" prefHeight="27.0" prefWidth="310.0" GridPane.columnIndex="1" />
+            <TextField fx:id="usernameField" prefHeight="27.0" prefWidth="310.0" GridPane.columnIndex="1" />
             <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <opaqueInsets>
