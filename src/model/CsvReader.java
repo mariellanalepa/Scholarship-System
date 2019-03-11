@@ -27,9 +27,9 @@ class CsvReader {
 			File f = new File("res/adminDatabase.csv");
 			buffread = new BufferedReader(new FileReader(f));
 			while ((line = buffread.readLine()) != null) {
-				//System.out.println(line);
-				if(line.startsWith(username)) {
-					this.adminData = line.split(delimiter);
+				String[] data = line.split(delimiter);
+				if(data[0].equalsIgnoreCase(username)) {
+					this.adminData = data;
 					break;
 				}
 			}
@@ -58,8 +58,9 @@ class CsvReader {
 			File f = new File("res/studentDatabase.csv");
 			buffread = new BufferedReader(new FileReader(f));
 			while ((line = buffread.readLine()) != null) {
-				if(line.startsWith(username)) {
-					this.studentData = line.split(delimiter);
+				String[] data = line.split(delimiter);
+				if(data[0].equalsIgnoreCase(username)) {
+					this.studentData = data;
 					break;
 				}
 			}

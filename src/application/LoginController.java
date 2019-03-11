@@ -43,7 +43,7 @@ public class LoginController implements Initializable {
 	protected void handleSignInButtonAction(ActionEvent event) throws Exception
 	{	 
 		//Get student ID from text field
-		username = usernameField.getText();
+		username = usernameField.getText().toLowerCase();
 	
 		/* Create new login session
 		 * try to create new student, if input is not valid (integer) 
