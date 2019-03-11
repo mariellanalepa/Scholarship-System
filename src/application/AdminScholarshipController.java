@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import model.ScholarshipFactory;
 import model.Scholarship;
 
-public class StudentScholarshipController implements Initializable { 
+public class AdminScholarshipController implements Initializable { 
 	protected Parent root;
 	@FXML private Button signOut;
 	@FXML private Label welcomeLabel;
@@ -32,7 +32,7 @@ public class StudentScholarshipController implements Initializable {
 	public static Scene getScene() throws Exception 
 	{
 		//getClass().getResource(path) loads resource from classpath
-		FXMLLoader loader = new FXMLLoader(StudentMainController.class.getResource("/view/StudentScholarship.fxml"));
+		FXMLLoader loader = new FXMLLoader(AdminMainController.class.getResource("/view/AdminScholarship.fxml"));
 		Parent root = (Parent) loader.load();
 		Scene newScene = new Scene(root);
 		return newScene;
@@ -40,7 +40,7 @@ public class StudentScholarshipController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getAdminName());
 		
 		ScholarshipFactory s = new ScholarshipFactory();
 		

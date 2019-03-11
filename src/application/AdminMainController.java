@@ -15,10 +15,10 @@ import javafx.stage.Stage;
 
 public class AdminMainController implements Initializable {
 	protected Parent root;
-	@FXML private Button signOut;
+	@FXML private Button signOut, viewScholarshipsButton;
 	@FXML private Label welcomeLabel;
 
-
+	@FXML
 	public static Scene getScene() throws Exception 
 	{
 		FXMLLoader loader = new FXMLLoader(AdminMainController.class.getResource("/view/AdminMain.fxml"));
@@ -34,6 +34,15 @@ public class AdminMainController implements Initializable {
 		Stage stage = (Stage) signOut.getScene().getWindow();
 		//Set new scene
 		stage.setScene(LoginController.getScene());			
+		stage.show();
+	}
+	@FXML
+	protected void handleScholarshipButtonAction(ActionEvent event) throws Exception
+	{
+		//Get the primary stage of our App
+		Stage stage = (Stage) viewScholarshipsButton.getScene().getWindow();
+		//Set new scene
+		stage.setScene(AdminScholarshipController.getScene());			
 		stage.show();
 	}
 	@Override

@@ -1,7 +1,7 @@
 IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,RecType,ReqGPA,ReqYear,Status,DatePosted(dd/MM/yyyy HH:mm:ss)
-1,Scholardship A,na,01/01/2020 23:58,15000.00,1,Any,Any,U,4,Any,Open,01/01/2019 16:01
-2,Scholardship B,na,01/01/2020 23:59 ,10000.00,1,SC,Any,U,3.6,4,Open,01/01/2019 16:00 
-3,Scholardship C,na,01/01/2020 23:59 ,5000.00,2,EN,Any,U,3.2,2,Open,01/01/2019 16:00 
-4,Scholardship D,na,01/01/2020 23:59 ,1000.00,4,HA,Any,U,3.2,3,Open,01/01/2019 16:00 
-5,Scholardship E,na,01/01/2020 23:59 ,500.00,10,AR,Any,U,3,1,Open,01/01/2019 16:00 
-6,Scholardship F,na,01/01/2020 23:60,1500.00,5,GS,Any,U,3,1,Open,01/01/2019 16:01
+1,Scholarship A,na,01/01/2020 23:58,15000,1,Any,Any,U,4,Any,Open,01/01/2019 16:01
+2,Scholarship B,na,01/01/2020 23:59 ,10000,1,SC,Any,U,3.6,4,Open,01/01/2019 16:00 
+3,Scholarship C,na,01/01/2020 23:59 ,5000,2,EN,Any,U,3.2,2,Open,01/01/2019 16:00 
+4,Scholarship D,na,01/01/2020 23:59 ,1000,4,HA,Any,U,3.2,3,Open,01/01/2019 16:00 
+5,Scholarship E,na,01/01/2020 23:59 ,500,10,AR,Any,U,3,1,Open,01/01/2019 16:00 
+6,Scholarship F,na,01/01/2020 23:60,1500,5,GS,Any,U,3,1,Open,01/01/2019 16:01

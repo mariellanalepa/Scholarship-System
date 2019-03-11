@@ -104,10 +104,13 @@ class CsvReader {
 			buffread = new BufferedReader(new FileReader(f));
 			int i = 0;
 			while ((line = buffread.readLine()) != null) {
+				if(i == 0) {
+					i++;
+					continue;
+				}
 				System.out.println(line);
-				//System.out.println(line.split(delimiter));
 				list.add(line.split(delimiter));
-				//i++;
+				i++;
 			}
 			this.scholarshipData = list;
 		} catch (FileNotFoundException e) {

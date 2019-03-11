@@ -1,6 +1,6 @@
 package application;
 import model.LoginSession;
-import model.Scholarship;
+import model.ScholarshipFactory;
 import model.Student;
 
 import java.io.IOException;
