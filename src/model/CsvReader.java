@@ -4,11 +4,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 class CsvReader {
 	private String[] studentData; 
 	private String[] adminData; 
+	private List<String[]> scholarshipData;
 	
+	/* constructor
+	 * use when pulling user data
+	 * userType 0 = admin, 1 = student
+	 */
 	CsvReader(String username, int userType) {
 		if(userType == 0) {
 			this.readAdminCSV(username);
@@ -16,6 +23,13 @@ class CsvReader {
 			this.readStudentCSV(username);
 		}
 		
+	}
+	
+	/* constructor
+	 * use when pulling scholarship data
+	 */
+	CsvReader() {
+		this.readScholarshipCSV();
 	}
 	
 	
@@ -80,11 +94,46 @@ class CsvReader {
 
 	 }
 	
+	private void readScholarshipCSV() {
+		List<String[]> list = new ArrayList<String[]>();
+		BufferedReader buffread = null;
+		String line = "";
+		String delimiter = ",";
+		try {
+			File f = new File("res/scholarshipDatabase.csv");
+			buffread = new BufferedReader(new FileReader(f));
+			int i = 0;
+			while ((line = buffread.readLine()) != null) {
+				System.out.println(line);
+				//System.out.println(line.split(delimiter));
+				list.add(line.split(delimiter));
+				//i++;
+			}
+			this.scholarshipData = list;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (buffread != null) {
+				try {
+					buffread.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	 }
+	
 	public String[] getStudentData() {
 		return this.studentData;
 	}
 	public String[] getAdminData() {
 		return this.adminData;
+	}
+	public List<String[]> getScholarshipData(){
+		return this.scholarshipData;
 	}
 
 }
