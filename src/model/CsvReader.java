@@ -7,12 +7,50 @@ import java.io.IOException;
 
 class CsvReader {
 	private String[] studentData; 
+	private String[] adminData; 
 	
-	CsvReader(int studentID) {
-		this.readCSV(studentID);
+	CsvReader(int idNumber, int userType) {
+		if(userType == 0) {
+			this.readAdminCSV(idNumber);
+		} else {
+			this.readStudentCSV(idNumber);
+		}
+		
 	}
 	
-	private void readCSV(int studentID) {
+	
+	private void readAdminCSV(int adminID) {
+		BufferedReader buffread = null;
+		String line = "";
+		String delimiter = ",";
+		try {
+			File f = new File("res/adminDatabase.csv");
+			buffread = new BufferedReader(new FileReader(f));
+			while ((line = buffread.readLine()) != null) {
+				//System.out.println(line);
+				if(line.startsWith(Integer.toString(adminID))) {
+					this.adminData = line.split(delimiter);
+					break;
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (buffread != null) {
+				try {
+					buffread.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+
+
+	private void readStudentCSV(int studentID) {
 		BufferedReader buffread = null;
 		String line = "";
 		String delimiter = ",";
@@ -43,6 +81,9 @@ class CsvReader {
 	
 	public String[] getStudentData() {
 		return this.studentData;
+	}
+	public String[] getAdminData() {
+		return this.adminData;
 	}
 
 }

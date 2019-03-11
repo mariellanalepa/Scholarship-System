@@ -57,7 +57,7 @@ public class ApplicationFormController implements Initializable
 			// Get student data & fill forms after selection
 			  	FNAME_FIELD.setText(LoginController.studentFirstName);
 				LNAME_FIELD.setText(LoginController.studentLastName);
-				ID_FIELD.setText(LoginController.studentIDString);
+				ID_FIELD.setText(LoginController.idString);
 				YEAR_FIELD.setText(LoginController.studentYearString);
 				DEPT_FIELD.setText(LoginController.studentDept);
 				FACULTY_FIELD.setText(LoginController.studentFaculty);

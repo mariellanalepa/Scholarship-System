@@ -1,5 +1,7 @@
 package application;
 
+import model.Admin;
+import model.InvalidUserException;
 import model.LoginSession;
 import model.Student;
 
@@ -29,20 +31,21 @@ public class LoginController implements Initializable {
 	@FXML private Label errorLabel;
 	
 	//Store for static access
-	static String studentIDString, adminIDString;
+	static String idString;
 	static String studentFirstName, studentLastName, studentDept, studentFaculty, studentYearString, studentGPAString, studentType;
 	static String adminFirstName, adminLastName;
-	protected static String loginErrorMsg = "ERROR: invalid student ID number";
+	protected static String notValidID = "ERROR: invalid ID number";
+	
 	
 	@FXML
 	protected void handleSignInButtonAction(ActionEvent event) throws Exception
 	{	 
 		//Get student ID from text field
-		studentIDString = idNumber.getText();
+		idString = idNumber.getText();
 		
 		/* check string format: length */
-		if(studentIDString.length() != 8) {
-			errorLabel.setText(loginErrorMsg);
+		if(idString.length() != 8) {
+			errorLabel.setText(notValidID);
 			return;
 		} 
 		
@@ -54,31 +57,56 @@ public class LoginController implements Initializable {
 		 */
 		LoginSession login = null;
 		try {
-			login = new LoginSession(Integer.valueOf(studentIDString));
 			
-		} catch(NullPointerException | NumberFormatException invalidID){
-			errorLabel.setText(loginErrorMsg);
-				
+			login = new LoginSession(Integer.valueOf(idString));
+			
+		} catch(NumberFormatException | InvalidUserException notValidUser) {
+			errorLabel.setText(notValidID);
 			// Reset stage
 			Stage stage = (Stage) errorLabel.getScene().getWindow();
 			stage.setScene(LoginController.getScene());			
 			stage.show();
-			} 
+			return;
+		} 
+
+			//Get the primary stage of our App
+			Stage stage = (Stage) signIn.getScene().getWindow();
+			
+			int userType = login.getUserType();
+			if (userType == 0) {
+				Admin a = login.getAdmin();
+				adminFirstName = a.getFirstName();
+				adminLastName = a.getFirstName();
+				//Set new scene
+				stage.setScene(AdminMainController.getScene());			
+				stage.show();
+				
+			} else if (userType == 1) {
+				Student s = login.getStudent();
+				// Get student attributes and assign to the login session
+				studentFirstName = s.getFirstName();
+				studentLastName = s.getLastName();
+				studentYearString = s.getStudentYear();
+				studentDept = s.getStudentDepartment();
+				studentFaculty = s.getStudentFaculty();
+				studentGPAString = s.getStudentGPA();
+				studentType = s.getStudentType();
+				//Set new scene
+				stage.setScene(StudentMainController.getScene());			
+				stage.show();
+			}
+
 		
-		// Get student attributes and assign to the login session
-		studentFirstName = login.getStudent().getFirstName();
-		studentLastName = login.getStudent().getLastName();
-		studentYearString = login.getStudent().getStudentYear();
-		studentDept = login.getStudent().getStudentDepartment();
-		studentFaculty = login.getStudent().getStudentFaculty();
-		studentGPAString = login.getStudent().getStudentGPA();
-		studentType = login.getStudent().getStudentType();
+//		// Get student attributes and assign to the login session
+//		studentFirstName = login.getStudent().getFirstName();
+//		studentLastName = login.getStudent().getLastName();
+//		studentYearString = login.getStudent().getStudentYear();
+//		studentDept = login.getStudent().getStudentDepartment();
+//		studentFaculty = login.getStudent().getStudentFaculty();
+//		studentGPAString = login.getStudent().getStudentGPA();
+//		studentType = login.getStudent().getStudentType();
 		
-		//Get the primary stage of our App
-		Stage stage = (Stage) signIn.getScene().getWindow();
-		//Set new scene
-		stage.setScene(StudentMainController.getScene());			
-		stage.show();
+		
 	}
 	
 	public static Scene getScene() throws Exception
@@ -93,13 +121,20 @@ public class LoginController implements Initializable {
 	public static String getStudentID() 
 	{
 		//Retrieve the student number
-		return studentIDString;
+		return idString;
 	}
 	
 	public static String getStudentName() 
 	{
 		//Retrieve the student name
 		String name = studentFirstName + " " + studentLastName;
+		return name;
+	}
+	
+	public static String getAdminName() 
+	{
+		//Retrieve the student name
+		String name = adminFirstName + " " + adminLastName;
 		return name;
 	}
 
