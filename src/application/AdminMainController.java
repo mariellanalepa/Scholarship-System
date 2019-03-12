@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class AdminMainController implements Initializable {
 	protected Parent root;
-	@FXML private Button signOut, viewScholarshipsButton;
+	@FXML private Button signOut, viewScholarshipsButton, createScholarship;
 	@FXML private Label welcomeLabel;
 
 	@FXML
@@ -45,6 +45,16 @@ public class AdminMainController implements Initializable {
 		stage.setScene(AdminScholarshipController.getScene());			
 		stage.show();
 	}
+	@FXML
+	protected void handleCreateScholarshipButtonAction(ActionEvent event) throws Exception 
+	{
+		Stage stage = (Stage) createScholarship.getScene().getWindow();
+		stage.setScene(AdminFormController.getScene());
+		stage.show();
+	}
+	
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

@@ -125,9 +125,11 @@ class CsvReader {
 	}
 	
 	public boolean addScholarshipEntry(String[] scholarshipData) { 
+		addDatabaseEntry(scholarshipDatabase, scholarshipData);
 		boolean success = true;
 		return success;
-		}
+	}
+	
 	public boolean addApplicationEntry(String[] applicationData) {
 		addDatabaseEntry(applicationDatabase, applicationData);
 		boolean success = true;

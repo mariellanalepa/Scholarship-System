@@ -26,7 +26,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="viewScholarshipsButton" mnemonicParsing="false" onAction="#handleScholarshipButtonAction" text="View Scholarships" />
+            <Button fx:id="viewScholarshipsButton" mnemonicParsing="false" onAction="#handleScholarshipButtonAction" text="View Scholarships" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="createScholarship" mnemonicParsing="false" onAction="#handleCreateScholarshipButtonAction" text="Create New Scholarships" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>

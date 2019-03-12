@@ -38,6 +38,7 @@ public class AdminScholarshipController implements Initializable {
 		return newScene;
 	}
 	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getAdminName());
@@ -58,9 +59,9 @@ public class AdminScholarshipController implements Initializable {
 		gpaCol.setCellValueFactory(f->f.getValue().gpaProperty());
 		yearCol.setCellValueFactory(f->f.getValue().yearProperty());
 		table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
-
-		
 	}
+	
+	
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
 	{
