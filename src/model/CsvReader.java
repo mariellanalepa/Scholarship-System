@@ -1,8 +1,10 @@
 package model;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +14,7 @@ class CsvReader {
 	private final String studentDatabase = "res/studentDatabase.csv";
 	private final String scholarshipDatabase = "res/scholarshipDatabase.csv";
 	private final String applicationDatabase = "res/applicationDatabase.csv";
-	private String[] studentData; 
-	private String[] adminData; 
 	private String[] data;
-	private List<String[]> scholarshipData;
 	private List<String[]> databaseData;
 	
 
@@ -82,6 +81,31 @@ class CsvReader {
 		}
 	}
 	
+	private void addDatabaseEntry(String databaseName, String[] data) {
+		BufferedWriter bw = null;
+		String line = String.join(",", data);
+		line += "\n";
+		
+		System.out.println(line);
+		FileWriter fw = null;
+		try {
+			File f = new File(databaseName);
+			bw = new BufferedWriter(new FileWriter(f, true));
+			//fw = new FileWriter(f, true);
+			bw.write(line);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bw != null) {
+				try {
+					bw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
 	
 	public String[] getStudentData(String username) {
 		getDatabaseEntry(username, studentDatabase);
@@ -98,6 +122,16 @@ class CsvReader {
 	public List<String[]> getApplicationData(){
 		getDatabase(applicationDatabase);
 		return this.databaseData;
+	}
+	
+	public boolean addScholarshipEntry(String[] scholarshipData) { 
+		boolean success = true;
+		return success;
+		}
+	public boolean addApplicationEntry(String[] applicationData) {
+		addDatabaseEntry(applicationDatabase, applicationData);
+		boolean success = true;
+		return success;
 	}
 
 }

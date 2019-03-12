@@ -84,7 +84,7 @@
                   <Font name="SansSerif Bold" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="submitButton" contentDisplay="CENTER" layoutX="296.0" layoutY="487.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <Button fx:id="submitButton" onAction="#handleSubmitButtonAction" contentDisplay="CENTER" layoutX="296.0" layoutY="487.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="152.0" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

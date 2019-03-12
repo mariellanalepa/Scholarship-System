@@ -18,7 +18,7 @@ public class Scholarship {
 	private StringProperty status;
 	private StringProperty posted;
 	
-	//IDNumber	Name	Donor	Deadline(dd/MM/yyyy HH:mm:ss)	Amount	Number	ReqFac	ReqDept	RecType	ReqGPA	ReqYear	Status	DatePosted(dd/MM/yyyy HH:mm:ss)
+	//CSV COLUMNS: IDNumber	Name	Donor	Deadline(dd/MM/yyyy HH:mm:ss)	Amount	Number	ReqFac	ReqDept	RecType	ReqGPA	ReqYear	Status	DatePosted(dd/MM/yyyy HH:mm:ss)
 	public Scholarship (String[] scholarshipData) {
 		this.setId(scholarshipData[0]);
 		this.setName(scholarshipData[1]);
@@ -33,6 +33,12 @@ public class Scholarship {
 		this.setYear(scholarshipData[10]);
 		this.setStatus(scholarshipData[11]);
 		this.setPosted(scholarshipData[12]);
+	}
+	
+	public boolean saveScholarship(String[] scholarshipData) {
+		CsvReader c = new CsvReader();
+		boolean success = c.addScholarshipEntry(scholarshipData);
+		return success;
 	}
 
 	/* following code adapted from Oracle Docs

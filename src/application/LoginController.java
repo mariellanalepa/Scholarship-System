@@ -29,11 +29,10 @@ public class LoginController implements Initializable {
 	@FXML private Button signIn;
 	@FXML private TextField usernameField;
 	@FXML private Label errorLabel;
-	private FXMLLoader oldLoader;
 	
 	//Store for static access
 	static String username;
-	static String studentFirstName, studentLastName, studentDept, studentFaculty, studentYearString, studentGPAString, studentType;
+	static String studentID, studentFirstName, studentLastName, studentDept, studentFaculty, studentYearString, studentGPAString, studentType;
 	static String adminFirstName, adminLastName;
 	protected static String invalidUname = "Invalid username or password, please try again";
 	
@@ -80,6 +79,7 @@ public class LoginController implements Initializable {
 			} else if (userType == 1) {
 				Student s = login.getStudent();
 				// Get student attributes and assign to the login session
+				studentID = s.getStudentID();
 				studentFirstName = s.getFirstName();
 				studentLastName = s.getLastName();
 				studentYearString = s.getStudentYear();

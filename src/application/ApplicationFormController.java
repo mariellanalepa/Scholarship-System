@@ -19,12 +19,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Application;
 
 public class ApplicationFormController implements Initializable
 {	
 	@FXML protected Label welcomeLabel, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
 	@FXML protected Button signOut, previewButton, submitButton; 
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
+	private Application application;
 	
 	
 	//CSS styling
@@ -42,11 +44,23 @@ public class ApplicationFormController implements Initializable
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		application = new Application();
 		//event styling - uses lambda expressions
 		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
 		signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
+		application.setStudentID(Integer.valueOf(LoginController.studentID));
+		application.setScholarshipID(1);
 		
-		scholarshipSelectDropDown.setItems(FXCollections.observableArrayList("Scholarship A", "Scholarship B", "Scholarship C"));
+		FNAME_FIELD.setText(LoginController.studentFirstName);
+		LNAME_FIELD.setText(LoginController.studentLastName);
+		ID_FIELD.setText(LoginController.username);
+		YEAR_FIELD.setText(LoginController.studentYearString);
+		DEPT_FIELD.setText(LoginController.studentDept);
+		FACULTY_FIELD.setText(LoginController.studentFaculty);
+		GPA_FIELD.setText(LoginController.studentGPAString);
+		TYPE_FIELD.setText(LoginController.studentType);
+		
+		//scholarshipSelectDropDown.setItems(FXCollections.observableArrayList("Scholarship A", "Scholarship B", "Scholarship C"));
 		
 		
 
@@ -55,14 +69,14 @@ public class ApplicationFormController implements Initializable
 	@FXML
 	private void handleComboBoxAction() {
 			// Get student data & fill forms after selection
-			  	FNAME_FIELD.setText(LoginController.studentFirstName);
-				LNAME_FIELD.setText(LoginController.studentLastName);
-				ID_FIELD.setText(LoginController.username);
-				YEAR_FIELD.setText(LoginController.studentYearString);
-				DEPT_FIELD.setText(LoginController.studentDept);
-				FACULTY_FIELD.setText(LoginController.studentFaculty);
-				GPA_FIELD.setText(LoginController.studentGPAString);
-				TYPE_FIELD.setText(LoginController.studentType);
+//			  	FNAME_FIELD.setText(LoginController.studentFirstName);
+//				LNAME_FIELD.setText(LoginController.studentLastName);
+//				ID_FIELD.setText(LoginController.username);
+//				YEAR_FIELD.setText(LoginController.studentYearString);
+//				DEPT_FIELD.setText(LoginController.studentDept);
+//				FACULTY_FIELD.setText(LoginController.studentFaculty);
+//				GPA_FIELD.setText(LoginController.studentGPAString);
+//				TYPE_FIELD.setText(LoginController.studentType);
 		  
 	}
 	
@@ -75,22 +89,24 @@ public class ApplicationFormController implements Initializable
 		stage.setScene(LoginController.getScene());			
 		stage.show();
 	}
-//	@FXML
-//	protected void handlePreviewButtonAction(ActionEvent event) throws Exception
-//	{
-//		//Get the primary stage of our App
-//		Stage stage = (Stage) previewButton.getScene().getWindow();
-//		//Set new scene
-//		stage.setScene(AppFormController.getScene());			
-//		stage.show();
-//	}
-//	@FXML
-//	protected void handleSubmitButtonAction(ActionEvent event) throws Exception
-//	{
-//		//Get the primary stage of our App
-//		Stage stage = (Stage) submitButton.getScene().getWindow();
-//		//Set new scene
-//		stage.setScene(StudentMainController.getScene());			
-//		stage.show();
-//	}
+	@FXML
+	protected void handlePreviewButtonAction(ActionEvent event) throws Exception
+	{
+		//Get the primary stage of our App
+		Stage stage = (Stage) previewButton.getScene().getWindow();
+		//Set new scene
+		//stage.setScene(AppFormController.getScene());			
+		stage.show();
+	}
+	@FXML
+	protected void handleSubmitButtonAction(ActionEvent event) throws Exception
+	{
+		//Get the primary stage of our App
+		application.setDateSubmitted("today");
+		application.saveApplication();
+		Stage stage = (Stage) submitButton.getScene().getWindow();
+		//Set new scene
+		stage.setScene(StudentMainController.getScene());			
+		stage.show();
+	}
 }
