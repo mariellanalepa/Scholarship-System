@@ -1,19 +1,23 @@
 package model;
 
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Scholarship {
-	private StringProperty id;
+	private IntegerProperty id;
 	private StringProperty name;
 	private StringProperty donor;
 	private StringProperty deadline; 
-	private StringProperty amount; 
-	private StringProperty number; 
+	private IntegerProperty amount;
+	private IntegerProperty number; 
 	private StringProperty faculty;
 	private StringProperty department; 
 	private StringProperty type; 
-	private StringProperty gpa; 
+	private FloatProperty gpa; 
 	private StringProperty year;
 	private StringProperty status;
 	private StringProperty posted;
@@ -24,7 +28,7 @@ public class Scholarship {
 		this.setName(scholarshipData[1]);
 		this.setDonor(scholarshipData[2]);
 		this.setDeadline(scholarshipData[3]); 
-		this.setAmount(scholarshipData[4]); 
+		this.setAmount(scholarshipData[4]);
 		this.setNumber(scholarshipData[5]); 
 		this.setFaculty(scholarshipData[6]);
 		this.setDepartment(scholarshipData[7]); 
@@ -44,10 +48,10 @@ public class Scholarship {
 	/* following code adapted from Oracle Docs
 	 * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html
 	 */
-	public void setId(String value) { idProperty().set(value); }
-    public String getId() { return idProperty().get(); }
-    public StringProperty idProperty() { 
-        if (id == null) id = new SimpleStringProperty(this, "id");
+	public void setId(String value) { idProperty().set(Integer.parseInt(value)); }
+    public Integer getId() { return idProperty().get(); }
+    public IntegerProperty idProperty() { 
+        if (id == null) id = new SimpleIntegerProperty(this, "id");
         return id; 
     } 
 	public void setName(String value) { nameProperty().set(value); }
@@ -68,17 +72,16 @@ public class Scholarship {
         if (deadline == null) deadline = new SimpleStringProperty(this, "deadline");
         return deadline; 
     } 
-    public void setAmount(String value) { amountProperty().set(value); }
-    public String getAmount() { return amountProperty().get(); }
-    public StringProperty amountProperty() { 
-        if (amount == null) amount = new SimpleStringProperty(this, "amount");
+    public void setAmount(String value) { amountProperty().set(Integer.parseInt(value)); }
+    public Integer getAmount() { return amountProperty().get(); }
+    public IntegerProperty amountProperty() { 
+        if (amount == null) amount = new SimpleIntegerProperty(this, "amount");
         return amount; 
     }
-
-    public void setNumber(String value) { numberProperty().set(value);} 
-    public String getNumber() {return numberProperty().get();}
-	public StringProperty numberProperty() { 
-        if (number == null) number = new SimpleStringProperty(this, "number");
+    public void setNumber(String value) { numberProperty().set(Integer.parseInt(value));} 
+    public Integer getNumber() {return numberProperty().get();}
+	public IntegerProperty numberProperty() { 
+        if (number == null) number = new SimpleIntegerProperty(this, "number");
         return number; 
     }
 	public void setFaculty(String value) { facultyProperty().set(value); }
@@ -99,10 +102,10 @@ public class Scholarship {
         if (type == null) type = new SimpleStringProperty(this, "type");
         return type; 
     } 
-    public void setGpa(String value) { gpaProperty().set(value); }
-    public String getGpa() { return gpaProperty().get(); }
-    public StringProperty gpaProperty() { 
-        if (gpa == null) gpa = new SimpleStringProperty(this, "gpa");
+    public void setGpa(String value) { gpaProperty().set(Float.parseFloat(value)); }
+    public Float getGpa() { return gpaProperty().get(); }
+    public FloatProperty gpaProperty() { 
+        if (gpa == null) gpa = new SimpleFloatProperty(this, "gpa");
         return gpa; 
     } 
     public void setYear(String value) { yearProperty().set(value); }

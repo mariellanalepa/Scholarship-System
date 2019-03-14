@@ -25,7 +25,8 @@ public class AdminScholarshipController implements Initializable {
 	protected Parent root;
 	@FXML private Button signOut;
 	@FXML private Label welcomeLabel;
-	@FXML private TableColumn<Scholarship,String> idCol, nameCol, donorCol, deadlineCol, amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol;
+	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
+	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
 	@FXML private TableView<Scholarship> table;
 	
 	
