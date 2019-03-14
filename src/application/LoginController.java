@@ -33,9 +33,9 @@ public class LoginController implements Initializable {
 	//Store for static access
 	static String username;
 	static String studentID, studentFirstName, studentLastName, studentDept, studentFaculty, studentYearString, studentGPAString, studentType;
-	static String adminFirstName, adminLastName;
+	static String adminID, adminFirstName, adminLastName;
 	protected static String invalidUname = "Invalid username or password, please try again";
-	
+
 	
 	
 	@FXML
@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
 		LoginSession login = null;
 		try {
 			login = new LoginSession(username);
-			
+
 		} catch(InvalidUserException notValidUser) {
 			errorLabel.setText(invalidUname);
 			System.out.println(notValidUser);
@@ -71,6 +71,7 @@ public class LoginController implements Initializable {
 				Admin a = login.getAdmin();
 				adminFirstName = a.getFirstName();
 				adminLastName = a.getLastName();
+	
 				//Set new scene
 				stage.setScene(AdminMainController.getScene());			
 				stage.show();
@@ -87,6 +88,7 @@ public class LoginController implements Initializable {
 				studentFaculty = s.getStudentFaculty();
 				studentGPAString = s.getStudentGPA();
 				studentType = s.getStudentType();
+				FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/view/StudentMainController.fxml"));
 				//Set new scene
 				stage.setScene(StudentMainController.getScene());			
 				stage.show();
@@ -125,11 +127,18 @@ public class LoginController implements Initializable {
 		return name;
 	}
 
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		
 	}
+
+	public static int getStudentID() {
+		return Integer.valueOf(studentID);
+	}
+	public static int getAdminID() {
+		return Integer.valueOf(adminID);
+	}
+
 
 	
 }

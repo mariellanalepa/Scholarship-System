@@ -24,8 +24,10 @@ import model.LoginSession;
 
 public class StudentMainController implements Initializable {
 	protected Parent root;
-	@FXML private Button newApplicationButton, signOut, viewScholarshipButton;
+	@FXML private Button newApplicationButton, signOut, viewScholarshipButton, reviewApplicationButton;
 	@FXML private Label welcomeLabel;
+	private Student student;
+
 	
 	public static Scene getScene() throws Exception 
 	{
@@ -61,13 +63,25 @@ public class StudentMainController implements Initializable {
 		stage.setScene(StudentScholarshipController.getScene());			
 		stage.show();
 		
-		
 	}
 	
+	@FXML
+	protected void handleReviewApplicationsButtonAction(ActionEvent event) throws Exception
+	{
+		Stage stage = (Stage) reviewApplicationButton.getScene().getWindow();
+		stage.setScene(StudentApplicationController.getScene());			
+		stage.show();
+	}
+	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
+	}
+	
+	public void setStudent(Student s) {
+		this.student = s;
 	}
 
 }

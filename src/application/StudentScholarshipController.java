@@ -29,6 +29,7 @@ public class StudentScholarshipController implements Initializable {
 	@FXML private TableView<Scholarship> table;
 	
 	
+	
 	public static Scene getScene() throws Exception 
 	{
 		//getClass().getResource(path) loads resource from classpath

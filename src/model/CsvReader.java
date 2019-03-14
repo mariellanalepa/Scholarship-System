@@ -123,8 +123,19 @@ class CsvReader {
 		getDatabase(applicationDatabase);
 		return this.databaseData;
 	}
+	public List<String[]> getApplicationData(int studentID){
+		getDatabase(applicationDatabase);
+		List<String[]> l = new ArrayList<String[]>();
+		for(int i = 0; i < databaseData.size(); i++) {
+			if(Integer.valueOf(databaseData.get(i)[2]) == studentID) {
+				l.add(databaseData.get(i));
+			}		
+		}
+		return l;
+	}
 	
 	public boolean addScholarshipEntry(String[] scholarshipData) { 
+		addDatabaseEntry(scholarshipDatabase, scholarshipData);
 		boolean success = true;
 		return success;
 		}

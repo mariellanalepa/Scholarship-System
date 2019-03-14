@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public class Student {
 	private String username;
 	private int studentID;
@@ -10,6 +12,7 @@ public class Student {
 	private String studentDepartment;
 	private String studentFaculty;
 	private float studentGPA;
+	private List<String[]> applications;
 	
 	public Student(String usr) {
 		CsvReader c = new CsvReader();
@@ -25,7 +28,6 @@ public class Student {
 		this.studentGPA = Float.valueOf(data[8]);
 	}
 	
-
 	public String getFirstName() 
 	{
 		return this.studentFirstName;
@@ -53,5 +55,12 @@ public class Student {
 	public String getStudentGPA() {
 		return Float.toString(studentGPA);
 	}
+
+//	public List<String[]> getStudentApplicationList() {
+//		CsvReader c = new CsvReader();
+//		List<String[]> data = c.getApplicationData(this.studentID);
+//		this.applications = data;
+//		return this.applications;
+//	}
 	
 }

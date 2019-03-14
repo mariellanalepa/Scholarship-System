@@ -48,8 +48,8 @@ public class ApplicationFormController implements Initializable
 		//event styling - uses lambda expressions
 		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
 		signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
-		application.setStudentID(Integer.valueOf(LoginController.studentID));
-		application.setScholarshipID(1);
+		application.setStudentId((LoginController.studentID));
+		application.setScholarshipId("1"); //temp hardcode
 		
 		FNAME_FIELD.setText(LoginController.studentFirstName);
 		LNAME_FIELD.setText(LoginController.studentLastName);
