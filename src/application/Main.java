@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import model.CsvReader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -35,6 +36,9 @@ public class Main extends Application {
 	{
 		//Implement reading and initialization of Scholarships, Students in "database" here
 		// Must create static (or otherwise make accessible) arrays for scholarships, students in "database"
+		CsvReader c = new CsvReader();
+		c.getApplicationData();
+		c.getScholarshipData();
 	}
 	
 	

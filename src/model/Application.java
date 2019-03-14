@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Application {
-	private static int counter = 0;
+	//private int counter;
 	StringProperty applicationID;
 	StringProperty studentID;
 	StringProperty scholarshipID;
@@ -15,13 +15,13 @@ public class Application {
 	
 	
 	//applicationID	scholarshipID	studentID	datesubmitted	status
-
+	
+	// new applications
 	public Application() {
-		counter++;
-		this.setApplicationId(String.valueOf(counter));
+		//this.setApplicationId(String.valueOf(currentCounter));
 		this.setStatus("open");
 	}
-	
+	// re-creating instances from a file
 	public Application (String[] applicationData) {
 		this.setApplicationId(applicationData[0]);
 		this.setStudentId(applicationData[2]);
@@ -33,8 +33,16 @@ public class Application {
 	/* String[] applicationData = [applicationID,	scholarshipID,	studentID,	datesubmitted]
 	 * */
 	public boolean saveApplication() {
-		String[] applicationData = {applicationID.get(), studentID.get(), scholarshipID.get(), dateSubmitted.get(), status.get()};
 		CsvReader c = new CsvReader();
+		/* if this is a new application (does not yet have an ID)
+		 * set the ID number
+		 */
+		if(getApplicationId() == null) {
+			int counter = ApplicationFactory.getCounter();
+			ApplicationFactory.incrementCounter();
+			this.applicationID.set(String.valueOf(counter));
+		}
+		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateSubmitted.get(), status.get()};
 		boolean success = c.addApplicationEntry(applicationData);
 		return success;
 	}

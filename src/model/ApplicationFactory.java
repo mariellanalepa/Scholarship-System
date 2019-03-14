@@ -11,7 +11,7 @@ public class ApplicationFactory {
 	private List<String[]> applicationData;
 	private List<Application> applicationArray;
 	private int appArraySize;
-
+	public static int counter = 0;
 	
 	
 	public ApplicationFactory(){
@@ -45,6 +45,16 @@ public class ApplicationFactory {
 	
 	public List<Application> getApplicationArray(){
 		return this.applicationArray;
+	}
+	
+	public static int getCounter() {
+		return counter;
+	}
+	public static void incrementCounter() {
+		counter++;
+	}
+	static void setCounter(int counterValue) {
+		counter = counterValue;
 	}
 	
 
