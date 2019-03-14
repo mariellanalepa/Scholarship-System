@@ -13,9 +13,11 @@ public class Student {
 	private String studentFaculty;
 	private float studentGPA;
 	private List<String[]> applications;
+	//private CsvReader c;
 	
 	public Student(String usr) {
 		CsvReader c = new CsvReader();
+		//this.c = c;
 		String[] data = c.getStudentData(usr);
 		this.username = data[0];
 		this.studentID = Integer.valueOf(data[1]);
@@ -55,6 +57,7 @@ public class Student {
 	public String getStudentGPA() {
 		return Float.toString(studentGPA);
 	}
+	
 
 //	public List<String[]> getStudentApplicationList() {
 //		CsvReader c = new CsvReader();
