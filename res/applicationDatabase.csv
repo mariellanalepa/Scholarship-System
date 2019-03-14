@@ -1,4 +1,4 @@
-applicationID,studentID,scholarshipID,deadline,status
+applicationID,studentID,scholarshipID,dateSubmitted,status
 0,12345678,1,today,open
 1,12345678,1,today,open
 2,12345678,1,today,open
