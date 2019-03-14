@@ -23,6 +23,7 @@ import model.Application;
 
 public class ApplicationFormController implements Initializable
 {	
+	protected Parent root;
 	@FXML protected Label welcomeLabel, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
 	@FXML protected Button signOut, previewButton, submitButton; 
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
@@ -66,19 +67,19 @@ public class ApplicationFormController implements Initializable
 
 	}
 	
-	@FXML
-	private void handleComboBoxAction() {
-			// Get student data & fill forms after selection
-//			  	FNAME_FIELD.setText(LoginController.studentFirstName);
-//				LNAME_FIELD.setText(LoginController.studentLastName);
-//				ID_FIELD.setText(LoginController.username);
-//				YEAR_FIELD.setText(LoginController.studentYearString);
-//				DEPT_FIELD.setText(LoginController.studentDept);
-//				FACULTY_FIELD.setText(LoginController.studentFaculty);
-//				GPA_FIELD.setText(LoginController.studentGPAString);
-//				TYPE_FIELD.setText(LoginController.studentType);
-		  
-	}
+//	@FXML
+//	private void handleComboBoxAction() {
+//			// Get student data & fill forms after selection
+////			  	FNAME_FIELD.setText(LoginController.studentFirstName);
+////				LNAME_FIELD.setText(LoginController.studentLastName);
+////				ID_FIELD.setText(LoginController.username);
+////				YEAR_FIELD.setText(LoginController.studentYearString);
+////				DEPT_FIELD.setText(LoginController.studentDept);
+////				FACULTY_FIELD.setText(LoginController.studentFaculty);
+////				GPA_FIELD.setText(LoginController.studentGPAString);
+////				TYPE_FIELD.setText(LoginController.studentType);
+//		  
+//	}
 	
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception

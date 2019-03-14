@@ -127,7 +127,8 @@ class CsvReader {
 		getDatabase(applicationDatabase);
 		List<String[]> l = new ArrayList<String[]>();
 		for(int i = 0; i < databaseData.size(); i++) {
-			if(Integer.valueOf(databaseData.get(i)[2]) == studentID) {
+			System.out.println(databaseData.get(i)[2]);
+			if(databaseData.get(i)[2].equals(String.valueOf(studentID))) {
 				l.add(databaseData.get(i));
 			}		
 		}

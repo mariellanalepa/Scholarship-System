@@ -32,7 +32,7 @@ import model.LoginSession;
 
 public class StudentApplicationController implements Initializable {
 	protected Parent root;
-	@FXML private Button signOut;
+	@FXML private Button signOut, mainMenuButton;
 	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Application,String> applicationIdCol, scholarshipIdCol, scholarshipNameCol, dateStartedCol, deadlineCol, status;
 	@FXML private TableView<Application> table;
@@ -58,7 +58,13 @@ public class StudentApplicationController implements Initializable {
 		stage.setScene(LoginController.getScene());			
 		stage.show();
 	}
-
+	@FXML 
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
+		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		stage.setScene(StudentMainController.getScene());			
+		stage.show();
+		
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

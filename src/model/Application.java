@@ -14,16 +14,18 @@ public class Application {
 	StringProperty status;
 	
 	
-	//applicationID	scholarshipID	studentID	datesubmitted
+	//applicationID	scholarshipID	studentID	datesubmitted	status
 
 	public Application() {
-		this.setApplicationId(String.valueOf(counter++));
+		counter++;
+		this.setApplicationId(String.valueOf(counter));
+		this.setStatus("open");
 	}
 	
 	public Application (String[] applicationData) {
 		this.setApplicationId(applicationData[0]);
-		this.setStudentId(applicationData[1]);
-		this.setScholarshipId(applicationData[2]);
+		this.setStudentId(applicationData[2]);
+		this.setScholarshipId(applicationData[1]);
 		this.setDateSubmitted(applicationData[3]); 
 		this.setStatus(applicationData[4]);
 		
@@ -31,7 +33,7 @@ public class Application {
 	/* String[] applicationData = [applicationID,	scholarshipID,	studentID,	datesubmitted]
 	 * */
 	public boolean saveApplication() {
-		String[] applicationData = {String.valueOf(this.applicationID), String.valueOf(this.studentID), String.valueOf(this.scholarshipID), String.valueOf(this.dateSubmitted), String.valueOf(status)};
+		String[] applicationData = {applicationID.get(), studentID.get(), scholarshipID.get(), dateSubmitted.get(), status.get()};
 		CsvReader c = new CsvReader();
 		boolean success = c.addApplicationEntry(applicationData);
 		return success;

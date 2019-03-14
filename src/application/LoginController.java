@@ -87,8 +87,6 @@ public class LoginController implements Initializable {
 				studentDept = s.getStudentDepartment();
 				studentFaculty = s.getStudentFaculty();
 				studentGPAString = s.getStudentGPA();
-				studentType = s.getStudentType();
-				FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/view/StudentMainController.fxml"));
 				//Set new scene
 				stage.setScene(StudentMainController.getScene());			
 				stage.show();

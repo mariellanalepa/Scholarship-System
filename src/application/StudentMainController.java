@@ -72,7 +72,6 @@ public class StudentMainController implements Initializable {
 		stage.setScene(StudentApplicationController.getScene());			
 		stage.show();
 	}
-	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

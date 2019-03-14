@@ -30,6 +30,14 @@
          <children>
             <HBox alignment="TOP_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="800.0" style="-fx-background-color: #cf0722;">
                <children>
+                  <Button fx:id="mainMenuButton" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleMainMenuButtonAction" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #cf0722;" text="Main Menu" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="650.0" />
+                     </HBox.margin>
+                  </Button>
                   <Button fx:id="signOut" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSignOutButtonAction" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #cf0722;" text="Sign out" textFill="WHITE">
                      <font>
                         <Font name="SansSerif Bold" size="12.0" />
