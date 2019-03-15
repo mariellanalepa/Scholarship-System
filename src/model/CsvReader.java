@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 class CsvReader {
 	private final String adminDatabase = "res/adminDatabase.csv";
 	private final String studentDatabase = "res/studentDatabase.csv";
@@ -18,7 +19,7 @@ class CsvReader {
 	private List<String[]> databaseData;
 	
 
-	private void getDatabase(String databaseName) {
+	public void getDatabase(String databaseName) {
 		List<String[]> list = new ArrayList<String[]>();
 		BufferedReader buffread = null;
 		String line = "";
@@ -81,6 +82,47 @@ class CsvReader {
 		}
 	}
 	
+	private void deleteDatabaseEntry(String databaseName, int index) throws IOException {
+		File f = new File(databaseName);
+		if (f.exists() && f.isFile()) {
+			f.delete();
+		}
+		f.createNewFile();
+		for (int i = 0; i < databaseData.size(); i++) {
+			if (i != index) {
+				String[] d = databaseData.get(i);
+				addDatabaseEntry(scholarshipDatabase, d);
+			}
+		}
+		
+	}
+
+	public void getDatabaseForDelete(String databaseName) {
+		List<String[]> list = new ArrayList<String[]>();
+		BufferedReader buffread = null;
+		String line = "";
+		String delimiter = ",";
+		try {
+			File f = new File(databaseName);
+			buffread = new BufferedReader(new FileReader(f));
+			while ((line = buffread.readLine()) != null) {
+				list.add(line.split(delimiter));
+			}
+			this.databaseData = list;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (buffread != null) {
+				try {
+					buffread.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	private void addDatabaseEntry(String databaseName, String[] data) {
 		BufferedWriter bw = null;
 		String line = String.join(",", data);
@@ -107,6 +149,7 @@ class CsvReader {
 	}
 	
 	
+	
 	public String[] getStudentData(String username) {
 		getDatabaseEntry(username, studentDatabase);
 		return this.data;
@@ -126,6 +169,12 @@ class CsvReader {
 	
 	public boolean addScholarshipEntry(String[] scholarshipData) { 
 		addDatabaseEntry(scholarshipDatabase, scholarshipData);
+		boolean success = true;
+		return success;
+	}
+	
+	public boolean deleteScholarshipEntry(int index) throws Exception {
+		this.deleteDatabaseEntry(scholarshipDatabase, index);
 		boolean success = true;
 		return success;
 	}

@@ -1,7 +1,8 @@
 IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,RecType,ReqGPA,ReqYear,Status,DatePosted(dd/MM/yyyy HH:mm:ss)
-1,Scholarship A,na,01/01/2020 23:58,15000,1,Any,Any,U,4,Any,Open,01/01/2019 16:01
-2,Scholarship B,na,01/01/2020 23:59 ,10000,1,SC,Any,U,3.6,4,Open,01/01/2019 16:00 
-3,Scholarship C,na,01/01/2020 23:59 ,5000,2,EN,Any,U,3.2,2,Open,01/01/2019 16:00 
-4,Scholarship D,na,01/01/2020 23:59 ,1000,4,HA,Any,U,3.2,3,Open,01/01/2019 16:00 
-5,Scholarship E,na,01/01/2020 23:59 ,500,10,AR,Any,U,3,1,Open,01/01/2019 16:00 
-6,Scholarship F,na,01/01/2020 23:60,1500,5,GS,Any,U,3,1,Open,01/01/2019 16:01
+1,Scholarship A,na,2020-03-15 23:59,15000,1,Any,Any,U,4,Any,Open,01/01/2019 16:01
+2,Scholarship B,na,2020-03-16 23:59,10000,1,SC,Any,U,3.6,4,Open,01/01/2019 16:00 
+3,Scholarship C,na,2020-03-17 23:59,5000,2,EN,Any,U,3.2,2,Open,01/01/2019 16:00 
+4,Scholarship D,na,2020-03-18 23:59,1000,4,HA,Any,U,3.2,3,Open,01/01/2019 16:00 
+5,Scholarship E,na,2020-03-19 23:59,500,10,AR,Any,U,3,1,Open,01/01/2019 16:00 
+6,Scholarship F,na,2020-03-20 23:59,1500,5,GS,Any,U,3,1,Open,01/01/2019 16:01
+7,Amazing Scholarship,Husky,2020-03-21 23:59,1000,2,SC,CPSC,UGRAD,4,3,Open,13/03/2019 23:00:36

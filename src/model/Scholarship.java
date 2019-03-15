@@ -17,7 +17,7 @@ public class Scholarship {
 	private StringProperty year;
 	private StringProperty status;
 	private StringProperty posted;
-	
+	private final String scholarshipDatabase = "res/scholarshipDatabase.csv";
 	//CSV COLUMNS: IDNumber	Name	Donor	Deadline(dd/MM/yyyy HH:mm:ss)	Amount	Number	ReqFac	ReqDept	RecType	ReqGPA	ReqYear	Status	DatePosted(dd/MM/yyyy HH:mm:ss)
 	public Scholarship (String[] scholarshipData) {
 		this.setId(scholarshipData[0]);
@@ -41,6 +41,13 @@ public class Scholarship {
 		return success;
 	}
 
+	public boolean deleteScholarship(int index) throws Exception {
+		CsvReader c = new CsvReader();
+		c.getDatabaseForDelete(scholarshipDatabase);
+		boolean success = c.deleteScholarshipEntry(index);
+		return success;
+	}
+	
 	/* following code adapted from Oracle Docs
 	 * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html
 	 */
