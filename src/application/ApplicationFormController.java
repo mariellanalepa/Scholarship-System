@@ -24,8 +24,8 @@ import model.Application;
 public class ApplicationFormController implements Initializable
 {	
 	protected Parent root;
-	@FXML protected Label welcomeLabel, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
-	@FXML protected Button signOut, previewButton, submitButton; 
+	@FXML protected Label welcomeLabel, confirmationLabel, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
+	@FXML protected Button signOut, previewButton, submitButton, mainMenuButton; 
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
 	private Application application;
 	
@@ -80,7 +80,13 @@ public class ApplicationFormController implements Initializable
 ////				TYPE_FIELD.setText(LoginController.studentType);
 //		  
 //	}
-	
+	@FXML 
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
+		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		stage.setScene(StudentMainController.getScene());			
+		stage.show();
+		
+	}
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
 	{
@@ -105,10 +111,11 @@ public class ApplicationFormController implements Initializable
 		//Get the primary stage of our App
 		application.setDateSubmitted("today");
 		application.saveApplication();
-		Stage stage = (Stage) submitButton.getScene().getWindow();
+		confirmationLabel.setVisible(true);
+		//Stage stage = (Stage) submitButton.getScene().getWindow();
 		//Set new scene
-		stage.setScene(StudentMainController.getScene());			
-		stage.show();
+		//stage.setScene(StudentMainController.getScene());			
+		//stage.show();
 	}
 }
 
