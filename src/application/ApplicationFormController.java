@@ -20,6 +20,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Application;
+import model.ApplicationFactory;
+import model.CsvReader;
+import model.ScholarshipFactory;
 
 public class ApplicationFormController implements Initializable
 {	
@@ -45,16 +48,19 @@ public class ApplicationFormController implements Initializable
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		application = new Application();
+		System.out.println("Application Counter @ Controller: " + ApplicationFactory.getCounter());
+		CsvReader s = new CsvReader();
+		Application a = new Application();
 		//event styling - uses lambda expressions
 		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
 		signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
-		application.setStudentId((LoginController.studentID));
-		application.setScholarshipId("1"); //temp hardcode
-		
+		a.setStudentId((LoginController.studentID));
+		a.setScholarshipId("1"); //temp hardcode 
+		a.setScholarshipName(s.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+		this.application = a;
 		FNAME_FIELD.setText(LoginController.studentFirstName);
 		LNAME_FIELD.setText(LoginController.studentLastName);
-		ID_FIELD.setText(LoginController.username);
+		ID_FIELD.setText(LoginController.studentID);
 		YEAR_FIELD.setText(LoginController.studentYearString);
 		DEPT_FIELD.setText(LoginController.studentDept);
 		FACULTY_FIELD.setText(LoginController.studentFaculty);
@@ -96,8 +102,8 @@ public class ApplicationFormController implements Initializable
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception
 	{
 		//Get the primary stage of our App
-		application.setDateSubmitted("today");
-		application.saveApplication();
+		this.application.setDateSubmitted("today");
+		this.application.submitApplication();
 		confirmationLabel.setVisible(true);
 		//Stage stage = (Stage) submitButton.getScene().getWindow();
 		//Set new scene

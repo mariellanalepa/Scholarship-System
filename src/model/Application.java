@@ -13,6 +13,7 @@ public class Application {
 	StringProperty dateSubmitted;
 	StringProperty status;
 	StringProperty scholarshipName;
+	StringProperty scholarshipDeadline;
 	
 	
 	
@@ -32,15 +33,31 @@ public class Application {
 		this.setStatus(applicationData[4]);
 		
 		
+		
 	}
 	/* String[] applicationData = [applicationID,	scholarshipID,	studentID,	datesubmitted]
 	 * */
-	public boolean saveApplication() {
+	public boolean submitApplication() {
+		CsvReader c = new CsvReader();
+		this.setStatus("submitted");
+		/* if this is a new application (does not yet have an ID)
+		 * set the ID number
+		 */
+		if(this.getApplicationId() == null) {
+			int counter = ApplicationFactory.getCounter();
+			ApplicationFactory.incrementCounter();
+			this.applicationID.set(String.valueOf(counter));
+		}
+		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateSubmitted.get(), status.get()};
+		boolean success = c.addApplicationEntry(applicationData);
+		return success;
+	}
+	public boolean stashApplication() {
 		CsvReader c = new CsvReader();
 		/* if this is a new application (does not yet have an ID)
 		 * set the ID number
 		 */
-		if(getApplicationId() == null) {
+		if(this.getApplicationId() == null) {
 			int counter = ApplicationFactory.getCounter();
 			ApplicationFactory.incrementCounter();
 			this.applicationID.set(String.valueOf(counter));
@@ -87,6 +104,12 @@ public class Application {
     public StringProperty scholarshipNameProperty() { 
         if (scholarshipName == null) scholarshipName = new SimpleStringProperty(this, "scholarshipName");
         return scholarshipName; 
+    } 
+    public void setScholarshipDeadline(String value) { scholarshipDeadlineProperty().set(value); }
+    public String getScholarshipDeadlineProperty() { return scholarshipDeadlineProperty().get(); }
+    public StringProperty scholarshipDeadlineProperty() { 
+        if (scholarshipDeadline == null) scholarshipDeadline = new SimpleStringProperty(this, "scholarshipDeadline");
+        return scholarshipDeadline; 
     } 
 
 
