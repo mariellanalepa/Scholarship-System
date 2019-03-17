@@ -16,7 +16,6 @@ public class CsvReader {
 	final String applicationDatabase = "res/applicationDatabase.csv";
 	private String[] data;
 	private List<String[]> databaseData;
-
 	private int databaseCounter;
 	
 
@@ -30,21 +29,17 @@ public class CsvReader {
 			buffread = new BufferedReader(new FileReader(f));
 			int i = 0;
 			while ((line = buffread.readLine()) != null) {
-				/* first two lines of application and student database are not data
-				 * line 1 is counter value
-				 * line 2 is header data */
-				System.out.println(line);
+				/* first line of application and student database are not data
+				 * line 1 is header data */
 				if(i == 0) {
 					i++;
 					continue;
 				}
-				//System.out.println(line);
 				list.add(line.split(delimiter));
 				i++;
 			}
 			this.databaseData = list;
-			// gets the application id of the last application and assigns the counter to 1 + that
-			this.databaseCounter = Integer.valueOf(list.get(list.size()-1)[0]) + 1;	
+
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -139,7 +134,6 @@ public class CsvReader {
 		try {
 			File f = new File(databaseName);
 			bw = new BufferedWriter(new FileWriter(f, true));
-			//fw = new FileWriter(f, true);
 			bw.write(line);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -169,6 +163,18 @@ public class CsvReader {
 		ScholarshipFactory.setCounter(this.databaseCounter);
 		return this.databaseData;
 	}
+	public String getScholarshipName(int scholarshipID){
+		String sName = "null";
+		getDatabase(scholarshipDatabase);
+		//ScholarshipFactory.setCounter(this.databaseCounter);
+		for(int i = 0; i < this.databaseData.size(); i++) {
+			if(Integer.valueOf(this.databaseData.get(i)[0]) == scholarshipID) {
+				sName = this.databaseData.get(i)[1];
+				
+			}
+		}
+		return sName;
+	}
 	public List<String[]> getApplicationData(){
 		getDatabase(applicationDatabase);
 		ApplicationFactory.setCounter(this.databaseCounter);
@@ -177,14 +183,15 @@ public class CsvReader {
 	public List<String[]> getApplicationData(int studentID){
 		getDatabase(applicationDatabase);
 		List<String[]> l = new ArrayList<String[]>();
-		for(int i = 0; i < databaseData.size(); i++) {
-			//System.out.println(databaseData.get(i)[2]);
-			if(databaseData.get(i)[2].equals(String.valueOf(studentID))) {
-				l.add(databaseData.get(i));
+		for(int i = 0; i < this.databaseData.size(); i++) {
+			if(this.databaseData.get(i)[1].equals(String.valueOf(studentID))) {
+				l.add(this.databaseData.get(i));
 			}		
 		}
 		return l;
 	}
+	
+
 	
 	public boolean addScholarshipEntry(String[] scholarshipData) { 
 		addDatabaseEntry(scholarshipDatabase, scholarshipData);

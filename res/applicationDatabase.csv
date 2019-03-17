@@ -6,3 +6,4 @@ applicationID,studentID,scholarshipID,dateSubmitted,status
 4,10000000,1,today,open
 5,10000000,1,today,open
 6,10000000,1,today,open
+0,12345678,1,today,open

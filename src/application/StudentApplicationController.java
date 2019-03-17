@@ -67,19 +67,18 @@ public class StudentApplicationController implements Initializable {
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
-		String usr = LoginController.getUsername();
-		ApplicationFactory af = new ApplicationFactory();
+		System.out.println(LoginSession.userID);
+		ApplicationFactory af = new ApplicationFactory(LoginSession.userID);
 		ObservableList<Application> data = FXCollections.observableArrayList(af.getApplicationArray());
 
 		table.setItems(data);
 		applicationIdCol.setCellValueFactory(f->f.getValue().applicationIDProperty());
-		scholarshipIdCol.setCellValueFactory(f->f.getValue().studentIdProperty());
-		scholarshipNameCol.setCellValueFactory(f->f.getValue().scholarshipIdProperty());
+		//scholarshipIdCol.setCellValueFactory(f->f.getValue().studentIdProperty());
+		scholarshipNameCol.setCellValueFactory(f->f.getValue().scholarshipNameProperty());
 		deadlineCol.setCellValueFactory(f->f.getValue().dateSubmittedProperty());
 		status.setCellValueFactory(f->f.getValue().statusProperty());
-		table.getColumns().setAll(applicationIdCol, scholarshipIdCol, scholarshipNameCol, deadlineCol, status);
+		table.getColumns().setAll(applicationIdCol, scholarshipNameCol, deadlineCol, status);
 	}
 
 }

@@ -17,26 +17,38 @@ public class ApplicationFactory {
 	public ApplicationFactory(){
 		CsvReader c = new CsvReader();
 		this.applicationData = c.getApplicationData();
-		List<Application> ls = new ArrayList<Application>();
+		List<Application> applicationList = new ArrayList<Application>();
 		for(int i = 0; i < applicationData.size(); i++) {
 				Application s = new Application(applicationData.get(i));
-				ls.add(s);
+				applicationList.add(s);
 			
 		}
-		this.applicationArray = ls;
+		this.applicationArray = applicationList;
 		this.appArraySize = applicationArray.size();
+		for(int i = 0; i < applicationArray.size(); i++) {
+			Application a = applicationArray.get(i);
+			System.out.println(c.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+			a.setScholarshipName(c.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+		}
 	}
+	
 	public ApplicationFactory(int studentID){
 		CsvReader c = new CsvReader();
 		this.applicationData = c.getApplicationData(studentID);
-		List<Application> ls = new ArrayList<Application>();
+		List<Application> applicationList = new ArrayList<Application>();
 		for(int i = 0; i < applicationData.size(); i++) {
 				Application s = new Application(applicationData.get(i));
-				ls.add(s);
-			
+				applicationList.add(s);
 		}
-		this.applicationArray = ls;
+		this.applicationArray = applicationList;
 		this.appArraySize = applicationArray.size();
+		System.out.println(this.appArraySize);
+		CsvReader s = new CsvReader();
+		for(int i = 0; i < applicationArray.size(); i++) {
+			Application a = applicationArray.get(i);
+			System.out.println(s.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+			a.setScholarshipName(s.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+		}
 	}
 	
 	public int getApplicationListLength() {
