@@ -144,8 +144,8 @@
                </GridPane.margin>
             </Label>
             <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSubmitButtonAction" text="Submit" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
-            <ChoiceBox fx:id="scholDrop" prefWidth="150.0" />
-            <Button fx:id="Edit" mnemonicParsing="false" onAction="#handleEdit" text="Edit" GridPane.columnIndex="1" />
+            <ChoiceBox fx:id="scholDrop" prefWidth="150.0" GridPane.halignment="RIGHT" />
+            <Button fx:id="Edit" mnemonicParsing="false" onAction="#handleEdit" text="Edit" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
          </children>
       </GridPane>
    </center>
@@ -179,7 +179,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <VBox prefHeight="67.0" prefWidth="446.0">
+                  <VBox prefHeight="73.0" prefWidth="503.0">
                      <children>
                         <Label fx:id="welcomeLabel" contentDisplay="BOTTOM" text="Hello" textFill="WHITE">
                            <font>
@@ -189,7 +189,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label prefHeight="36.0" prefWidth="448.0" text="Welcome to Student Scholarships (Admin)" textFill="WHITE" wrapText="true">
+                        <Label prefHeight="36.0" prefWidth="502.0" text="Welcome to Student Scholarships (Admin)" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="System Bold Italic" size="25.0" />
                            </font></Label>
