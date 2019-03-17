@@ -34,7 +34,7 @@ public class StudentApplicationController implements Initializable {
 	protected Parent root;
 	@FXML private Button signOut, mainMenuButton;
 	@FXML private Label welcomeLabel;
-	@FXML private TableColumn<Application,String> applicationIdCol, scholarshipIdCol, scholarshipNameCol, dateStartedCol, deadlineCol, status;
+	@FXML private TableColumn<Application,String> applicationIdCol, scholarshipIdCol, scholarshipNameCol, dateSubmittedCol, deadlineCol, status;
 	@FXML private TableView<Application> table;
 	
 
@@ -76,7 +76,7 @@ public class StudentApplicationController implements Initializable {
 		applicationIdCol.setCellValueFactory(f->f.getValue().applicationIDProperty());
 		//scholarshipIdCol.setCellValueFactory(f->f.getValue().studentIdProperty());
 		scholarshipNameCol.setCellValueFactory(f->f.getValue().scholarshipNameProperty());
-		deadlineCol.setCellValueFactory(f->f.getValue().dateSubmittedProperty());
+		deadlineCol.setCellValueFactory(f->f.getValue().scholarshipDeadlineProperty());
 		status.setCellValueFactory(f->f.getValue().statusProperty());
 		table.getColumns().setAll(applicationIdCol, scholarshipNameCol, deadlineCol, status);
 	}

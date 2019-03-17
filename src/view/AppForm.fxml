@@ -15,9 +15,9 @@
 
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ApplicationFormController">
    <center>
-      <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="503.0" prefWidth="800.0" vgap="20.0">
+      <GridPane alignment="TOP_CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" minHeight="450.0" prefHeight="600.0" prefWidth="800.0" vgap="20.0" BorderPane.alignment="CENTER">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="150.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="250.0" />
          </columnConstraints>
          <rowConstraints>
@@ -41,7 +41,7 @@
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
                </font></Label>
-            <Button fx:id="previewButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="153.0" text="Preview" GridPane.rowIndex="9" />
+            <Button fx:id="previewButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Save &amp; Return to Dashboard" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
             <Label text="GPA" GridPane.rowIndex="4">
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
@@ -91,6 +91,9 @@
          <BorderPane.margin>
             <Insets top="10.0" />
          </BorderPane.margin>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
       </GridPane>
    </center>
 <top>
@@ -151,6 +154,6 @@
       <Insets bottom="20.0" />
    </padding>
    <bottom>
-      <Label fx:id="confirmationLabel" prefHeight="41.0" prefWidth="361.0" text="Congratulations! Your application has been successfully submitted." textAlignment="CENTER" textFill="#ff0101" visible="false" BorderPane.alignment="CENTER" />
+      <Label fx:id="confirmationLabel" prefHeight="26.0" prefWidth="361.0" text="Congratulations! Your application has been successfully submitted." textAlignment="CENTER" textFill="#ff0101" visible="false" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

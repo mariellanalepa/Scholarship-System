@@ -11,7 +11,7 @@ public class ApplicationFactory {
 	private List<String[]> applicationData;
 	private List<Application> applicationArray;
 	private int appArraySize;
-	public static int counter = 0;
+	public static int counter;
 	
 	
 	public ApplicationFactory(){

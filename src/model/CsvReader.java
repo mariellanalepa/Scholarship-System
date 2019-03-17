@@ -19,7 +19,7 @@ public class CsvReader {
 	private int databaseCounter;
 	
 
-	public void getDatabase(String databaseName) {
+	private void getDatabase(String databaseName) {
 		List<String[]> list = new ArrayList<String[]>();
 		BufferedReader buffread = null;
 		String line = "";
@@ -39,6 +39,7 @@ public class CsvReader {
 				i++;
 			}
 			this.databaseData = list;
+			this.databaseCounter = list.size();
 
 			
 		} catch (FileNotFoundException e) {
@@ -177,6 +178,7 @@ public class CsvReader {
 	}
 	public List<String[]> getApplicationData(){
 		getDatabase(applicationDatabase);
+		System.out.println("@ getApplicationData(): "+this.databaseCounter);
 		ApplicationFactory.setCounter(this.databaseCounter);
 		return this.databaseData;
 	}
