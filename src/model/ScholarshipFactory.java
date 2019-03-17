@@ -13,7 +13,7 @@ public class ScholarshipFactory {
 	private int scholArraySize;
 	
 	
-	public ScholarshipFactory(){
+	public ScholarshipFactory() {
 		CsvReader c = new CsvReader();
 		this.scholarshipData = c.getScholarshipData();
 		List<Scholarship> ls = new ArrayList<Scholarship>();

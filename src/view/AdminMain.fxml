@@ -19,6 +19,8 @@
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -26,8 +28,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="viewScholarshipsButton" mnemonicParsing="false" onAction="#handleScholarshipButtonAction" text="View Scholarships" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="createScholarship" mnemonicParsing="false" onAction="#handleCreateScholarshipButtonAction" text="Create New Scholarships" GridPane.rowIndex="1" />
+            <Button fx:id="viewScholarshipsButton" mnemonicParsing="false" onAction="#handleScholarshipButtonAction" text="View Scholarships" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="createScholarship" mnemonicParsing="false" onAction="#handleCreateScholarshipButtonAction" text="Create New Scholarships" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Delete a Scholarship" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="editScholarship" mnemonicParsing="false" onAction="#handleEditScholarshipAction" text="Edit Scholarship" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </center>
