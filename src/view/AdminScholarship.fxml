@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -78,6 +79,15 @@
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                  </VBox>
+                  <VBox alignment="BOTTOM_RIGHT" prefHeight="87.0" prefWidth="500.0">
+                     <children>
+                        <TextField fx:id="filter" prefHeight="25.0" prefWidth="340.0" promptText="Search Filter...">
+                           <VBox.margin>
+                              <Insets left="300.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
                   </VBox>
                </children>
             </HBox>
