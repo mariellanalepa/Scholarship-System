@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,7 +48,9 @@ public class StudentScholarshipController implements Initializable {
 		ScholarshipFactory s = new ScholarshipFactory();
 		
 		ObservableList<Scholarship> data = FXCollections.observableArrayList(s.getScholarshipArray());
-		table.setItems(data);
+		FilteredList<Scholarship> filteredData = new FilteredList<>(data, p -> true);
+		
+		table.setItems(filteredData);
 		idCol.setCellValueFactory(f->f.getValue().idProperty());
 		nameCol.setCellValueFactory(f->f.getValue().nameProperty());
 		donorCol.setCellValueFactory(f->f.getValue().donorProperty());
@@ -59,9 +62,23 @@ public class StudentScholarshipController implements Initializable {
 		typeCol.setCellValueFactory(f->f.getValue().typeProperty());
 		gpaCol.setCellValueFactory(f->f.getValue().gpaProperty());
 		yearCol.setCellValueFactory(f->f.getValue().yearProperty());
-		table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
+		//table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
 
-		
+		filteredData.setPredicate(scholarship -> {
+			float studentGpa = Float.parseFloat(LoginController.studentGPAString);
+			float requiredGpa = scholarship.getGpa();
+					
+			if ((scholarship.getFaculty().contains(LoginController.studentFaculty) || scholarship.getFaculty().toLowerCase().contains("any"))
+			&& (scholarship.getDepartment().contains(LoginController.studentDept) || scholarship.getDepartment().toLowerCase().contains("any"))
+			/*&& (scholarship.getType().contains(LoginController.studentType) || scholarship.getType().toLowerCase().contains("any"))*/
+			&& (scholarship.getYear().contains(LoginController.studentYearString) || scholarship.getYear().toLowerCase().contentEquals("any"))
+			&& (studentGpa >= requiredGpa) && (scholarship.getStatus().toLowerCase().contains("open")) ) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		});
 	}
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
