@@ -25,7 +25,7 @@ import java.util.List;
 public class AdminEditController implements Initializable {
 	
 	protected Parent root;
-	@FXML private Button signOut, submitButton, editScholarship;
+	@FXML private Button signOut, submitButton, editScholarship, mainMenuButton;
 	@FXML private TextField deadlineBox, yearBox, donorBox, nameBox, numberBox, amountBox, GPABox, typeBox, departmentBox, facultyBox; 
 	@FXML private Label welcomeLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
 	@FXML protected ChoiceBox<String> scholDrop; 
@@ -128,6 +128,15 @@ public class AdminEditController implements Initializable {
 				
 	}
 	
+	@FXML
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception 
+	{
+		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		stage.setScene(LoginController.getScene());			
+		stage.show();
+		
+	}
+
 	
 	
 }
