@@ -25,7 +25,7 @@ import java.util.List;
 public class AdminEditController implements Initializable {
 	
 	protected Parent root;
-	@FXML private Button signOut, submitButton, editScholarship;
+	@FXML private Button signOut, submitButton, editScholarship, mainMenuButton;
 	@FXML private TextField deadlineBox, yearBox, donorBox, nameBox, numberBox, amountBox, GPABox, typeBox, departmentBox, facultyBox; 
 	@FXML private Label welcomeLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
 	@FXML protected ChoiceBox<String> scholDrop; 
@@ -60,7 +60,7 @@ public class AdminEditController implements Initializable {
 		String[] scholarshipData = new String[13];
 		
 		Scholarship s = scholArray.get(nameArray.indexOf(scholDrop.getValue().toString()));
-		scholarshipData[0] = s.getId();
+		scholarshipData[0] = Integer.toString(s.getId());
 		scholarshipData[1] = nameBox.getText();
 		scholarshipData[2] = donorBox.getText();
 		scholarshipData[3] = deadlineBox.getText();
@@ -107,12 +107,12 @@ public class AdminEditController implements Initializable {
 		nameBox.setText(scholarship.getName());
 		donorBox.setText(scholarship.getDonor());
 		deadlineBox.setText(scholarship.getDeadline());
-		amountBox.setText(scholarship.getAmount());
-		numberBox.setText(scholarship.getNumber());
+		amountBox.setText(Integer.toString(scholarship.getAmount()));
+		numberBox.setText(Integer.toString(scholarship.getNumber()));
 		facultyBox.setText(scholarship.getFaculty());
 		departmentBox.setText(scholarship.getDepartment());
 		typeBox.setText(scholarship.getType());
-		GPABox.setText(scholarship.getGpa());
+		GPABox.setText(Float.toString(scholarship.getGpa()));
 		yearBox.setText(scholarship.getYear());
 	 
 	}
@@ -128,6 +128,15 @@ public class AdminEditController implements Initializable {
 				
 	}
 	
+	@FXML
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception 
+	{
+		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		stage.setScene(LoginController.getScene());			
+		stage.show();
+		
+	}
+
 	
 	
 }

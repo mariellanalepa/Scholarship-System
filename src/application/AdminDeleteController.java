@@ -24,7 +24,7 @@ import java.util.List;
 public class AdminDeleteController implements Initializable {
 	protected Parent root;
 	@FXML protected Label welcomeLabel, deleteLabel;
-	@FXML protected Button signOut, deleteButton; 
+	@FXML protected Button signOut, deleteButton, mainMenuButton;
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
 	ArrayList<String> nameArray = new ArrayList<String>();
 	private Scholarship scholarship;
@@ -61,6 +61,15 @@ public class AdminDeleteController implements Initializable {
 		stage.show();
 
 		
+		
+	}
+	
+	@FXML
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception 
+	{
+		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		stage.setScene(LoginController.getScene());			
+		stage.show();
 		
 	}
 	
