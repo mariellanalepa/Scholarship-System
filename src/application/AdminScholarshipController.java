@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.ScholarshipFactory;
@@ -28,6 +30,7 @@ public class AdminScholarshipController implements Initializable {
 	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
 	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
 	@FXML private TableView<Scholarship> table;
+	@FXML private TextField filter;	
 	
 	
 	public static Scene getScene() throws Exception 
@@ -47,7 +50,9 @@ public class AdminScholarshipController implements Initializable {
 		ScholarshipFactory s = new ScholarshipFactory();
 		
 		ObservableList<Scholarship> data = FXCollections.observableArrayList(s.getScholarshipArray());
-		table.setItems(data);
+		FilteredList<Scholarship> filteredData = new FilteredList<>(data, p -> true);
+		
+		table.setItems(filteredData);
 		idCol.setCellValueFactory(f->f.getValue().idProperty());
 		nameCol.setCellValueFactory(f->f.getValue().nameProperty());
 		donorCol.setCellValueFactory(f->f.getValue().donorProperty());
@@ -59,7 +64,34 @@ public class AdminScholarshipController implements Initializable {
 		typeCol.setCellValueFactory(f->f.getValue().typeProperty());
 		gpaCol.setCellValueFactory(f->f.getValue().gpaProperty());
 		yearCol.setCellValueFactory(f->f.getValue().yearProperty());
-		table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
+		//table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
+
+		filter.textProperty().addListener((observable, oldFilter, newFilter) -> {
+			filteredData.setPredicate(scholarship -> {
+				if (newFilter == oldFilter) {
+					return true;
+				}
+				String lowerCaseFilter = newFilter.toString().toLowerCase();
+				
+				if (scholarship.getId().toString().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getName().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getDonor().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getDeadline().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getAmount().toString().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getFaculty().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getDepartment().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getType().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getGpa().toString().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getYear().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getStatus().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getPosted().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getNumber().toString().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				}
+				return false;
+			});
+		});
+	
 	}
 	
 	
