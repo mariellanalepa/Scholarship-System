@@ -19,7 +19,7 @@ import model.ScholarshipFactory;
 public class AdminFormController implements Initializable
 {
 	protected Parent root;
-	@FXML private Button signOut, submitButton;
+	@FXML private Button signOut, submitButton, mainMenuButton;
 	@FXML private TextField deadlineBox, yearBox, donorBox, nameBox, numberBox, amountBox, GPABox, typeBox, departmentBox, facultyBox; 
 	@FXML private Label welcomeLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
 
@@ -41,6 +41,13 @@ public class AdminFormController implements Initializable
 		//Set new scene
 		stage.setScene(LoginController.getScene());			
 		stage.show();
+	}
+	@FXML 
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
+		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		stage.setScene(AdminMainController.getScene());			
+		stage.show();
+		
 	}
 	@FXML
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception

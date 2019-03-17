@@ -23,7 +23,7 @@ import model.Scholarship;
 
 public class AdminScholarshipController implements Initializable { 
 	protected Parent root;
-	@FXML private Button signOut;
+	@FXML private Button signOut, mainMenuButton;
 	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
 	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
@@ -71,5 +71,12 @@ public class AdminScholarshipController implements Initializable {
 		//Set new scene
 		stage.setScene(LoginController.getScene());			
 		stage.show();
+	}
+	@FXML 
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
+		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		stage.setScene(AdminMainController.getScene());			
+		stage.show();
+		
 	}
 }

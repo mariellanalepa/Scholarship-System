@@ -25,17 +25,16 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="viewScholarshipsButton" mnemonicParsing="false" onAction="#handleScholarshipButtonAction" text="View Scholarships" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="createScholarship" mnemonicParsing="false" onAction="#handleCreateScholarshipButtonAction" text="Create New Scholarships" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Delete a Scholarship" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button fx:id="editScholarship" mnemonicParsing="false" onAction="#handleEditScholarshipAction" text="Edit Scholarship" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="viewScholarshipsButton" mnemonicParsing="false" onAction="#handleScholarshipButtonAction" text="View Scholarships" GridPane.columnIndex="2" />
+            <Button fx:id="createScholarship" mnemonicParsing="false" onAction="#handleCreateScholarshipButtonAction" text="Create a New Scholarship" GridPane.columnIndex="1" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Delete a Scholarship" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="editScholarship" mnemonicParsing="false" onAction="#handleEditScholarshipAction" text="Edit a Scholarship" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>
-   <top>
+<top>
       <VBox prefHeight="87.0" prefWidth="611.0" style="-fx-background-color: #8d827a;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="TOP_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="800.0" style="-fx-background-color: #cf0722;">
@@ -47,9 +46,9 @@
                   </Button>
                </children>
             </HBox>
-            <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="800.0">
+            <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="800.0">
                <children>
-                  <ImageView fitHeight="67.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="62.0" fitWidth="213.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../res/uc-horz-rgb-white-text.png" />
                      </image>
@@ -57,17 +56,20 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <VBox prefHeight="87.0" prefWidth="258.0">
+                  <VBox prefHeight="73.0" prefWidth="540.0">
                      <children>
                         <Label fx:id="welcomeLabel" contentDisplay="BOTTOM" text="Hello" textFill="WHITE">
                            <font>
-                              <Font name="SansSerif Regular" size="13.0" />
+                              <Font name="SansSerif Regular" size="20.0" />
                            </font>
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label prefHeight="6.0" prefWidth="258.0" text="Welcome to Student Scholarships  (Admin)" textFill="WHITE" wrapText="true" />
+                        <Label prefHeight="36.0" prefWidth="514.0" text="Welcome to Student Scholarships (Admin)" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="System Bold Italic" size="25.0" />
+                           </font></Label>
                      </children>
                      <HBox.margin>
                         <Insets />

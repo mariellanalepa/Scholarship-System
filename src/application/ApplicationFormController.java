@@ -67,19 +67,6 @@ public class ApplicationFormController implements Initializable
 
 	}
 	
-//	@FXML
-//	private void handleComboBoxAction() {
-//			// Get student data & fill forms after selection
-////			  	FNAME_FIELD.setText(LoginController.studentFirstName);
-////				LNAME_FIELD.setText(LoginController.studentLastName);
-////				ID_FIELD.setText(LoginController.username);
-////				YEAR_FIELD.setText(LoginController.studentYearString);
-////				DEPT_FIELD.setText(LoginController.studentDept);
-////				FACULTY_FIELD.setText(LoginController.studentFaculty);
-////				GPA_FIELD.setText(LoginController.studentGPAString);
-////				TYPE_FIELD.setText(LoginController.studentType);
-//		  
-//	}
 	@FXML 
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
 		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
