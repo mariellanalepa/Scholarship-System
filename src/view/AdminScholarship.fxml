@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminScholarshipController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminScholarshipController">
    <center>
       <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0">
         <columns>
@@ -41,7 +41,7 @@
                         <Font name="SansSerif Bold" size="12.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="650.0" />
+                        <Insets right="950.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="signOut" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSignOutButtonAction" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #cf0722;" text="Sign out" textFill="WHITE">
@@ -80,7 +80,7 @@
                         <Insets />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="BOTTOM_RIGHT" maxWidth="50.0" minWidth="20.0" prefHeight="73.0" prefWidth="225.0">
+                  <VBox alignment="BOTTOM_RIGHT" maxWidth="269.0" minWidth="20.0" prefHeight="73.0" prefWidth="269.0">
                      <children>
                         <TextField fx:id="filter" prefHeight="25.0" prefWidth="340.0" promptText="Search Filter...">
                            <VBox.margin>
