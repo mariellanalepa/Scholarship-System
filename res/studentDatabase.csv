@@ -1,2 +1,3 @@
 username,StudentID,FName,LName,Type,Year,Faculty,Department,GPA
-john.doe,12345678,John,Doe,UGRAD,2,Science,CPSC,4
+s,12345678,FNAME,LNAME,UGRAD,1,SC,CPSC,4
+john.doe,10000000,John,Doe,UGRAD,2,Science,CPSC,4

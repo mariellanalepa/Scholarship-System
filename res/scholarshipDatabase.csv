@@ -5,4 +5,4 @@ IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,R
 4,Scholarship D,na,2020-03-18 23:59,1000,4,HA,Any,U,3.2,3,Open,01/01/2019 16:00 
 5,Scholarship E,na,2020-03-19 23:59,500,10,AR,Any,U,3,1,Open,01/01/2019 16:00 
 6,Scholarship F,na,2020-03-20 23:59,1500,5,GS,Any,U,3,1,Open,01/01/2019 16:01
-7,Amazing Scholarship,Husky,2020-03-21 23:59,1000,2,SC,CPSC,UGRAD,4,3,Open,13/03/2019 23:00:36
+7,Amazing Scholarship,Husky,2020-03-21 23:59,1000,2,SC,CPSC,UGRAD,4,3,Open,13/03/2019 23:00:36

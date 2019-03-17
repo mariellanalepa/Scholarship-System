@@ -23,8 +23,9 @@ import model.Application;
 
 public class ApplicationFormController implements Initializable
 {	
-	@FXML protected Label welcomeLabel, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
-	@FXML protected Button signOut, previewButton, submitButton; 
+	protected Parent root;
+	@FXML protected Label welcomeLabel, confirmationLabel, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
+	@FXML protected Button signOut, previewButton, submitButton, mainMenuButton; 
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
 	private Application application;
 	
@@ -48,8 +49,8 @@ public class ApplicationFormController implements Initializable
 		//event styling - uses lambda expressions
 		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
 		signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
-		application.setStudentID(Integer.valueOf(LoginController.studentID));
-		application.setScholarshipID(1);
+		application.setStudentId((LoginController.studentID));
+		application.setScholarshipId("1"); //temp hardcode
 		
 		FNAME_FIELD.setText(LoginController.studentFirstName);
 		LNAME_FIELD.setText(LoginController.studentLastName);
@@ -66,20 +67,26 @@ public class ApplicationFormController implements Initializable
 
 	}
 	
-	@FXML
-	private void handleComboBoxAction() {
-			// Get student data & fill forms after selection
-//			  	FNAME_FIELD.setText(LoginController.studentFirstName);
-//				LNAME_FIELD.setText(LoginController.studentLastName);
-//				ID_FIELD.setText(LoginController.username);
-//				YEAR_FIELD.setText(LoginController.studentYearString);
-//				DEPT_FIELD.setText(LoginController.studentDept);
-//				FACULTY_FIELD.setText(LoginController.studentFaculty);
-//				GPA_FIELD.setText(LoginController.studentGPAString);
-//				TYPE_FIELD.setText(LoginController.studentType);
-		  
+//	@FXML
+//	private void handleComboBoxAction() {
+//			// Get student data & fill forms after selection
+////			  	FNAME_FIELD.setText(LoginController.studentFirstName);
+////				LNAME_FIELD.setText(LoginController.studentLastName);
+////				ID_FIELD.setText(LoginController.username);
+////				YEAR_FIELD.setText(LoginController.studentYearString);
+////				DEPT_FIELD.setText(LoginController.studentDept);
+////				FACULTY_FIELD.setText(LoginController.studentFaculty);
+////				GPA_FIELD.setText(LoginController.studentGPAString);
+////				TYPE_FIELD.setText(LoginController.studentType);
+//		  
+//	}
+	@FXML 
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
+		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		stage.setScene(StudentMainController.getScene());			
+		stage.show();
+		
 	}
-	
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
 	{
@@ -104,10 +111,11 @@ public class ApplicationFormController implements Initializable
 		//Get the primary stage of our App
 		application.setDateSubmitted("today");
 		application.saveApplication();
-		Stage stage = (Stage) submitButton.getScene().getWindow();
+		confirmationLabel.setVisible(true);
+		//Stage stage = (Stage) submitButton.getScene().getWindow();
 		//Set new scene
-		stage.setScene(StudentMainController.getScene());			
-		stage.show();
+		//stage.setScene(StudentMainController.getScene());			
+		//stage.show();
 	}
 }
 

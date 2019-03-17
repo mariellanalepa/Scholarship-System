@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.scene.control.TableColumn;
 
 public class ScholarshipFactory {
+	private static int counter;
 	private List<String[]> scholarshipData;
 	private List<Scholarship> scholarshipArray;
 	private int scholArraySize;
@@ -32,7 +33,15 @@ public class ScholarshipFactory {
 	public List<Scholarship> getScholarshipArray(){
 		return this.scholarshipArray;
 	}
-	
+	public static int getCounter() {
+		return counter;
+	}
+	public static void incrementCounter() {
+		counter++;
+	}
+	static void setCounter(int counterValue) {
+		counter = counterValue;
+	}
 
 
 	

@@ -9,14 +9,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-class CsvReader {
-	private final String adminDatabase = "res/adminDatabase.csv";
-	private final String studentDatabase = "res/studentDatabase.csv";
-	private final String scholarshipDatabase = "res/scholarshipDatabase.csv";
-	private final String applicationDatabase = "res/applicationDatabase.csv";
+public class CsvReader {
+	final String adminDatabase = "res/adminDatabase.csv";
+	final String studentDatabase = "res/studentDatabase.csv";
+	final String scholarshipDatabase = "res/scholarshipDatabase.csv";
+	final String applicationDatabase = "res/applicationDatabase.csv";
 	private String[] data;
 	private List<String[]> databaseData;
+
+	private int databaseCounter;
 	
 
 	public void getDatabase(String databaseName) {
@@ -29,15 +30,22 @@ class CsvReader {
 			buffread = new BufferedReader(new FileReader(f));
 			int i = 0;
 			while ((line = buffread.readLine()) != null) {
+				/* first two lines of application and student database are not data
+				 * line 1 is counter value
+				 * line 2 is header data */
+				System.out.println(line);
 				if(i == 0) {
 					i++;
 					continue;
 				}
-				System.out.println(line);
+				//System.out.println(line);
 				list.add(line.split(delimiter));
 				i++;
 			}
 			this.databaseData = list;
+			// gets the application id of the last application and assigns the counter to 1 + that
+			this.databaseCounter = Integer.valueOf(list.get(list.size()-1)[0]) + 1;	
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -52,6 +60,7 @@ class CsvReader {
 			}
 		}
 	}
+	
 	
 	private void getDatabaseEntry(String entryIdentifier, String databaseName) {
 		BufferedReader buffread = null;
@@ -127,9 +136,6 @@ class CsvReader {
 		BufferedWriter bw = null;
 		String line = String.join(",", data);
 		line += "\n";
-		
-		System.out.println(line);
-		FileWriter fw = null;
 		try {
 			File f = new File(databaseName);
 			bw = new BufferedWriter(new FileWriter(f, true));
@@ -160,11 +166,24 @@ class CsvReader {
 	}
 	public List<String[]> getScholarshipData(){
 		getDatabase(scholarshipDatabase);
+		ScholarshipFactory.setCounter(this.databaseCounter);
 		return this.databaseData;
 	}
 	public List<String[]> getApplicationData(){
 		getDatabase(applicationDatabase);
+		ApplicationFactory.setCounter(this.databaseCounter);
 		return this.databaseData;
+	}
+	public List<String[]> getApplicationData(int studentID){
+		getDatabase(applicationDatabase);
+		List<String[]> l = new ArrayList<String[]>();
+		for(int i = 0; i < databaseData.size(); i++) {
+			//System.out.println(databaseData.get(i)[2]);
+			if(databaseData.get(i)[2].equals(String.valueOf(studentID))) {
+				l.add(databaseData.get(i));
+			}		
+		}
+		return l;
 	}
 	
 	public boolean addScholarshipEntry(String[] scholarshipData) { 
@@ -184,6 +203,7 @@ class CsvReader {
 		boolean success = true;
 		return success;
 	}
+
 
 }
 	
