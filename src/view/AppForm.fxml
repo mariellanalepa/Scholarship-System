@@ -41,7 +41,7 @@
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
                </font></Label>
-            <Button fx:id="previewButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Save &amp; Return to Dashboard" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+            <Button fx:id="saveAndExitButton" contentDisplay="CENTER" onAction="#handleSaveAndExitButtonAction" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Save &amp; Return to Dashboard" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
             <Label text="GPA" GridPane.rowIndex="4">
                <font>
                   <Font name="SansSerif Regular" size="13.0" />

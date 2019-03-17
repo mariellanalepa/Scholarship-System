@@ -10,10 +10,11 @@ public class Application {
 	StringProperty applicationID;
 	StringProperty studentID;
 	StringProperty scholarshipID;
-	StringProperty dateSubmitted;
+	StringProperty dateAdded;
 	StringProperty status;
 	StringProperty scholarshipName;
 	StringProperty scholarshipDeadline;
+	StringProperty dateSubmitted;
 	
 	
 	
@@ -48,7 +49,7 @@ public class Application {
 			ApplicationFactory.incrementCounter();
 			this.applicationID.set(String.valueOf(counter));
 		}
-		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateSubmitted.get(), status.get()};
+		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateAdded.get(), status.get()};
 		boolean success = c.addApplicationEntry(applicationData);
 		return success;
 	}
@@ -62,7 +63,7 @@ public class Application {
 			ApplicationFactory.incrementCounter();
 			this.applicationID.set(String.valueOf(counter));
 		}
-		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateSubmitted.get(), status.get()};
+		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateAdded.get(), status.get()};
 		boolean success = c.addApplicationEntry(applicationData);
 		return success;
 	}
@@ -86,11 +87,11 @@ public class Application {
         if (scholarshipID == null) scholarshipID = new SimpleStringProperty(this, "scholarshipID");
         return scholarshipID; 
     } 
-    public void setDateSubmitted(String value) { dateSubmittedProperty().set(value); }
-    public String getDateSubmitted() { return dateSubmittedProperty().get(); }
-    public StringProperty dateSubmittedProperty() { 
-        if (dateSubmitted == null) dateSubmitted = new SimpleStringProperty(this, "dateSubmitted");
-        return dateSubmitted; 
+    public void setDateAdded(String value) { dateAddedProperty().set(value); }
+    public String getDateAdded() { return dateAddedProperty().get(); }
+    public StringProperty dateAddedProperty() { 
+        if (dateAdded == null) dateAdded = new SimpleStringProperty(this, "dateAdded");
+        return dateAdded; 
     } 
     public void setStatus(String value) { statusProperty().set(value); }
     public String getStatusProperty() { return statusProperty().get(); }
@@ -111,6 +112,11 @@ public class Application {
         if (scholarshipDeadline == null) scholarshipDeadline = new SimpleStringProperty(this, "scholarshipDeadline");
         return scholarshipDeadline; 
     } 
-
+    public void setDateSubmitted(String value) { dateSubmittedProperty().set(value); }
+    public String getDateSubmitted() { return dateSubmittedProperty().get(); }
+    public StringProperty dateSubmittedProperty() { 
+        if (dateSubmitted == null) dateSubmitted = new SimpleStringProperty(this, "dateSubmitted");
+        return dateSubmitted; 
+    } 
 
 }

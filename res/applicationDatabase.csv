@@ -1,4 +1,4 @@
-applicationID,studentID,scholarshipID,dateSubmitted,status
+applicationID,studentID,scholarshipID,dateAdded,status
 0,12345678,1,today,open
 1,12345678,1,today,open
 2,12345678,1,today,open
@@ -8,3 +8,5 @@ applicationID,studentID,scholarshipID,dateSubmitted,status
 6,12345678,1,today,submitted
 7,12345678,1,today,submitted
 8,12345678,1,today,submitted
+9,12345678,1,2019 03/17/16:11:05,submitted
+10,12345678,1,2019 03/17/16:11:11,open

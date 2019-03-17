@@ -87,6 +87,7 @@ public class LoginController implements Initializable {
 				studentDept = s.getStudentDepartment();
 				studentFaculty = s.getStudentFaculty();
 				studentGPAString = s.getStudentGPA();
+				studentType = s.getStudentType();
 				//Set new scene
 				stage.setScene(StudentMainController.getScene());			
 				stage.show();
