@@ -19,6 +19,7 @@
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -26,9 +27,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="newApplicationButton" mnemonicParsing="false" onAction="#handleNewApplicationButtonAction" text="Begin New Application" GridPane.rowIndex="1" />
-            <Button fx:id="reviewApplicationButton" mnemonicParsing="false" onAction="#handleReviewApplicationsButtonAction" text="Review My Applications" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="viewScholarshipButton" layoutX="182.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleviewScholarshipButtonAction" text="View Scholarships" />
+            <Button fx:id="newApplicationButton" mnemonicParsing="false" onAction="#handleNewApplicationButtonAction" text="Begin New Application" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="reviewApplicationButton" mnemonicParsing="false" onAction="#handleReviewApplicationsButtonAction" text="Review My Applications" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="viewScholarshipButton" layoutX="182.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleviewScholarshipButtonAction" text="View Scholarships" GridPane.rowIndex="1" />
+            <Label fx:id="submissionConfirmationLabel" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </center>

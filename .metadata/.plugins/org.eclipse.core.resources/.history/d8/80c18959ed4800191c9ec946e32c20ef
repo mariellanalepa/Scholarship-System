@@ -1,0 +1,95 @@
+package application;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import model.ScholarshipFactory;
+import model.Scholarship;
+
+public class StudentScholarshipController implements Initializable { 
+	protected Parent root;
+	@FXML private Button signOut;
+	@FXML private Label welcomeLabel;
+	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
+	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
+	@FXML private TableView<Scholarship> table;
+	
+	
+	
+	public static Scene getScene() throws Exception 
+	{
+		//getClass().getResource(path) loads resource from classpath
+		FXMLLoader loader = new FXMLLoader(StudentMainController.class.getResource("/view/StudentScholarship.fxml"));
+		Parent root = (Parent) loader.load();
+		Scene newScene = new Scene(root);
+		return newScene;
+	}
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
+		
+		ScholarshipFactory s = new ScholarshipFactory();
+		
+		ObservableList<Scholarship> data = FXCollections.observableArrayList(s.getScholarshipArray());
+		FilteredList<Scholarship> filteredData = new FilteredList<>(data, p -> true);
+
+		table.setItems(filteredData);
+		idCol.setCellValueFactory(f->f.getValue().idProperty());
+		nameCol.setCellValueFactory(f->f.getValue().nameProperty());
+		donorCol.setCellValueFactory(f->f.getValue().donorProperty());
+		deadlineCol.setCellValueFactory(f->f.getValue().deadlineProperty());
+		amtCol.setCellValueFactory(f->f.getValue().amountProperty());
+		numCol.setCellValueFactory(f->f.getValue().numberProperty());
+		facCol.setCellValueFactory(f->f.getValue().facultyProperty());
+		deptCol.setCellValueFactory(f->f.getValue().departmentProperty());
+		typeCol.setCellValueFactory(f->f.getValue().typeProperty());
+		gpaCol.setCellValueFactory(f->f.getValue().gpaProperty());
+		yearCol.setCellValueFactory(f->f.getValue().yearProperty());
+		table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
+
+		filteredData.setPredicate(scholarship -> {
+			float studentGpa = Float.parseFloat(LoginController.studentGPAString);
+			float requiredGpa = scholarship.getGpa();
+			if (scholarship.getGpa().toString().toLowerCase().contains("any")) {
+				requiredGpa = 0;
+			}
+			
+			if ((LoginController.studentFaculty.toLowerCase().contentEquals(scholarship.getFaculty().toLowerCase()) || scholarship.getFaculty().toLowerCase().contentEquals("any"))
+			&& (LoginController.studentDept.toLowerCase().contentEquals(scholarship.getDepartment().toLowerCase()) || scholarship.getDepartment().toLowerCase().contentEquals("any"))
+			&& (LoginController.studentType.toLowerCase().contentEquals(scholarship.getType().toLowerCase()) || scholarship.getType().toLowerCase().contentEquals("any"))
+			&& (studentGpa >= requiredGpa)
+			&& (scholarship.getYear().contentEquals(LoginController.studentYearString) || scholarship.getYear().toLowerCase().contentEquals("any"))
+			&& (scholarship.getStatus().toLowerCase().contentEquals("open")) ) {
+				return true;
+			}
+			return false;
+		});
+	}
+	
+	@FXML
+	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
+	{
+		//Get the primary stage of our App
+		Stage stage = (Stage) signOut.getScene().getWindow();
+		//Set new scene
+		stage.setScene(LoginController.getScene());			
+		stage.show();
+	}
+}
