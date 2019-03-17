@@ -57,7 +57,7 @@ public class StudentMainController implements Initializable {
 		stage.show();
 	}
 	@FXML
-	protected void handleviewScholarshipButtonAction(ActionEvent event) throws Exception
+	protected void handleViewScholarshipButtonAction(ActionEvent event) throws Exception
 	{
 		Stage stage = (Stage) viewScholarshipButton.getScene().getWindow();
 		stage.setScene(StudentScholarshipController.getScene());			

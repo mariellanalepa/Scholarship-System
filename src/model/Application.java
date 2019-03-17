@@ -12,22 +12,25 @@ public class Application {
 	StringProperty scholarshipID;
 	StringProperty dateSubmitted;
 	StringProperty status;
+	StringProperty scholarshipName;
 	
 	
-	//applicationID	scholarshipID	studentID	datesubmitted	status
+	
 	
 	// new applications
 	public Application() {
-		//this.setApplicationId(String.valueOf(currentCounter));
 		this.setStatus("open");
 	}
+	
 	// re-creating instances from a file
+	//applicationID		studentID	scholarshipID datesubmitted	status
 	public Application (String[] applicationData) {
 		this.setApplicationId(applicationData[0]);
-		this.setStudentId(applicationData[2]);
-		this.setScholarshipId(applicationData[1]);
+		this.setStudentId(applicationData[1]);
+		this.setScholarshipId(applicationData[2]);
 		this.setDateSubmitted(applicationData[3]); 
 		this.setStatus(applicationData[4]);
+		
 		
 	}
 	/* String[] applicationData = [applicationID,	scholarshipID,	studentID,	datesubmitted]
@@ -78,27 +81,13 @@ public class Application {
         if (status == null) status = new SimpleStringProperty(this, "status");
         return status; 
     } 
-////int getApplicationID(){
-////return applicationID;
-////}
-////
-////public void setStudentID(int studentID) {
-////this.studentID = studentID;
-////
-////}
-////
-////public void setScholarshipID(int scholarshipID) {
-////this.scholarshipID = scholarshipID;
-////
-////}
-////public void setDateSubmitted(String dateSubmittedmitted) {
-////this.dateSubmittedmitted = dateSubmittedmitted;
-//
-//}
-////public List<String[]> getApplicationArray(int applicationID) {
-////CsvReader c = new CsvReader();
-////List<String[]> application = c.getApplicationData();
-////return application;
-////}
+    
+    public void setScholarshipName(String value) { scholarshipNameProperty().set(value); }
+    public String getScholarshipNameProperty() { return scholarshipNameProperty().get(); }
+    public StringProperty scholarshipNameProperty() { 
+        if (scholarshipName == null) scholarshipName = new SimpleStringProperty(this, "scholarshipName");
+        return scholarshipName; 
+    } 
+
 
 }
