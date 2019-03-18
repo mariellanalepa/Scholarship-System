@@ -10,3 +10,6 @@ applicationID,studentID,scholarshipID,dateAdded,status
 8,12345678,1,today,submitted
 9,12345678,1,2019 03/17/16:11:05,submitted
 10,12345678,1,2019 03/17/16:11:11,open
+11,30065479,1,2019 03/17/19:22:29,open
+12,30065479,1,2019 03/17/19:22:55,open
+13,30065479,1,2019 03/17/19:30:37,submitted
