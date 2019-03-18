@@ -1,31 +1,35 @@
 package model;
 
 public class LoginSession {
-	private Student s;
-	private Admin a;
+	private static Student s;
+	private static Admin a;
 	private int userType;	// 0 is admin, 1 is student
-	private int sessionID;	
+	private int sessionID;
+	private static int idCounter = 0;
+	public static int userID;
 	
 	
 	public LoginSession(String username) throws InvalidUserException{
-		System.out.println(username);
-		int tempSessionID = 1;
+		//System.out.println(username);
 		try {
 			Admin u = new Admin(username);
-			this.a = u;
+			a = u;
 			this.userType = 0;
-			this.sessionID = tempSessionID;
+			this.sessionID = idCounter;
 		} catch(NullPointerException notAdmin) {
 			try {
 			Student u = new Student(username);
-			this.s = u;
+			s = u;
 			this.userType = 1;
-			this.sessionID = tempSessionID;
+			this.sessionID = idCounter;
+			userID = Integer.valueOf(s.getStudentID());
+			System.out.println(userID);
 			} catch(NullPointerException notStudent) {
-				String err = "User not found";
-				InvalidUserException e = new InvalidUserException(err);
+				InvalidUserException e = new InvalidUserException("User not found");
 				throw e;
 			}
+		}finally {
+			idCounter++;
 		}
 		
 		
@@ -34,6 +38,7 @@ public class LoginSession {
 	public int getUserType(){
 		return this.userType;
 	}
+	
 	public Admin getAdmin() {
 		return this.a;
 	}

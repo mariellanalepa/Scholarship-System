@@ -7,8 +7,8 @@ public class Admin {
 	private String adminLastName;
 	
 	public Admin(String usr) {
-		CsvReader c = new CsvReader(usr, 0);
-		String[] data = c.getAdminData();
+		CsvReader c = new CsvReader();
+		String[] data = c.getAdminData(usr);
 		this.username = data[0];
 		this.adminID = Integer.valueOf(data[1]);
 		this.adminFirstName = data[2];

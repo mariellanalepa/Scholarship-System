@@ -1,2 +1,5 @@
 username,StudentID,FName,LName,Type,Year,Faculty,Department,GPA
-john.doe,12345678,John,Doe,UGRAD,2,Science,CPSC,4
+s,12345678,FNAME,LNAME,UGRAD,1,SC,CPSC,4
+john.doe,30065479,John,Doe,UGRAD,2,SC,CPSC,2.8
+beth.jones,30026793,Beth,Jones,UGRAD,3,AR,ENGL,3.5
+carrie.smith,30098274,Carrie,Smith,UGRAD,4,EN,ENCL,3.6
