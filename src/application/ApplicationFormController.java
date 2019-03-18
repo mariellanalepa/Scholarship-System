@@ -51,6 +51,7 @@ public class ApplicationFormController implements Initializable
 	public void initialize(URL location, ResourceBundle resources) {
 		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
 		CsvReader s = new CsvReader();
+
 		Application a = new Application();
 		//event styling - uses lambda expressions
 		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
@@ -59,6 +60,7 @@ public class ApplicationFormController implements Initializable
 		a.setDateAdded(dateTimeFormat(LocalDateTime.now()));
 		a.setScholarshipId("1"); //temp hardcode 
 		a.setScholarshipName(s.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+		//a.setScholarshipDeadline(s.getDeadline(Integer.valueOf(a.getScholarshipDeadlineProperty())));
 		this.application = a;
 		
 		FNAME_FIELD.setText(LoginController.studentFirstName);
