@@ -18,7 +18,46 @@ public class CsvReader {
 	private List<String[]> databaseData;
 	private int databaseCounter;
 	
-
+	
+	/**
+	 * Fetches student information from the student CSVFile by username
+	 * @param username : String
+	 * @return data : String[] of data from the CSVFile 
+	 */
+	public String[] getStudentData(String username) {
+		getDatabaseEntry(username, studentDatabase);
+		return this.data;
+	}
+	
+	/**
+	 * Fetches admin information from the admin CSVFile by username
+	 * @param username : String
+	 * @return data : String[] of data from the CSVFile 
+	 */
+	public String[] getAdminData(String username) {
+		getDatabaseEntry(username, adminDatabase);
+		return this.data;
+	}
+	
+	/**
+	 * Loads the entire scholarship database into memory,
+	 * updates the databaseCounter, and
+	 * returns data as List<String[]>
+	 * @return databaseData : List<String[]> of database data
+	 */
+	public List<String[]> getScholarshipData(){
+		getDatabase(scholarshipDatabase);
+		ScholarshipFactory.setCounter(this.databaseCounter);
+		return this.databaseData;
+	}
+	
+	
+	/**
+	 * Opens specified CSVFile, reads each line splitting on comma, 
+	 * and stores the result into a List<String[]>
+	 * which is set as the databaseData attribute
+	 * @param databaseName
+	 */
 	private void getDatabase(String databaseName) {
 		List<String[]> list = new ArrayList<String[]>();
 		BufferedReader buffread = null;
@@ -101,7 +140,9 @@ public class CsvReader {
 		}
 		
 	}
-
+	
+	/* THIS FUNCTION DUPLICATES FUNCTIONALITY 
+	 * UPDATE CODE TO CALL getDatabase(String databaseName) INSTEAD */
 	public void getDatabaseForDelete(String databaseName) {
 		List<String[]> list = new ArrayList<String[]>();
 		BufferedReader buffread = null;
@@ -128,6 +169,7 @@ public class CsvReader {
 			}
 		}
 	}
+	
 	private void addDatabaseEntry(String databaseName, String[] data) {
 		BufferedWriter bw = null;
 		String line = String.join(",", data);
@@ -150,30 +192,7 @@ public class CsvReader {
 	}
 	
 	
-	/**
-	 * Fetches student information from the student CSVFile by username
-	 * @param username : String
-	 * @return data : String[] of data from the CSVFile 
-	 */
-	public String[] getStudentData(String username) {
-		getDatabaseEntry(username, studentDatabase);
-		return this.data;
-	}
 	
-	/**
-	 * Fetches admin information from the admin CSVFile by username
-	 * @param username : String
-	 * @return data : String[] of data from the CSVFile 
-	 */
-	public String[] getAdminData(String username) {
-		getDatabaseEntry(username, adminDatabase);
-		return this.data;
-	}
-	public List<String[]> getScholarshipData(){
-		getDatabase(scholarshipDatabase);
-		ScholarshipFactory.setCounter(this.databaseCounter);
-		return this.databaseData;
-	}
 	public String getScholarshipName(int scholarshipID){
 		String sName = "null";
 		getDatabase(scholarshipDatabase);

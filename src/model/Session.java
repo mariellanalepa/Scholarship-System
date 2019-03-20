@@ -13,11 +13,14 @@ public class Session {
 	/**
 	 * Session constructor, creates a session for the user specified by username.
 	 * Session instantiates user object (Student/Admin), and
-	 * updates the applicationDatabase and scholarshipDatabase attributes depending on user type
-	 * 		if user is Admin, the complete application and scholarship database will be loaded
+	 * updates the applicationDatabase and scholarshipDatabase attributes depending on user type:
+	 * 		if user is Admin, 
+	 * 			applicationDatabase contains all the SUBMITTED-status applications
+	 * 			scholarshipDatabase contains all scholarships
 	 *  	if user is Student, 
 	 *  		applicationDatabase contains applications with the students ID number
 	 *  	 	scholarshipDatabase contains the curated list of scholarships for that student
+	 *  
 	 * @param username : String
 	 * @throws InvalidUserException : not a valid username
 	 */
@@ -37,7 +40,8 @@ public class Session {
 			}
 		}
 	}
-
+	
+	/* THIS FUNCTION WILL BE RENDERED VOID - REPLACING WITH ABSTRACT*/
 	public int getUserType(){
 		return this.userType;
 	}
