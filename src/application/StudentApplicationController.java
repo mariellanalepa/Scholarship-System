@@ -1,7 +1,7 @@
 package application;
 import model.Application;
 import model.ApplicationFactory;
-import model.LoginSession;
+import model.Session;
 import model.Scholarship;
 import model.ScholarshipFactory;
 import model.Student;
@@ -27,7 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.LoginSession;
+import model.Session;
 
 
 public class StudentApplicationController implements Initializable {
@@ -68,8 +68,8 @@ public class StudentApplicationController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
-		System.out.println(LoginSession.userID);
-		ApplicationFactory af = new ApplicationFactory(LoginSession.userID);
+		System.out.println(Session.userID);
+		ApplicationFactory af = new ApplicationFactory(Session.userID);
 		ObservableList<Application> data = FXCollections.observableArrayList(af.getApplicationArray());
 
 		table.setItems(data);

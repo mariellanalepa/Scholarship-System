@@ -1,38 +1,41 @@
 package model;
 
-public class LoginSession {
-	private static Student s;
-	private static Admin a;
+import java.util.List;
+
+public class Session {
+	private Student student;
+	private Admin admin;
+	private List<String[]> applicationDatabase;
+	private List<String[]> scholarshipDatabase;
 	private int userType;	// 0 is admin, 1 is student
-	private int sessionID;
-	private static int idCounter = 0;
 	public static int userID;
 	
-	
-	public LoginSession(String username) throws InvalidUserException{
-		//System.out.println(username);
+	/**
+	 * Session constructor, creates a session for the user specified by username.
+	 * Session instantiates user object (Student/Admin), and
+	 * updates the applicationDatabase and scholarshipDatabase attributes depending on user type
+	 * 		if user is Admin, the complete application and scholarship database will be loaded
+	 *  	if user is Student, 
+	 *  		applicationDatabase contains applications with the students ID number
+	 *  	 	scholarshipDatabase contains the curated list of scholarships for that student
+	 * @param username : String
+	 * @throws InvalidUserException : not a valid username
+	 */
+	public Session(String username) throws InvalidUserException{
 		try {
-			Admin u = new Admin(username);
-			a = u;
+			this.admin= new Admin(username);
 			this.userType = 0;
-			this.sessionID = idCounter;
 		} catch(NullPointerException notAdmin) {
 			try {
-			Student u = new Student(username);
-			s = u;
+			this.student = new Student(username);
 			this.userType = 1;
-			this.sessionID = idCounter;
-			userID = Integer.valueOf(s.getStudentID());
+			userID = Integer.valueOf(student.getStudentID());
 			System.out.println(userID);
 			} catch(NullPointerException notStudent) {
 				InvalidUserException e = new InvalidUserException("User not found");
 				throw e;
 			}
-		}finally {
-			idCounter++;
 		}
-		
-		
 	}
 
 	public int getUserType(){
@@ -40,10 +43,10 @@ public class LoginSession {
 	}
 	
 	public Admin getAdmin() {
-		return this.a;
+		return this.admin;
 	}
 	public Student getStudent() {
-		return this.s;
+		return this.student;
 	}
 	
 }

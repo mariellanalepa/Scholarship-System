@@ -150,11 +150,21 @@ public class CsvReader {
 	}
 	
 	
-	
+	/**
+	 * Fetches student information from the student CSVFile by username
+	 * @param username : String
+	 * @return data : String[] of data from the CSVFile 
+	 */
 	public String[] getStudentData(String username) {
 		getDatabaseEntry(username, studentDatabase);
 		return this.data;
 	}
+	
+	/**
+	 * Fetches admin information from the admin CSVFile by username
+	 * @param username : String
+	 * @return data : String[] of data from the CSVFile 
+	 */
 	public String[] getAdminData(String username) {
 		getDatabaseEntry(username, adminDatabase);
 		return this.data;
