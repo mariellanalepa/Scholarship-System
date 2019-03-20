@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// APPLICATION CSV : applicationID	studentID	scholarshipID	dateAdded	status
+// SCHOLARSHIP CSV: IDNumber	Name	Donor	Deadline(dd/MM/yyyy HH:mm:ss)	Amount	Number	ReqFac	ReqDept	RecType	ReqGPA	ReqYear	Status	DatePosted(dd/MM/yyyy HH:mm:ss)
+
+
 public class CsvReader {
 	final String adminDatabase = "res/adminDatabase.csv";
 	final String studentDatabase = "res/studentDatabase.csv";
@@ -39,6 +44,7 @@ public class CsvReader {
 		return this.data;
 	}
 	
+	
 	/**
 	 * Loads the entire scholarship database into memory,
 	 * updates the databaseCounter, and
@@ -51,6 +57,70 @@ public class CsvReader {
 		return this.databaseData;
 	}
 	
+	/**
+	 *  DAVID CURATED FUNCTION HERE
+	 * Loads the entire scholarship database into memory,
+	 * updates the databaseCounter, and
+	 * returns data as List<String[]>
+	 * @return databaseData : List<String[]> of database data
+	 */
+	public List<String[]> getScholarshipData(int studentID){
+		getDatabase(scholarshipDatabase);
+		ScholarshipFactory.setCounter(this.databaseCounter);
+		// CURATING CODE HERE //
+		return this.databaseData;
+	}
+	
+	/**
+	 * Loads the entire application database into memory,
+	 * updates the databaseCounter, and
+	 * returns data as List<String[]>
+	 * @return databaseData : List<String[]> of database data
+	 */
+	public List<String[]> getApplicationData(){
+		getDatabase(applicationDatabase);
+		System.out.println("@ getApplicationData(): "+this.databaseCounter);
+		ApplicationFactory.setCounter(this.databaseCounter);
+		return this.databaseData;
+	}
+	
+	/**
+	 * Reads the entire admin database,
+	 * filters the data keeping only the entries which have a studentID field 
+	 * equal to the supplied argument.
+	 * Updates the databaseCounter, and returns data as List<String[]>
+	 * @param studentID : int
+	 * @return databaseData : List<String[]> of database data
+	 */
+
+	public List<String[]> getApplicationData(int studentID){
+		getDatabase(applicationDatabase);
+		List<String[]> dataList = new ArrayList<String[]>();
+		for(int i = 0; i < this.databaseData.size(); i++) {
+			if(this.databaseData.get(i)[1].equals(String.valueOf(studentID))) {
+				dataList.add(this.databaseData.get(i));
+			}		
+		}
+		return dataList;
+	}
+	
+	/**
+	 * Returns a List<String[]> of application data from applicationDatabase CSVFile
+	 * whose status matches that provided as an argument
+	 * @param status : String 
+	 * @return databaseData : List<String[]> of database data
+	 */
+
+	public List<String[]> getApplicationData(String status){
+		getDatabase(applicationDatabase);
+		List<String[]> dataList = new ArrayList<String[]>();
+		for(int i = 0; i < this.databaseData.size(); i++) {
+			if(this.databaseData.get(i)[4].equals(status)) {
+				dataList.add(this.databaseData.get(i));
+			}		
+		}
+		return dataList;
+	}
 	
 	/**
 	 * Opens specified CSVFile, reads each line splitting on comma, 
@@ -142,7 +212,8 @@ public class CsvReader {
 	}
 	
 	/* THIS FUNCTION DUPLICATES FUNCTIONALITY 
-	 * UPDATE CODE TO CALL getDatabase(String databaseName) INSTEAD */
+	 * UPDATE CALLING CODE TO CALL getDatabase(String databaseName) INSTEAD 
+	 * REMOVE FUNCTION AFTER UPDATED*/
 	public void getDatabaseForDelete(String databaseName) {
 		List<String[]> list = new ArrayList<String[]>();
 		BufferedReader buffread = null;
@@ -205,22 +276,7 @@ public class CsvReader {
 		}
 		return sName;
 	}
-	public List<String[]> getApplicationData(){
-		getDatabase(applicationDatabase);
-		System.out.println("@ getApplicationData(): "+this.databaseCounter);
-		ApplicationFactory.setCounter(this.databaseCounter);
-		return this.databaseData;
-	}
-	public List<String[]> getApplicationData(int studentID){
-		getDatabase(applicationDatabase);
-		List<String[]> l = new ArrayList<String[]>();
-		for(int i = 0; i < this.databaseData.size(); i++) {
-			if(this.databaseData.get(i)[1].equals(String.valueOf(studentID))) {
-				l.add(this.databaseData.get(i));
-			}		
-		}
-		return l;
-	}
+	
 	
 
 	

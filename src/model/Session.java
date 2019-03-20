@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+
+
 public class Session {
 	private Student student;
 	private Admin admin;
@@ -28,17 +30,30 @@ public class Session {
 		try {
 			this.admin= new Admin(username);
 			this.userType = 0;
+			this.initializeDabaseData();
 		} catch(NullPointerException notAdmin) {
 			try {
 			this.student = new Student(username);
 			this.userType = 1;
 			userID = Integer.valueOf(student.getStudentID());
-			System.out.println(userID);
+			this.initializeDabaseData();
 			} catch(NullPointerException notStudent) {
 				InvalidUserException e = new InvalidUserException("User not found");
 				throw e;
 			}
 		}
+	}
+	
+	private void initializeDabaseData() {
+		CsvReader c = new CsvReader();
+		if(this.userType == 0) {
+			this.setApplicationDatabase(c.getApplicationData("submitted"));
+			this.setScholarshipDatabase(c.getScholarshipData());
+		} else if(this.userType == 1) {
+			this.setApplicationDatabase(c.getApplicationData(Integer.valueOf(student.getStudentID())));
+			this.setScholarshipDatabase(c.getScholarshipData(Integer.valueOf(student.getStudentID())));
+		} 
+		
 	}
 	
 	/* THIS FUNCTION WILL BE RENDERED VOID - REPLACING WITH ABSTRACT*/
@@ -51,6 +66,22 @@ public class Session {
 	}
 	public Student getStudent() {
 		return this.student;
+	}
+
+	public List<String[]> getApplicationDatabase() {
+		return applicationDatabase;
+	}
+
+	public void setApplicationDatabase(List<String[]> applicationDatabase) {
+		this.applicationDatabase = applicationDatabase;
+	}
+
+	public List<String[]> getScholarshipDatabase() {
+		return scholarshipDatabase;
+	}
+
+	public void setScholarshipDatabase(List<String[]> scholarshipDatabase) {
+		this.scholarshipDatabase = scholarshipDatabase;
 	}
 	
 }
