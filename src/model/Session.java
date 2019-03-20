@@ -19,6 +19,7 @@ public class Session {
 	 * 		if user is Admin, 
 	 * 			applicationDatabase contains all the SUBMITTED-status applications
 	 * 			scholarshipDatabase contains all scholarships
+	 * 
 	 *  	if user is Student, 
 	 *  		applicationDatabase contains applications with the students ID number
 	 *  	 	scholarshipDatabase contains the curated list of scholarships for that student
