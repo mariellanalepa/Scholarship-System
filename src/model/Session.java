@@ -14,15 +14,8 @@ public class Session {
 	
 	/**
 	 * Session constructor, creates a session for the user specified by username.
-	 * Session instantiates user object (Student/Admin), and
-	 * updates the applicationDatabase and scholarshipDatabase attributes depending on user type:
-	 * 		if user is Admin, 
-	 * 			applicationDatabase contains all the SUBMITTED-status applications
-	 * 			scholarshipDatabase contains all scholarships
-	 * 
-	 *  	if user is Student, 
-	 *  		applicationDatabase contains applications with the students ID number
-	 *  	 	scholarshipDatabase contains the curated list of scholarships for that student
+	 * Session instantiates user object (Student/Admin),
+	 * and calls initialiazeDatabaseData() if user is valid.
 	 *  
 	 * @param username : String
 	 * @throws InvalidUserException : not a valid username
@@ -44,7 +37,16 @@ public class Session {
 			}
 		}
 	}
-	
+	/**
+	 * Initializes the applicationDatabase and scholarshipDatabase attributes depending on user type:
+	 * 		if user is Admin, 
+	 * 			applicationDatabase contains all the SUBMITTED-status applications
+	 * 			scholarshipDatabase contains all scholarships
+	 * 
+	 *  	if user is Student, 
+	 *  		applicationDatabase contains applications with the students ID number
+	 *  	 	scholarshipDatabase contains the curated list of scholarships for that student
+	 */
 	private void initializeDabaseData() {
 		CsvReader c = new CsvReader();
 		if(this.userType == 0) {
