@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import model.CsvReader;
+import model.SessionDataModel;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -15,16 +16,18 @@ import javafx.scene.layout.VBox;
 
 public class Main extends Application {
 	private Stage primaryStage;
+	private SessionDataModel session;  // does this need to be observable?
+	/*Controller Factory for ensuring controllers is facilitate construction of controllers
+	  which require as parameter SessionDataModel object*/ 
+	private ControllerFactory controllerFactory;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Student Scholarship Management System");
+		this.primaryStage.setTitle("University of Calgary Scholarship Management System");
+		this.setScene("/view/Login.fxml");
 		
-		//Set the scene to login UI 
-		primaryStage.setScene(LoginController.getScene());
-		primaryStage.show();
 	}
 	
 	public static void main(String[] args) {
@@ -32,6 +35,11 @@ public class Main extends Application {
 	}
 	
 	@Override
+	/**
+	 * The application initialization method. This is the first method called after construction of the 
+	 * Application object, and precedes call to start(javafx.stage.Stage). Here we place any objects that
+	 * must be initialized prior to application start. Note that we should not Scene or Stage objects here. 
+	 */
 	public void init() 
 	{
 		//Implement reading and initialization of Scholarships, Students in "database" here
@@ -39,6 +47,20 @@ public class Main extends Application {
 		CsvReader c = new CsvReader();
 		c.getApplicationData();
 		c.getScholarshipData();
+		this.session = new SessionDataModel();
+		this.controllerFactory = new ControllerFactory(session);
+	}
+	
+	private void setScene(String url) throws Exception 
+	{
+		//Inflate FXML and instantiate a LoginController object
+		//Main.class.getResource() indicates url is relative to path of this class
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource(url));
+		loader.setControllerFactory(controllerFactory);
+		Parent root = (Parent) loader.load();
+		//Create scene from root node and set scene to login UI 
+		this.primaryStage.setScene(new Scene(root));
+		this.primaryStage.show();
 	}
 	
 	

@@ -97,14 +97,14 @@ public class LoginController implements Initializable {
 	}
 	
 	
-	public static Scene getScene() throws Exception
-	{	
-		//Inflate FXML and instantiate a LoginController object
-		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/view/Login.fxml"));
-		Parent root = (Parent) loader.load();
-		//Create and return scene for root node
-		return new Scene(root);
-	}
+//	public static Scene getScene() throws Exception
+//	{	
+//		//Inflate FXML and instantiate a LoginController object
+//		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/view/Login.fxml"));
+//		Parent root = (Parent) loader.load();
+//		//Create and return scene for root node
+//		return new Scene(root);
+//	}
 	
 	public static String getUsername() 
 	{
