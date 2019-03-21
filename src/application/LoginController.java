@@ -2,7 +2,7 @@ package application;
 
 import model.Admin;
 import model.InvalidUserException;
-import model.LoginSession;
+import model.Session;
 import model.Student;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.LoginSession;
+import model.Session;
 
 public class LoginController implements Initializable {
 	
@@ -49,9 +49,9 @@ public class LoginController implements Initializable {
 		 * or student ID not in database
 		 * LoginSession instantiation will fail
 		 */
-		LoginSession login = null;
+		Session login = null;
 		try {
-			login = new LoginSession(username);
+			login = new Session(username);
 
 		} catch(InvalidUserException notValidUser) {
 			errorLabel.setText(invalidUname);

@@ -15,10 +15,10 @@ public class Student {
 	private List<String[]> applications;
 	//private CsvReader c;
 	
-	public Student(String usr) {
+	public Student(String username) {
 		CsvReader c = new CsvReader();
 		//this.c = c;
-		String[] data = c.getStudentData(usr);
+		String[] data = c.getStudentData(username);
 		this.username = data[0];
 		this.studentID = Integer.valueOf(data[1]);
 		this.studentFirstName = data[2];
@@ -28,6 +28,7 @@ public class Student {
 		this.studentFaculty = data[6];
 		this.studentDepartment = data[7];
 		this.studentGPA = Float.valueOf(data[8]);
+		this.applications = c.getApplicationData(this.studentID);
 	}
 	
 	public String getFirstName() 

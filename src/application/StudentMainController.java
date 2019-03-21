@@ -1,5 +1,5 @@
 package application;
-import model.LoginSession;
+import model.Session;
 import model.ScholarshipFactory;
 import model.Student;
 
@@ -19,7 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.LoginSession;
+import model.Session;
 
 
 public class StudentMainController implements Initializable {
