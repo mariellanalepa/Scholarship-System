@@ -1,9 +1,10 @@
-package application;
+package controller;
 
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -99,7 +100,7 @@ public class EditScholarshipController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getAdminName());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 		ScholarshipFactory sf = new ScholarshipFactory();
 		List<Scholarship> scholArray = sf.getScholarshipArray();		
 		for (int i = 0; i < sf.getScholarshipListLength(); i++)

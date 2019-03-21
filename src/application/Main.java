@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import model.CsvReader;
 import model.Session;
-import model.SessionDataModel;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -17,7 +16,7 @@ import javafx.scene.layout.VBox;
 
 public class Main extends Application {
 	private Stage primaryStage;
-	private Session session;  // does this need to be observable?
+	private Session session;  //Do fields of session need to be observable?
 	/*Controller Factory for ensuring controllers is facilitate construction of controllers
 	  which require as parameter SessionDataModel object*/ 
 	private ControllerFactory controllerFactory;

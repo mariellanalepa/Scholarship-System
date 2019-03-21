@@ -1,8 +1,9 @@
-package application;
+package controller;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -102,7 +103,7 @@ public class AddScholarshipController implements Initializable
 	//	signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
 		
 		
-		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getAdminName());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 	}
 	
 }

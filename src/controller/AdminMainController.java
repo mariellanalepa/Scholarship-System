@@ -1,4 +1,4 @@
-package application;
+package controller;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -88,7 +89,7 @@ public class AdminMainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getAdminName());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 	
 	}
 

@@ -1,4 +1,4 @@
-package application;
+package controller;
 import model.Application;
 import model.ApplicationFactory;
 import model.Session;
@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,27 +51,19 @@ public class ApplicationHistoryController implements Initializable {
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
 	{
-		/*//Get the primary stage of our App
-		Stage stage = (Stage) signOut.getScene().getWindow();
-		//Set new scene
-		stage.setScene(LoginController.getScene());			
-		stage.show();*/
 		main.setScene("/view/Login.fxml");
 	}
 	
 	@FXML 
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
-		/*Stage stage = (Stage) mainMenuButton.getScene().getWindow();
-		stage.setScene(StudentMainController.getScene());			
-		stage.show();*/
 		main.setScene("/view/StudentMain.fxml");
-		
 	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
-		System.out.println(Session.userID);
-		ApplicationFactory af = new ApplicationFactory(Session.userID);
+		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
+		System.out.println(session.getUser().getID());
+		ApplicationFactory af = new ApplicationFactory(session.getUser().getID());
 		ObservableList<Application> data = FXCollections.observableArrayList(af.getApplicationArray());
 
 		table.setItems(data);

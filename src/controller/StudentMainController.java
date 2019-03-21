@@ -1,4 +1,4 @@
-package application;
+package controller;
 import model.Session;
 import model.ScholarshipFactory;
 import model.Student;
@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -81,7 +82,7 @@ public class StudentMainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 	}
 	
 	public void setStudent(Student s) {

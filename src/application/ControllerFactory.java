@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import javafx.util.Callback;
 import model.Session;
-import model.SessionDataModel;
 
 /**
  * Factory to abstract the construction of controllers for our application scenes. 

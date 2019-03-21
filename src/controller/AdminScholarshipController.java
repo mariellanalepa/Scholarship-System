@@ -1,8 +1,9 @@
-package application;
+package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -17,13 +18,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.ScholarshipFactory;
 import model.Session;
 import model.Scholarship;
 
-public class StudentScholarshipController implements Initializable { 
+public class AdminScholarshipController implements Initializable { 
 	
 	private Main main;
 	private Session session;
@@ -34,8 +36,10 @@ public class StudentScholarshipController implements Initializable {
 	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
 	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
 	@FXML private TableView<Scholarship> table;
+	@FXML private TextField filter;	
 	
-	public StudentScholarshipController(Main main, Session session) 
+	
+	public AdminScholarshipController(Main main, Session session)
 	{
 		this.main = main;
 		this.session = session;
@@ -44,7 +48,7 @@ public class StudentScholarshipController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 		
 		ScholarshipFactory s = new ScholarshipFactory();
 		
@@ -65,37 +69,42 @@ public class StudentScholarshipController implements Initializable {
 		yearCol.setCellValueFactory(f->f.getValue().yearProperty());
 		//table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
 
-		filteredData.setPredicate(scholarship -> {
-			float studentGpa = Float.parseFloat(LoginController.studentGPAString);
-			float requiredGpa = scholarship.getGpa();
-					
-			if ((scholarship.getFaculty().contains(LoginController.studentFaculty) || scholarship.getFaculty().toLowerCase().contains("any"))
-			&& (scholarship.getDepartment().contains(LoginController.studentDept) || scholarship.getDepartment().toLowerCase().contains("any"))
-			/*&& (scholarship.getType().contains(LoginController.studentType) || scholarship.getType().toLowerCase().contains("any"))*/
-			&& (scholarship.getYear().contains(LoginController.studentYearString) || scholarship.getYear().toLowerCase().contentEquals("any"))
-			&& (studentGpa >= requiredGpa) && (scholarship.getStatus().toLowerCase().contains("open")) ) {
-				return true;
-			}
-			else {
+		filter.textProperty().addListener((observable, oldFilter, newFilter) -> {
+			filteredData.setPredicate(scholarship -> {
+				if (newFilter == oldFilter) {
+					return true;
+				}
+				String lowerCaseFilter = newFilter.toString().toLowerCase();
+				
+				if (scholarship.getId().toString().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getName().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getDonor().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getDeadline().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getAmount().toString().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getFaculty().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getDepartment().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getType().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getGpa().toString().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getYear().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getStatus().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getPosted().toLowerCase().contains(lowerCaseFilter) ||
+					scholarship.getNumber().toString().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				}
 				return false;
-			}
+			});
 		});
+	
 	}
+	
+	
 	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
-	{
-		/*//Get the primary stage of our App
-		Stage stage = (Stage) signOut.getScene().getWindow();
-		//Set new scene
-		stage.setScene(LoginController.getScene());			
-		stage.show();*/
+	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
 		main.setScene("/view/Login.fxml");
 	}
+	
 	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
-		/*Stage stage = (Stage) mainMenuButton.getScene().getWindow();
-		stage.setScene(StudentMainController.getScene());			
-		stage.show();*/
-		main.setScene("/view/StudentMain.fxml");
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {	
+		main.setScene("/view/AdminMain.fxml");
 	}
 }

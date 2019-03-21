@@ -11,12 +11,11 @@ import java.util.List;
  *
  */
 public class Session {
-	private Student student;
-	private Admin admin;
+	private User user;
 	private List<String[]> applicationDatabase;
 	private List<String[]> scholarshipDatabase;
-	private int userType;	// 0 is admin, 1 is student
-	public static int userID;
+	//private int userType;	// 0 is admin, 1 is student
+	//public static int userID;
 	
 	/**
 	 * Session constructor. Creates a session that is 
@@ -33,14 +32,14 @@ public class Session {
 	public void login(String username) throws InvalidUserException
 	{
 		try {
-			this.admin= new Admin(username);
-			this.userType = 0;
+			this.user = new Admin(username);
+			//this.userType = 0;
 			this.initializeDabaseData();
 		} catch(NullPointerException notAdmin) {
 			try {
-			this.student = new Student(username);
-			this.userType = 1;
-			userID = Integer.valueOf(student.getStudentID());
+			this.user = new Student(username);
+			//this.userType = 1;
+			//userID = Integer.valueOf(student.getStudentID());
 			this.initializeDabaseData();
 			} catch(NullPointerException notStudent) {
 				InvalidUserException e = new InvalidUserException("User not found");
@@ -62,26 +61,14 @@ public class Session {
 	 */
 	private void initializeDabaseData() {
 		CsvReader c = new CsvReader();
-		if(this.userType == 0) {
+		if(this.user instanceof Admin) {
 			this.setApplicationDatabase(c.getApplicationData("submitted"));
 			this.setScholarshipDatabase(c.getScholarshipData());
-		} else if(this.userType == 1) {
-			this.setApplicationDatabase(c.getApplicationData(Integer.valueOf(student.getStudentID())));
-			this.setScholarshipDatabase(c.getScholarshipData(Integer.valueOf(student.getStudentID())));
+		} else if(this.user instanceof Student) {
+			this.setApplicationDatabase(c.getApplicationData(Integer.valueOf(user.getID())));
+			this.setScholarshipDatabase(c.getScholarshipData(Integer.valueOf(user.getID())));
 		} 
 		
-	}
-	
-	/* THIS FUNCTION WILL BE RENDERED VOID - REPLACING WITH ABSTRACT*/
-	public int getUserType(){
-		return this.userType;
-	}
-	
-	public Admin getAdmin() {
-		return this.admin;
-	}
-	public Student getStudent() {
-		return this.student;
 	}
 
 	public List<String[]> getApplicationDatabase() {
@@ -98,6 +85,12 @@ public class Session {
 
 	public void setScholarshipDatabase(List<String[]> scholarshipDatabase) {
 		this.scholarshipDatabase = scholarshipDatabase;
+	}
+	
+	/*GETTERS & SETTERS*/
+	
+	public User getUser() {
+		return this.user;
 	}
 	
 }
