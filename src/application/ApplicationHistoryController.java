@@ -30,39 +30,40 @@ import javafx.stage.Stage;
 import model.Session;
 
 
-public class StudentApplicationController implements Initializable {
+public class ApplicationHistoryController implements Initializable {
+	
+	private Main main;
+	private Session session;
+	
 	protected Parent root;
 	@FXML private Button signOut, mainMenuButton;
 	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Application,String> applicationIdCol, scholarshipIdCol, scholarshipNameCol, dateSubmittedCol, deadlineCol, status;
 	@FXML private TableView<Application> table;
 	
-
-
-	
-	public static Scene getScene() throws Exception 
+	public ApplicationHistoryController(Main main, Session session)
 	{
-		FXMLLoader loader = new FXMLLoader(StudentApplicationController.class.getResource("/view/ApplicationHistory.fxml"));
-		Parent root = (Parent) loader.load();
-		Scene newScene = new Scene(root);
-		return newScene;
+		this.main = main;
+		this.session = session;
 	}
-	
 	
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
 	{
-		//Get the primary stage of our App
+		/*//Get the primary stage of our App
 		Stage stage = (Stage) signOut.getScene().getWindow();
 		//Set new scene
 		stage.setScene(LoginController.getScene());			
-		stage.show();
+		stage.show();*/
+		main.setScene("/view/Login.fxml");
 	}
+	
 	@FXML 
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
-		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		/*Stage stage = (Stage) mainMenuButton.getScene().getWindow();
 		stage.setScene(StudentMainController.getScene());			
-		stage.show();
+		stage.show();*/
+		main.setScene("/view/StudentMain.fxml");
 		
 	}
 	@Override

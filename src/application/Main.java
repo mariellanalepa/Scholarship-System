@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import model.CsvReader;
+import model.Session;
 import model.SessionDataModel;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +17,7 @@ import javafx.scene.layout.VBox;
 
 public class Main extends Application {
 	private Stage primaryStage;
-	private SessionDataModel session;  // does this need to be observable?
+	private Session session;  // does this need to be observable?
 	/*Controller Factory for ensuring controllers is facilitate construction of controllers
 	  which require as parameter SessionDataModel object*/ 
 	private ControllerFactory controllerFactory;
@@ -47,16 +48,17 @@ public class Main extends Application {
 		CsvReader c = new CsvReader();
 		c.getApplicationData();
 		c.getScholarshipData();
-		this.session = new SessionDataModel();
-		this.controllerFactory = new ControllerFactory(session);
+		this.session = new Session();
+		this.controllerFactory = new ControllerFactory(this, session);
 	}
 	
-	private void setScene(String url) throws Exception 
+	public void setScene(String url) throws Exception 
 	{
 		//Inflate FXML and instantiate a LoginController object
 		//Main.class.getResource() indicates url is relative to path of this class
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource(url));
 		loader.setControllerFactory(controllerFactory);
+		//Get node 'root' corresponding to FXML scene graph
 		Parent root = (Parent) loader.load();
 		//Create scene from root node and set scene to login UI 
 		this.primaryStage.setScene(new Scene(root));

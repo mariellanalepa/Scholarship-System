@@ -18,11 +18,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Application;
 import model.ScholarshipFactory;
+import model.Session;
 import model.Scholarship;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminEditController implements Initializable {
+public class EditScholarshipController implements Initializable {
+	
+	private Main main;
+	private Session session;
 	
 	protected Parent root;
 	@FXML private Button signOut, submitButton, editScholarship, mainMenuButton;
@@ -34,23 +38,32 @@ public class AdminEditController implements Initializable {
 	List<Scholarship> scholArray = sf.getScholarshipArray();		
 	private int i;
 
-	@FXML
+	public EditScholarshipController(Main main, Session session)
+	{
+		this.main = main;
+		this.session = session;
+	}
+	
+	
+	/*@FXML
 	public static Scene getScene() throws Exception 
 	{
 		FXMLLoader loader = new FXMLLoader(AdminEditController.class.getResource("/view/editScholarship.fxml"));
 		Parent root = (Parent) loader.load();
 		Scene newScene = new Scene(root);
 		return newScene;
-	}
+	}*/
 	
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
 	{
-		//Get the primary stage of our App
+		/*//Get the primary stage of our App
 		Stage stage = (Stage) signOut.getScene().getWindow();
 		//Set new scene
 		stage.setScene(LoginController.getScene());			
-		stage.show();
+		stage.show();*/
+		
+		main.setScene("/view/Login.fxml");
 	}
 
 	
@@ -77,9 +90,10 @@ public class AdminEditController implements Initializable {
 		
 		scholarship.deleteScholarship(i+1);
 		scholarship.saveScholarship(scholarshipData);
-		Stage stage = (Stage) submitButton.getScene().getWindow();
+		/*Stage stage = (Stage) submitButton.getScene().getWindow();
 		stage.setScene(AdminMainController.getScene());
-		stage.show();
+		stage.show();*/
+		main.setScene("/view/AdminMain.fxml");
 	}
 	
 	@Override
@@ -131,9 +145,11 @@ public class AdminEditController implements Initializable {
 	@FXML
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception 
 	{
-		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		/*Stage stage = (Stage) mainMenuButton.getScene().getWindow();
 		stage.setScene(LoginController.getScene());			
-		stage.show();
+		stage.show();*/
+		
+		main.setScene("/view/AdminMain.fxml");
 		
 	}
 

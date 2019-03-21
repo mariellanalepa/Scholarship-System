@@ -23,54 +23,59 @@ import model.Session;
 
 
 public class StudentMainController implements Initializable {
+	
+	private Main main;
+	private Session session;
+	
 	protected Parent root;
 	@FXML private Button newApplicationButton, signOut, viewScholarshipButton, reviewApplicationButton;
 	@FXML private Label welcomeLabel;
 	private Student student;
-
 	
-	public static Scene getScene() throws Exception 
+	public StudentMainController(Main main, Session session)
 	{
-		FXMLLoader loader = new FXMLLoader(StudentMainController.class.getResource("/view/StudentMain.fxml"));
-		Parent root = (Parent) loader.load();
-		Scene newScene = new Scene(root);
-		return newScene;
+		this.main = main;
+		this.session = session;
 	}
 	
 	@FXML
 	protected void handleNewApplicationButtonAction(ActionEvent event) throws Exception
 	{	 
-		//Get the primary stage of our App
+		/*//Get the primary stage of our App
 		Stage stage = (Stage) newApplicationButton.getScene().getWindow();
 		//Set new scene
 		stage.setScene(ApplicationFormController.getScene());			
-		stage.show();
+		stage.show();*/
+		main.setScene("/view/ApplicationForm.fxml");
 	}
 	
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
 	{
-		//Get the primary stage of our App
+		/*//Get the primary stage of our App
 		Stage stage = (Stage) signOut.getScene().getWindow();
 		//Set new scene
 		stage.setScene(LoginController.getScene());			
-		stage.show();
+		stage.show();*/
+		main.setScene("/view/Login.fxml");
 	}
 	@FXML
 	protected void handleViewScholarshipButtonAction(ActionEvent event) throws Exception
 	{
-		Stage stage = (Stage) viewScholarshipButton.getScene().getWindow();
+		/*Stage stage = (Stage) viewScholarshipButton.getScene().getWindow();
 		stage.setScene(StudentScholarshipController.getScene());			
-		stage.show();
+		stage.show();*/
+		main.setScene("/view/StudentScholarship.fxml");
 		
 	}
 	
 	@FXML
 	protected void handleReviewApplicationsButtonAction(ActionEvent event) throws Exception
 	{
-		Stage stage = (Stage) reviewApplicationButton.getScene().getWindow();
-		stage.setScene(StudentApplicationController.getScene());			
-		stage.show();
+		/*Stage stage = (Stage) reviewApplicationButton.getScene().getWindow();
+		stage.setScene(ApplicationHistoryController.getScene());			
+		stage.show();*/
+		main.setScene("/view/ApplicationHistory.fxml");
 	}
 
 	@Override

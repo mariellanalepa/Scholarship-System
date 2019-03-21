@@ -24,9 +24,13 @@ import model.Application;
 import model.ApplicationFactory;
 import model.CsvReader;
 import model.ScholarshipFactory;
+import model.Session;
 
 public class ApplicationFormController implements Initializable
 {	
+	private Main main;
+	private Session session;
+	
 	protected Parent root;
 	@FXML protected Label welcomeLabel, confirmationLabel, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
 	@FXML protected Button signOut, saveAndExitButton, submitButton, mainMenuButton; 
@@ -38,14 +42,12 @@ public class ApplicationFormController implements Initializable
 		String HOVERING_SIGNOUT_STYLE = "-fx-background-color: #cf0722; -fx-opacity: 70%; -fx-underline: true;";
 		String NORMAL_SIGNOUT_STYLE = "-fx-background-color: #cf0722; -fx-text-fill: white;";
 
-	public static Scene getScene() throws Exception 
+	public ApplicationFormController(Main main, Session session)
 	{
-		//getClass().getResource(path) loads resource from classpath
-		FXMLLoader loader = new FXMLLoader(ApplicationFormController.class.getResource("/view/AppForm.fxml"));
-		Parent root = (Parent) loader.load();
-		Scene newScene = new Scene(root);
-		return newScene;
+		this.main = main;
+		this.session = session;
 	}
+		
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -80,29 +82,32 @@ public class ApplicationFormController implements Initializable
 	
 	@FXML 
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
-		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		/*Stage stage = (Stage) mainMenuButton.getScene().getWindow();
 		stage.setScene(StudentMainController.getScene());			
-		stage.show();
+		stage.show();*/
+		main.setScene("/view/StudentMain.fxml");
 		
 	}
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
 	{
-		//Get the primary stage of our App
+		/*//Get the primary stage of our App
 		Stage stage = (Stage) signOut.getScene().getWindow();
 		//Set new scene
 		stage.setScene(LoginController.getScene());			
-		stage.show();
+		stage.show();*/
+		main.setScene("/view/Login.fxml");
 	}
 	@FXML
 	protected void handleSaveAndExitButtonAction(ActionEvent event) throws Exception
 	{
-		//Get the primary stage of our App
-		Stage stage = (Stage) saveAndExitButton.getScene().getWindow();
 		this.application.stashApplication();
+		/*//Get the primary stage of our App
+		Stage stage = (Stage) saveAndExitButton.getScene().getWindow();
 		//Set new scene
 		stage.setScene(StudentMainController.getScene());			
-		stage.show();
+		stage.show();*/
+		main.setScene("/view/StudentMain.fxml");
 	}
 	@FXML
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception

@@ -25,6 +25,9 @@ import model.Session;
 
 public class LoginController implements Initializable {
 	
+	private Main main;
+	private Session session;
+	
 	protected Parent root;
 	@FXML private Button signIn;
 	@FXML private TextField usernameField;
@@ -37,6 +40,11 @@ public class LoginController implements Initializable {
 	protected static String invalidUname = "Invalid username or password, please try again";
 
 	
+	public LoginController(Main main, Session session)
+	{
+		this.main = main;
+		this.session = session;	
+	}
 	
 	@FXML
 	protected void handleSignInButtonAction(ActionEvent event) throws Exception
@@ -44,14 +52,12 @@ public class LoginController implements Initializable {
 		//Get student ID from text field
 		username = usernameField.getText().toLowerCase();
 	
-		/* Create new login session
+		/* Call login from session
 		 * try to create new student, if input is not valid (integer) 
-		 * or student ID not in database
-		 * LoginSession instantiation will fail
+		 * or student ID not in database, login will throw InvalidUserException
 		 */
-		Session login = null;
 		try {
-			login = new Session(username);
+			session.login(username);
 
 		} catch(InvalidUserException notValidUser) {
 			errorLabel.setText(invalidUname);
@@ -65,20 +71,21 @@ public class LoginController implements Initializable {
 			//Get the primary stage of our App
 			Stage stage = (Stage) signIn.getScene().getWindow();
 			
-			int userType = login.getUserType();
+			int userType = session.getUserType();
 			/* admin user */
 			if (userType == 0) {
-				Admin a = login.getAdmin();
+				Admin a = session.getAdmin();
 				adminFirstName = a.getFirstName();
 				adminLastName = a.getLastName();
 	
-				//Set new scene
+				/*//Set new scene
 				stage.setScene(AdminMainController.getScene());			
-				stage.show();
+				stage.show();*/
+				main.setScene("/view/AdminMain.fxml");
 				
 			/* student user */	
 			} else if (userType == 1) {
-				Student s = login.getStudent();
+				Student s = session.getStudent();
 				// Get student attributes and assign to the login session
 				studentID = s.getStudentID();
 				studentFirstName = s.getFirstName();
@@ -88,9 +95,10 @@ public class LoginController implements Initializable {
 				studentFaculty = s.getStudentFaculty();
 				studentGPAString = s.getStudentGPA();
 				studentType = s.getStudentType();
-				//Set new scene
+				/*//Set new scene
 				stage.setScene(StudentMainController.getScene());			
-				stage.show();
+				stage.show();*/
+				main.setScene("/view/StudentMain.fxml");
 			}
 		
 		

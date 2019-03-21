@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import javafx.util.Callback;
+import model.Session;
 import model.SessionDataModel;
 
 /**
@@ -17,10 +18,12 @@ import model.SessionDataModel;
  */
 public class ControllerFactory implements Callback<Class<?>, Object> {
 	
-	SessionDataModel session; 
+	Session session; 
+	Main main;
 
-	public ControllerFactory(SessionDataModel session)
+	public ControllerFactory(Main main, Session session)
 	{
+		this.main = main;
 		this.session = session;
 	}
 
@@ -29,16 +32,19 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
 	{
 		try 
 		{
-			//For list of constructors for passed class 'param'
+			//For list of constructors for (controller) class 'param'
 			for (Constructor<?> constructor: param.getConstructors()) 
 			{
-			/*If the constructor takes one parameter, and that parameter is the same as, or a superclass or superinterface of,
-			the class specified by Class 'param' ("is assignable from"), generate a new instance of that class 
+			/*If the constructor takes two parameters, and the parameter are instances of (or instances of a superclass or 
+			 * superinterface of) Main and Session, respectively, then generate a new instance of controller class 'param' 
 			*/
-				if (constructor.getParameterCount() == 1 && SessionDataModel.class.isAssignableFrom(constructor.getParameterTypes()[0]))
-					return constructor.newInstance(session);
+				if (constructor.getParameterCount() == 2 
+					&& Main.class.isAssignableFrom(constructor.getParameterTypes()[0])
+					&& Session.class.isAssignableFrom(constructor.getParameterTypes()[1]))
+					
+					return constructor.newInstance(main, session);
 			}
-			//Only reach here if we were unable to construct passed Class by providing SessionDataModel object as parameter 
+			//Only reach here if we were unable to construct controller by passing Main and Session objects as parameters
 			return param.newInstance();
 		} catch (Exception e) 
 		{

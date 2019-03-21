@@ -3,7 +3,13 @@ package model;
 import java.util.List;
 
 
-
+/**
+ * Class in which we contain the summary of application data that constitutes the MODEL in the MVC design.
+ * Since the data model will depend on which user is logged in (i.e., the user session), we call this 
+ * class Session. 
+ * @author Natalie, Mariella
+ *
+ */
 public class Session {
 	private Student student;
 	private Admin admin;
@@ -13,14 +19,19 @@ public class Session {
 	public static int userID;
 	
 	/**
-	 * Session constructor, creates a session for the user specified by username.
+	 * Session constructor. Creates a session that is 
+	 * customized to user upon call to login(String username).
+	 */
+	public Session() {}
+	
+	/**
 	 * Session instantiates user object (Student/Admin),
-	 * and calls initialiazeDatabaseData() if user is valid.
-	 *  
+	 * and calls initialiazeDatabaseData() if user is valid. 
 	 * @param username : String
 	 * @throws InvalidUserException : not a valid username
 	 */
-	public Session(String username) throws InvalidUserException{
+	public void login(String username) throws InvalidUserException
+	{
 		try {
 			this.admin= new Admin(username);
 			this.userType = 0;
@@ -37,6 +48,8 @@ public class Session {
 			}
 		}
 	}
+	
+	
 	/**
 	 * Initializes the applicationDatabase and scholarshipDatabase attributes depending on user type:
 	 * 		if user is Admin, 

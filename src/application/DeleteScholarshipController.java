@@ -17,11 +17,16 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.Application;
 import model.ScholarshipFactory;
+import model.Session;
 import model.Scholarship;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminDeleteController implements Initializable {
+public class DeleteScholarshipController implements Initializable {
+	
+	private Main main;
+	private Session session;
+	
 	protected Parent root;
 	@FXML protected Label welcomeLabel, deleteLabel;
 	@FXML protected Button signOut, deleteButton, mainMenuButton;
@@ -29,22 +34,23 @@ public class AdminDeleteController implements Initializable {
 	ArrayList<String> nameArray = new ArrayList<String>();
 	private Scholarship scholarship;
 	
-	@FXML
-	public static Scene getScene() throws Exception
+	
+	public DeleteScholarshipController(Main main, Session session)
 	{
-		FXMLLoader loader = new FXMLLoader(AdminDeleteController.class.getResource("/view/deleteScholarship.fxml"));
-		Parent root = (Parent) loader.load();
-		Scene newScene = new Scene(root);
-		return newScene;
+		this.main = main;
+		this.session = session;
 	}
+	
 	@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
 	{
-		//Get the primary stage of our App
+		/*//Get the primary stage of our App
 		Stage stage = (Stage) signOut.getScene().getWindow();
 		//Set new scene
 		stage.setScene(LoginController.getScene());			
-		stage.show();
+		stage.show();*/
+		
+		main.setScene("/view/Login.fxml");
 	}
 	
 	
@@ -56,9 +62,10 @@ public class AdminDeleteController implements Initializable {
 		int i = nameArray.indexOf(scholarshipSelectDropDown.getValue().toString())+1; //nameArray is 1 shorter than scholArray
 		scholarship = scholArray.get(i-1); 				
 		scholarship.deleteScholarship(i); 
-		Stage stage = (Stage) deleteButton.getScene().getWindow();
+		/*Stage stage = (Stage) deleteButton.getScene().getWindow();
 		stage.setScene(AdminMainController.getScene());
-		stage.show();
+		stage.show();*/
+		main.setScene("/view/AdminMain.fxml");
 
 		
 		
@@ -67,10 +74,11 @@ public class AdminDeleteController implements Initializable {
 	@FXML
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception 
 	{
-		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		/*Stage stage = (Stage) mainMenuButton.getScene().getWindow();
 		stage.setScene(LoginController.getScene());			
-		stage.show();
+		stage.show();*/
 		
+		main.setScene("/view/AdminMain.fxml");
 	}
 	
 	@Override
