@@ -67,7 +67,7 @@ public class LoginController implements Initializable {
 				//Set scene to Admin Main Page
 				main.setScene("/view/AdminMain.fxml");
 				
-			} else if (session.getUser() instanceof Admin) {
+			} else if (session.getUser() instanceof Student) {
 				//Set scene to Student Main Page
 				main.setScene("/view/StudentMain.fxml");
 			}		
