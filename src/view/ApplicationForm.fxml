@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ApplicationFormController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApplicationFormController">
    <center>
       <GridPane alignment="TOP_CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" minHeight="450.0" prefHeight="600.0" prefWidth="800.0" vgap="20.0" BorderPane.alignment="CENTER">
          <columnConstraints>

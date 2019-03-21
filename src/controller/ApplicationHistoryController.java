@@ -1,75 +1,51 @@
-package application;
+package controller;
 import model.Application;
 import model.ApplicationFactory;
 import model.Session;
-import model.Scholarship;
-import model.ScholarshipFactory;
-import model.Student;
-
-import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import model.Session;
 
 
-public class StudentApplicationController implements Initializable {
-	protected Parent root;
+public class ApplicationHistoryController implements Initializable {
+	
+	private Main main;
+	private Session session;
 	@FXML private Button signOut, mainMenuButton;
 	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Application,String> applicationIdCol, scholarshipIdCol, scholarshipNameCol, dateSubmittedCol, deadlineCol, status;
 	@FXML private TableView<Application> table;
 	
-
-
-	
-	public static Scene getScene() throws Exception 
-	{
-		FXMLLoader loader = new FXMLLoader(StudentApplicationController.class.getResource("/view/ApplicationHistory.fxml"));
-		Parent root = (Parent) loader.load();
-		Scene newScene = new Scene(root);
-		return newScene;
+	public ApplicationHistoryController(Main main, Session session) {
+		this.main = main;
+		this.session = session;
 	}
-	
 	
 	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
-	{
-		//Get the primary stage of our App
-		Stage stage = (Stage) signOut.getScene().getWindow();
-		//Set new scene
-		stage.setScene(LoginController.getScene());			
-		stage.show();
+	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
+		main.setScene("/view/Login.fxml");
 	}
+	
 	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
-		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
-		stage.setScene(StudentMainController.getScene());			
-		stage.show();
-		
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
+		main.setScene("/view/StudentMain.fxml");
 	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getStudentName());
-		System.out.println(Session.userID);
-		ApplicationFactory af = new ApplicationFactory(Session.userID);
+		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
+		System.out.println(session.getUser().getID());
+		ApplicationFactory af = new ApplicationFactory(session.getUser().getID());
 		ObservableList<Application> data = FXCollections.observableArrayList(af.getApplicationArray());
 
 		table.setItems(data);

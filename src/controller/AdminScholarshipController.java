@@ -1,30 +1,28 @@
-package application;
+package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import model.ScholarshipFactory;
+import model.Session;
 import model.Scholarship;
 
 public class AdminScholarshipController implements Initializable { 
-	protected Parent root;
+	
+	private Main main;
+	private Session session;
 	@FXML private Button signOut, mainMenuButton;
 	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
@@ -33,19 +31,15 @@ public class AdminScholarshipController implements Initializable {
 	@FXML private TextField filter;	
 	
 	
-	public static Scene getScene() throws Exception 
-	{
-		//getClass().getResource(path) loads resource from classpath
-		FXMLLoader loader = new FXMLLoader(AdminMainController.class.getResource("/view/AdminScholarship.fxml"));
-		Parent root = (Parent) loader.load();
-		Scene newScene = new Scene(root);
-		return newScene;
+	public AdminScholarshipController(Main main, Session session) {
+		this.main = main;
+		this.session = session;
 	}
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		welcomeLabel.setText(welcomeLabel.getText() + " " + LoginController.getAdminName());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 		
 		ScholarshipFactory s = new ScholarshipFactory();
 		
@@ -96,19 +90,12 @@ public class AdminScholarshipController implements Initializable {
 	
 	
 	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
-	{
-		//Get the primary stage of our App
-		Stage stage = (Stage) signOut.getScene().getWindow();
-		//Set new scene
-		stage.setScene(LoginController.getScene());			
-		stage.show();
+	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
+		main.setScene("/view/Login.fxml");
 	}
+	
 	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
-		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
-		stage.setScene(AdminMainController.getScene());			
-		stage.show();
-		
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {	
+		main.setScene("/view/AdminMain.fxml");
 	}
 }
