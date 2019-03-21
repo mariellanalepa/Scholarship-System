@@ -4,39 +4,28 @@ import model.Admin;
 import model.InvalidUserException;
 import model.Session;
 import model.Student;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Session;
 
 public class LoginController implements Initializable {
 	
 	private Main main;
 	private Session session;
 	protected static String invalidUname = "Invalid username or password, please try again";
-
 	@FXML private Button signIn;
 	@FXML private TextField usernameField;
 	@FXML private Label errorLabel;
 	
 	
-	public LoginController(Main main, Session session)
-	{
+	public LoginController(Main main, Session session) {
 		this.main = main;
 		this.session = session;	
 	}

@@ -9,18 +9,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import model.ScholarshipFactory;
 import model.Session;
 import model.Scholarship;
@@ -29,8 +23,6 @@ public class AdminScholarshipController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	
-	protected Parent root;
 	@FXML private Button signOut, mainMenuButton;
 	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
@@ -39,8 +31,7 @@ public class AdminScholarshipController implements Initializable {
 	@FXML private TextField filter;	
 	
 	
-	public AdminScholarshipController(Main main, Session session)
-	{
+	public AdminScholarshipController(Main main, Session session) {
 		this.main = main;
 		this.session = session;
 	}

@@ -1,8 +1,6 @@
 package application;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import javafx.util.Callback;
 import model.Session;
 

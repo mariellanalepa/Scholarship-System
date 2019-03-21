@@ -2,24 +2,17 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import model.ScholarshipFactory;
 import model.Session;
 import model.Student;
@@ -29,16 +22,13 @@ public class StudentScholarshipController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	
-	protected Parent root;
 	@FXML private Button signOut, mainMenuButton;
 	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
 	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
 	@FXML private TableView<Scholarship> table;
 	
-	public StudentScholarshipController(Main main, Session session) 
-	{
+	public StudentScholarshipController(Main main, Session session) {
 		this.main = main;
 		this.session = session;
 	}

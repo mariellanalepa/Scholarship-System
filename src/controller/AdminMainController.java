@@ -26,8 +26,6 @@ public class AdminMainController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	
-	protected Parent root;
 	@FXML private Button signOut, viewScholarshipsButton, createScholarship, deleteButton, editScholarship;
 	@FXML private Label welcomeLabel;
 
@@ -37,60 +35,34 @@ public class AdminMainController implements Initializable {
 		this.session = session;
 	}
 	
-	
 	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
-	{
-		/*//Get the primary stage of our App
-		Stage stage = (Stage) signOut.getScene().getWindow();
-		//Set new scene
-		stage.setScene(LoginController.getScene());			
-		stage.show();*/
-		
+	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {	
 		main.setScene("/view/Login.fxml");
 	}
+	
 	@FXML
-	protected void handleScholarshipButtonAction(ActionEvent event) throws Exception
-	{
-		/*//Get the primary stage of our App
-		Stage stage = (Stage) viewScholarshipsButton.getScene().getWindow();
-		//Set new scene
-		stage.setScene(AdminScholarshipController.getScene());			
-		stage.show();*/
+	protected void handleScholarshipButtonAction(ActionEvent event) throws Exception {
 		main.setScene("/view/AdminScholarship.fxml");
 	}
+	
 	@FXML
-	protected void handleCreateScholarshipButtonAction(ActionEvent event) throws Exception 
-	{
-		/*Stage stage = (Stage) createScholarship.getScene().getWindow();
-		stage.setScene(AdminFormController.getScene());
-		stage.show();*/
+	protected void handleCreateScholarshipButtonAction(ActionEvent event) throws Exception {
 		main.setScene("/view/AddScholarship.fxml");
 	}
 
 	@FXML
-	protected void handleDeleteButtonAction(ActionEvent event) throws Exception 
-	{
-		/*Stage stage = (Stage) deleteButton.getScene().getWindow();
-		stage.setScene(DeleteScholarshipController.getScene());
-		stage.show();*/
+	protected void handleDeleteButtonAction(ActionEvent event) throws Exception {
 		main.setScene("/view/DeleteScholarship.fxml");
 	}
 	
 	@FXML
-	protected void handleEditScholarshipAction(ActionEvent event) throws Exception 
-	{
-		/*Stage stage = (Stage) editScholarship.getScene().getWindow();
-		stage.setScene(AdminEditController.getScene());
-		stage.show();*/
+	protected void handleEditScholarshipAction(ActionEvent event) throws Exception {
 		main.setScene("/view/EditScholarship.fxml");
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
-	
 	}
 
 	

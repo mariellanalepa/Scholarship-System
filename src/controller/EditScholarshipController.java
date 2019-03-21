@@ -3,21 +3,15 @@ package controller;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import model.Application;
 import model.ScholarshipFactory;
 import model.Session;
 import model.Scholarship;
@@ -28,8 +22,6 @@ public class EditScholarshipController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	
-	protected Parent root;
 	@FXML private Button signOut, submitButton, editScholarship, mainMenuButton;
 	@FXML private TextField deadlineBox, yearBox, donorBox, nameBox, numberBox, amountBox, GPABox, typeBox, departmentBox, facultyBox; 
 	@FXML private Label welcomeLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
@@ -39,35 +31,21 @@ public class EditScholarshipController implements Initializable {
 	List<Scholarship> scholArray = sf.getScholarshipArray();		
 	private int i;
 
-	public EditScholarshipController(Main main, Session session)
-	{
+	public EditScholarshipController(Main main, Session session) {
 		this.main = main;
 		this.session = session;
 	}
 	
-	
-	/*@FXML
-	public static Scene getScene() throws Exception 
-	{
-		FXMLLoader loader = new FXMLLoader(AdminEditController.class.getResource("/view/editScholarship.fxml"));
-		Parent root = (Parent) loader.load();
-		Scene newScene = new Scene(root);
-		return newScene;
-	}*/
-	
 	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
-	{
-		/*//Get the primary stage of our App
-		Stage stage = (Stage) signOut.getScene().getWindow();
-		//Set new scene
-		stage.setScene(LoginController.getScene());			
-		stage.show();*/
-		
+	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
 		main.setScene("/view/Login.fxml");
 	}
-
 	
+	@FXML
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
+		main.setScene("/view/AdminMain.fxml");
+	}
+
 	@FXML
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception 
 	{
@@ -91,9 +69,7 @@ public class EditScholarshipController implements Initializable {
 		
 		scholarship.deleteScholarship(i+1);
 		scholarship.saveScholarship(scholarshipData);
-		/*Stage stage = (Stage) submitButton.getScene().getWindow();
-		stage.setScene(AdminMainController.getScene());
-		stage.show();*/
+		//Set scene to Admin Main
 		main.setScene("/view/AdminMain.fxml");
 	}
 	
@@ -107,7 +83,6 @@ public class EditScholarshipController implements Initializable {
 		{
 			nameArray.add(scholArray.get(i).getName());
 			scholDrop.setItems(FXCollections.observableArrayList(nameArray));
-
 		}
 		
 	}
@@ -115,8 +90,6 @@ public class EditScholarshipController implements Initializable {
 	@FXML
 	public void handleEdit(ActionEvent event) throws Exception 
 	{
-		
-		
 		i = nameArray.indexOf(scholDrop.getValue().toString());
 		Scholarship scholarship = scholArray.get(i);
 		nameBox.setText(scholarship.getName());
@@ -139,21 +112,7 @@ public class EditScholarshipController implements Initializable {
 		String day = dateTime.substring(8, 10) + "/";
 		String hms = dateTime.substring(11, 19);
 		String dateTimeString = year + month + day + hms;
-		return dateTimeString;
-				
+		return dateTimeString;			
 	}
-	
-	@FXML
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception 
-	{
-		/*Stage stage = (Stage) mainMenuButton.getScene().getWindow();
-		stage.setScene(LoginController.getScene());			
-		stage.show();*/
 		
-		main.setScene("/view/AdminMain.fxml");
-		
-	}
-
-	
-	
 }

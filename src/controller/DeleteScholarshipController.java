@@ -1,22 +1,15 @@
 package controller;
 
-
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import model.Application;
 import model.ScholarshipFactory;
 import model.Session;
 import model.Scholarship;
@@ -27,8 +20,6 @@ public class DeleteScholarshipController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	
-	protected Parent root;
 	@FXML protected Label welcomeLabel, deleteLabel;
 	@FXML protected Button signOut, deleteButton, mainMenuButton;
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
@@ -36,21 +27,13 @@ public class DeleteScholarshipController implements Initializable {
 	private Scholarship scholarship;
 	
 	
-	public DeleteScholarshipController(Main main, Session session)
-	{
+	public DeleteScholarshipController(Main main, Session session) {
 		this.main = main;
 		this.session = session;
 	}
 	
 	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
-	{
-		/*//Get the primary stage of our App
-		Stage stage = (Stage) signOut.getScene().getWindow();
-		//Set new scene
-		stage.setScene(LoginController.getScene());			
-		stage.show();*/
-		
+	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
 		main.setScene("/view/Login.fxml");
 	}
 	
@@ -63,22 +46,12 @@ public class DeleteScholarshipController implements Initializable {
 		int i = nameArray.indexOf(scholarshipSelectDropDown.getValue().toString())+1; //nameArray is 1 shorter than scholArray
 		scholarship = scholArray.get(i-1); 				
 		scholarship.deleteScholarship(i); 
-		/*Stage stage = (Stage) deleteButton.getScene().getWindow();
-		stage.setScene(AdminMainController.getScene());
-		stage.show();*/
+		//Set scene to Admin Main 
 		main.setScene("/view/AdminMain.fxml");
-
-		
-		
 	}
 	
 	@FXML
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception 
-	{
-		/*Stage stage = (Stage) mainMenuButton.getScene().getWindow();
-		stage.setScene(LoginController.getScene());			
-		stage.show();*/
-		
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
 		main.setScene("/view/AdminMain.fxml");
 	}
 	
@@ -90,8 +63,6 @@ public class DeleteScholarshipController implements Initializable {
 		{
 			nameArray.add(scholArray.get(i).getName());
 			scholarshipSelectDropDown.setItems(FXCollections.observableArrayList(nameArray));
-			
-		}
-		
+		}	
 	}
 }
