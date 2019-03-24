@@ -12,10 +12,9 @@ import java.util.List;
  */
 public class Session {
 	private User user;
-	private List<String[]> applicationDatabase;
-	private List<String[]> scholarshipDatabase;
-	//private int userType;	// 0 is admin, 1 is student
-	//public static int userID;
+	private List<String[]> applicationDatabase;	// specific to user 
+	private List<String[]> scholarshipDatabase; // specific to user 
+
 	
 	/**
 	 * Session constructor. Creates a session that is 
@@ -33,14 +32,12 @@ public class Session {
 	{
 		try {
 			this.user = new Admin(username);
-			//this.userType = 0;
-			this.initializeDabaseData();
+			initializeDabaseData();
+			
 		} catch(NullPointerException notAdmin) {
 			try {
 			this.user = new Student(username);
-			//this.userType = 1;
-			//userID = Integer.valueOf(student.getStudentID());
-			this.initializeDabaseData();
+			initializeDabaseData();
 			} catch(NullPointerException notStudent) {
 				InvalidUserException e = new InvalidUserException("User not found");
 				throw e;
@@ -71,26 +68,29 @@ public class Session {
 		
 	}
 
-	public List<String[]> getApplicationDatabase() {
-		return applicationDatabase;
-	}
-
-	public void setApplicationDatabase(List<String[]> applicationDatabase) {
-		this.applicationDatabase = applicationDatabase;
-	}
-
-	public List<String[]> getScholarshipDatabase() {
-		return scholarshipDatabase;
-	}
-
-	public void setScholarshipDatabase(List<String[]> scholarshipDatabase) {
-		this.scholarshipDatabase = scholarshipDatabase;
+	public void saveDatabases() {
+		CsvReader c = new CsvReader();
+		c.saveDatabaseOnExit(c.scholarshipDatabase, this.scholarshipDatabase);
+		c.saveDatabaseOnExit(c.applicationDatabase, this.applicationDatabase);
 	}
 	
 	/*GETTERS & SETTERS*/
 	
 	public User getUser() {
 		return this.user;
+	}
+	public List<String[]> getApplicationDatabase() {
+		return applicationDatabase;
+	}
+	public List<String[]> getScholarshipDatabase() {
+		return scholarshipDatabase;
+	}
+	
+	private void setApplicationDatabase(List<String[]> applicationDatabase) {
+		this.applicationDatabase = applicationDatabase;
+	}
+	private void setScholarshipDatabase(List<String[]> scholarshipDatabase) {
+		this.scholarshipDatabase = scholarshipDatabase;
 	}
 	
 }

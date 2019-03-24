@@ -12,7 +12,10 @@ import java.util.List;
 
 // APPLICATION CSV : applicationID	studentID	scholarshipID	dateAdded	status
 // SCHOLARSHIP CSV: IDNumber	Name	Donor	Deadline(dd/MM/yyyy HH:mm:ss)	Amount	Number	ReqFac	ReqDept	RecType	ReqGPA	ReqYear	Status	DatePosted(dd/MM/yyyy HH:mm:ss)
-
+/**
+ * CsvReader class. Contains all functions that perform I/O on the csv files
+ * @author Natalie
+ */
 
 public class CsvReader {
 	final String adminDatabase = "res/adminDatabase.csv";
@@ -267,7 +270,6 @@ public class CsvReader {
 	public String getScholarshipName(int scholarshipID){
 		String sName = "null";
 		getDatabase(scholarshipDatabase);
-		//ScholarshipFactory.setCounter(this.databaseCounter);
 		for(int i = 0; i < this.databaseData.size(); i++) {
 			if(Integer.valueOf(this.databaseData.get(i)[0]) == scholarshipID) {
 				sName = this.databaseData.get(i)[1];
@@ -298,6 +300,114 @@ public class CsvReader {
 		return success;
 	}
 
+	/**
+	 * Writes updated database to file before closing
+	 * @param databaseName : String
+	 * @param databaseData : List<String[]>
+	 */
+	public void saveDatabaseOnExit(String databaseName, List<String[]> databaseData) {
+		BufferedWriter bw = null;
+		List<String[]> data = updateData(databaseName, databaseData);
+		try {
+			File f = new File(databaseName);
+			bw = new BufferedWriter(new FileWriter(f, false));
+			
+			for(int i = 0; i < data.size(); i++) {
+				String line = String.join(",", data.get(i));
+				line += "\n";
+				bw.write(line);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bw != null) {
+				try {
+					bw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Checks and fixes coherency between data in saved file and data from current Session
+	 * @param databaseName : String
+	 * @param databaseData : List<String[]>
+	 */
+	private List<String[]> updateData(String databaseName, List<String[]> freshDatabase) {
+		List<String[]> data = new ArrayList<String[]>();
+		
+		// get database from file for comparison
+		getDatabase(databaseName);
+		List<String[]> staleDatabase = this.databaseData;
+		
+		int newLen = freshDatabase.size();
+		int oldLen = staleDatabase.size();
+		int i = 0;
+		//int m = java.lang.Math.min(newLen, oldLen)
+		int j = 0;
+			
+		
+		while((i < newLen) & (j < oldLen)) {
+			String[] newLine = freshDatabase.get(i);
+			String[] oldLine = staleDatabase.get(j);
+				
+			// get integer values of id numbers
+			int newID = Integer.valueOf(newLine[0]);
+			int oldID = Integer.valueOf(oldLine[0]);
+				
+			if(newID == oldID) {
+				// case 1: same ID number
+				// replace with new data
+				data.add(newLine);
+				i++;
+				j++;
 
+			} else if((newID > oldID) & (j < oldLen)) {
+				// case 2: ID number of new > old
+				// add data from old until oldID >= newID
+				while(newID > oldID) {
+					oldLine = staleDatabase.get(j);
+					oldID = Integer.valueOf(oldLine[0]);
+					data.add(oldLine);
+					j++;
+				}
+
+			} else {
+				// case 3: ID number of new < old
+				// add data from new until newID <= oldID
+				while((newID < oldID) & (i < newLen)) {
+					newLine = freshDatabase.get(i);
+					newID = Integer.valueOf(newLine[0]);
+					data.add(newLine);
+					i++;
+				}
+			}
+		
+		}
+		
+		// if list lengths are not equal
+		// add all remaining data from the longer list 
+		if(newLen > oldLen) {
+			while(i < newLen) {
+				String[] newLine = freshDatabase.get(i);
+				data.add(newLine);
+				i++;
+			}
+		} else if(newLen < oldLen) {
+			while(j < oldLen) {
+				String[] oldLine = staleDatabase.get(j);
+				data.add(oldLine);
+				j++;
+			}
+			
+		}
+			
+		return data;
+	}
+	
+	
 }
 	

@@ -8,10 +8,15 @@ import model.Session;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-
+/**
+ * Main for Scholarship Managment System
+ * @author Mariella, Natalie
+ *
+ */
 public class Main extends Application {
 	private Stage primaryStage;
-	private Session session;  //Do fields of session need to be observable?
+	private Session session;  
+	
 	/*Controller Factory for ensuring controllers is facilitate construction of controllers
 	  which require as parameter SessionDataModel object*/ 
 	private ControllerFactory controllerFactory;
@@ -37,11 +42,6 @@ public class Main extends Application {
 	 */
 	public void init() 
 	{
-		//Implement reading and initialization of Scholarships, Students in "database" here
-		// Must create static (or otherwise make accessible) arrays for scholarships, students in "database"
-		CsvReader c = new CsvReader();
-		c.getApplicationData();
-		c.getScholarshipData();
 		this.session = new Session();
 		this.controllerFactory = new ControllerFactory(this, session);
 	}
@@ -57,6 +57,19 @@ public class Main extends Application {
 		//Create scene from root node and set scene to login UI 
 		this.primaryStage.setScene(new Scene(root));
 		this.primaryStage.show();
+	}
+	
+	@Override
+	/**
+	 * The application stop method. Intercepts exit signal in order to save any changes to the database data
+	 * 
+	 */
+	public void stop() {
+		// check to see if user has logged in (ie. are there even any changes to save?)
+		if(this.session != null) {
+			this.session.saveDatabases();
+		}
+		System.out.println("Goodbye!\n");
 	}
 	
 	
