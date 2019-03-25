@@ -26,7 +26,8 @@ class CsvReader {
 	private List<String[]> databaseData;
 	private int databaseCounter;
 	
-	
+	private static String applicationDatabaseHeader ="applicationID,studentID,scholarshipID,dateAdded,status\n";
+	private static String scholarshipDatabaseHeader = "IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,RecType,ReqGPA,ReqYear,Status,DatePosted(dd/MM/yyyy HH:mm:ss)\n";
 	
 	
 	/**
@@ -220,32 +221,43 @@ class CsvReader {
 	 * @param data : List<String[]>
 	 */
 	void writeDatabase(String databaseName, List<String[]> data) {
-		System.out.println(databaseName);
-		for(int i = 0; i < data.size(); i++) {
-			System.out.println(data.get(i));
-		}
-//		BufferedWriter bw = null;
-//		try {
-//			File f = new File(databaseName);
-//			bw = new BufferedWriter(new FileWriter(f, false)); // override mode
-//			
-//			for(int i = 0; i < data.size(); i++) {
-//				String line = String.join(",", data.get(i));
-//				line += "\n";
-//				bw.write(line);
-//			}
-//			
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (bw != null) {
-//				try {
-//					bw.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
+//
+//		for(int i = 0; i < data.size(); i++) {
+//			System.out.println(String.join(",", data.get(i)));
 //		}
+//		
+		
+		BufferedWriter bw = null;
+		try {
+			File f = new File(databaseName);
+			
+			// filewriter in *overwrite mode*
+			bw = new BufferedWriter(new FileWriter(f, false)); 
+			
+			// write appropriate header for database
+			if(databaseName == CsvReader.scholarshipDatabase) {
+				bw.write(scholarshipDatabaseHeader);
+			} else if(databaseName == CsvReader.applicationDatabase) {
+				bw.write(applicationDatabaseHeader);
+			}
+			//write contents of data array
+			for(int i = 0; i < data.size(); i++) {
+				String line = String.join(",", data.get(i));
+				line += "\n";
+				bw.write(line);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bw != null) {
+				try {
+					bw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 

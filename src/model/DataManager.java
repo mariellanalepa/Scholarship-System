@@ -146,7 +146,10 @@ public class DataManager {
 	 */
 	public List<String[]> getApplicationDataByID(int studentID){
 		List<String[]> dataList = new ArrayList<String[]>();
+		
 		for(int i = 0; i < masterApplicationDatabase.size(); i++) {
+			String[] l = masterApplicationDatabase.get(i);
+			System.out.println(String.join(",", l));
 			if(masterApplicationDatabase.get(i)[1].equals(String.valueOf(studentID))) {
 				dataList.add(masterApplicationDatabase.get(i));
 			}		
@@ -219,7 +222,7 @@ public class DataManager {
 		int oldLen = staleDatabase.size();
 		int i = 0;
 		int j = 0;
-			
+		
 		while((i < newLen) & (j < oldLen)) {
 			String[] newLine = freshDatabase.get(i);
 			String[] oldLine = staleDatabase.get(j);
@@ -236,45 +239,40 @@ public class DataManager {
 			// get integer values of id numbers
 				int newID = Integer.valueOf(newLine[0]);
 				int oldID = Integer.valueOf(oldLine[0]);
-
+				
 			if(newID == oldID) {
 				// case 1: same ID number
-				// replace with new data
+				// add data from new, increment both i and j
 				data.add(newLine);
 				i++;
 				j++;
+				continue;
 
 			} else if((newID > oldID) & (j < oldLen)) {
 				// case 2: ID number of new > old
-				// add data from old until oldID >= newID
-				while(newID > oldID) {
-					oldLine = staleDatabase.get(j);
-					oldID = Integer.valueOf(oldLine[0]);
+				// add data from old, increment j
 					data.add(oldLine);
 					j++;
-				}
-
+					continue;
+	
 			} else {
 				// case 3: ID number of new < old
-				// add data from new until newID <= oldID
-				while((newID < oldID) & (i < newLen)) {
-					newLine = freshDatabase.get(i);
-					newID = Integer.valueOf(newLine[0]);
+				// add data from new, increment i
 					data.add(newLine);
 					i++;
-				}
+					continue;
 			}
 		}
 		
 		// if list lengths are not equal
 		// add all remaining data from the longer list 
-		if(newLen > oldLen) {
+		if(i > j) {
 			while(i < newLen) {
 				String[] newLine = freshDatabase.get(i);
 				data.add(newLine);
 				i++;
 			}
-		} else if(newLen < oldLen) {
+		} else if(i < j) {
 			while(j < oldLen) {
 				String[] oldLine = staleDatabase.get(j);
 				data.add(oldLine);

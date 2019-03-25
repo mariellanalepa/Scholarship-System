@@ -79,8 +79,18 @@ public class Session {
 
 	public void saveDatabases() {
 		DataManager m = new DataManager();
-		m.saveDatabaseOnExit(CsvReader.scholarshipDatabase, this.scholarshipDatabase);
-		m.saveDatabaseOnExit(CsvReader.applicationDatabase, this.applicationDatabase);
+		try {
+			m.saveDatabaseOnExit(CsvReader.scholarshipDatabase, this.scholarshipDatabase);
+		}catch(NullPointerException e) {
+			System.out.println(e);
+		}
+		try {
+			m.saveDatabaseOnExit(CsvReader.applicationDatabase, this.applicationDatabase);
+		} catch(NullPointerException n) {
+			System.out.println(n);
+			return;
+		}
+		
 	}
 	
 	
