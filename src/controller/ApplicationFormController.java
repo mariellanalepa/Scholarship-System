@@ -82,7 +82,6 @@ public class ApplicationFormController implements Initializable
 	protected void handleSaveAndExitButtonAction(ActionEvent event) throws Exception
 	{
 		this.application.saveApplication();
-		session.updateApplicationDatabase();
 		main.setScene("/view/StudentMain.fxml");
 	}
 	
@@ -90,7 +89,12 @@ public class ApplicationFormController implements Initializable
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception
 	{
 		this.application.setDateSubmitted(dateTimeFormat(LocalDateTime.now()));
+		this.application.setStatus("submitted");
 		this.application.saveApplication();
+		
+		submitButton.setVisible(false);
+		saveAndExitButton.setVisible(false);
+		
 		confirmationLabel.setVisible(true);
 	}
 	

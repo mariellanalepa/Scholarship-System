@@ -12,21 +12,21 @@ import java.util.List;
  */
 public class Session {
 	private User user;
-	private List<String[]> applicationDatabase;	// specific to user 
-	private List<String[]> scholarshipDatabase; // specific to user 
-	private List<String[]> masterApplicationDatabase;	
-	private List<String[]> masterScholarshipDatabase;  
-	
-	
+	private List<String[]> userApplicationDatabase;	// specific to user 
+	private List<String[]> userScholarshipDatabase; // specific to user 
+	public DataManager m;
+
+
 	/**
 	 * Session constructor. Creates a session that is 
 	 * customized to user upon call to login(String username).
 	 */
 	public Session() {
+		this.m = new DataManager();
 		DataManager.loadApplicationData(); // loads application database
 		DataManager.loadScholarshipData(); // loads scholarship database
 	}
-	
+
 	/**
 	 * Session instantiates user object (Student/Admin),
 	 * and calls initialiazeDatabaseData() if user is valid. 
@@ -37,20 +37,20 @@ public class Session {
 	{
 		try {
 			this.user = new Admin(username);
-			initializeDabaseData();
-			
+
 		} catch(InvalidUserException notAdmin) {
 			try {
-			this.user = new Student(username);
-			initializeDabaseData();
+				this.user = new Student(username);
 			} catch(InvalidUserException notStudent) {
 				InvalidUserException e = new InvalidUserException("User not found");
 				throw e;
 			}
 		}
+		
+		initializeDabaseData();
 	}
-	
-	
+
+
 	/**
 	 * Initializes the applicationDatabase and scholarshipDatabase attributes depending on user type:
 	 * 		if user is Admin, 
@@ -62,81 +62,61 @@ public class Session {
 	 *  	 	scholarshipDatabase contains the curated list of scholarships for that student
 	 */
 	private void initializeDabaseData() {
-		DataManager m = new DataManager();
-//		m.loadApplicationData(); // loads application database
-//		m.loadScholarshipData(); // loads scholarship database
-
-		
 		if(this.user instanceof Admin) {
-			this.setApplicationDatabase(m.getApplicationDataByStatus("submitted"));
-			this.setScholarshipDatabase(DataManager.getScholarshipData());
+			this.setUserApplicationDatabase(m.getApplicationDataByStatus("submitted"));
+			this.setUserScholarshipDatabase(DataManager.getScholarshipData());
 		} else if(this.user instanceof Student) {
-			this.setApplicationDatabase(m.getApplicationDataByID(Integer.valueOf(user.getID())));
-			this.setScholarshipDatabase(m.getScholarshipDataByID(Integer.valueOf(user.getID())));
+			this.setUserApplicationDatabase(m.getApplicationDataByID(Integer.valueOf(user.getID())));
+			this.setUserScholarshipDatabase(m.getScholarshipDataByID(Integer.valueOf(user.getID())));
 		} 
-		
+
 	}
 
 	public void saveDatabases() {
-		DataManager m = new DataManager();
 		try {
-			m.saveDatabaseOnExit(CsvReader.scholarshipDatabase, this.scholarshipDatabase);
+			m.saveDatabaseOnExit(CsvReader.scholarshipDatabase);
 		}catch(NullPointerException e) {
 			System.out.println(e);
 		}
 		try {
-			m.saveDatabaseOnExit(CsvReader.applicationDatabase, this.applicationDatabase);
+			m.saveDatabaseOnExit(CsvReader.applicationDatabase);
 		} catch(NullPointerException n) {
 			System.out.println(n);
 			return;
 		}
-		
+
 	}
-	
-	
-	public void updateApplicationDatabase() {
-		this.applicationDatabase = DataManager.getApplicationData();	
-	}
-	public void updateScholarshipDatabase() {
-		this.scholarshipDatabase = DataManager.getScholarshipData();	
-	}
-	
+
+
+//	public void updateApplicationDatabase() {
+//		this.userApplicationDatabase = DataManager.getApplicationData();	
+//	}
+//	public void updateScholarshipDatabase() {
+//		this.userScholarshipDatabase = DataManager.getScholarshipData();	
+//	}
+
 	/*GETTERS & SETTERS*/
-	
+
 	public User getUser() {
 		return this.user;
 	}
-	public List<String[]> getApplicationDatabase() {
-		return applicationDatabase;
+	public List<String[]> getUserApplicationDatabase() {
+		return userApplicationDatabase;
 	}
-	public List<String[]> getScholarshipDatabase() {
-		return scholarshipDatabase;
-	}
-	
-	protected void setApplicationDatabase(List<String[]> applicationDatabase) {
-		this.applicationDatabase = applicationDatabase;
-	}
-	protected void setScholarshipDatabase(List<String[]> scholarshipDatabase) {
-		this.scholarshipDatabase = scholarshipDatabase;
+	public List<String[]> getUserScholarshipDatabase() {
+		return userScholarshipDatabase;
 	}
 
-	public List<String[]> getMasterApplicationDatabase() {
-		return masterApplicationDatabase;
+	protected void setUserApplicationDatabase(List<String[]> applicationDatabase) {
+		this.userApplicationDatabase = applicationDatabase;
 	}
-
-	public void setMasterApplicationDatabase(List<String[]> masterApplicationDatabase) {
-		this.masterApplicationDatabase = masterApplicationDatabase;
-	}
-
-	public List<String[]> getMasterScholarshipDatabase() {
-		return masterScholarshipDatabase;
-	}
-
-	public void setMasterScholarshipDatabase(List<String[]> masterScholarshipDatabase) {
-		this.masterScholarshipDatabase = masterScholarshipDatabase;
+	protected void setUserScholarshipDatabase(List<String[]> scholarshipDatabase) {
+		this.userScholarshipDatabase = scholarshipDatabase;
 	}
 
 
 
-	
+
+
+
 }
