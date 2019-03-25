@@ -220,28 +220,32 @@ class CsvReader {
 	 * @param data : List<String[]>
 	 */
 	void writeDatabase(String databaseName, List<String[]> data) {
-		BufferedWriter bw = null;
-		try {
-			File f = new File(databaseName);
-			bw = new BufferedWriter(new FileWriter(f, false)); // override mode
-			
-			for(int i = 0; i < data.size(); i++) {
-				String line = String.join(",", data.get(i));
-				line += "\n";
-				bw.write(line);
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (bw != null) {
-				try {
-					bw.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+		System.out.println(databaseName);
+		for(int i = 0; i < data.size(); i++) {
+			System.out.println(data.get(i));
 		}
+//		BufferedWriter bw = null;
+//		try {
+//			File f = new File(databaseName);
+//			bw = new BufferedWriter(new FileWriter(f, false)); // override mode
+//			
+//			for(int i = 0; i < data.size(); i++) {
+//				String line = String.join(",", data.get(i));
+//				line += "\n";
+//				bw.write(line);
+//			}
+//			
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (bw != null) {
+//				try {
+//					bw.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
 	}
 
 

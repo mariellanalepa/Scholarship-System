@@ -59,7 +59,7 @@ public class DataManager {
 	 * Loads the entire scholarship database into memory,
 	 * updates the databaseCounter
 	 */
-	public void loadScholarshipData(){
+	public static void loadScholarshipData(){
 		masterScholarshipDatabase = c.getDatabase(CsvReader.scholarshipDatabase);
 		scholarshipCounter = c.getDatabaseCounter();
 
@@ -124,7 +124,7 @@ public class DataManager {
 	 * Loads the entire application database and saves into masterApplicationDatabase attribute,
 	 * sets the ApplicationDatabaseCounter
 	 */
-	public void loadApplicationData(){
+	public static void loadApplicationData(){
 		masterApplicationDatabase = c.getDatabase(CsvReader.applicationDatabase);
 		applicationCounter = c.getDatabaseCounter();
 	}

@@ -23,9 +23,8 @@ public class Session {
 	 * customized to user upon call to login(String username).
 	 */
 	public Session() {
-		DataManager m = new DataManager();
-		m.loadApplicationData(); // loads application database
-		m.loadScholarshipData(); // loads scholarship database
+		DataManager.loadApplicationData(); // loads application database
+		DataManager.loadScholarshipData(); // loads scholarship database
 	}
 	
 	/**
