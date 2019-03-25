@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -95,21 +96,6 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="typeBox" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="150.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="departmentBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="150.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="facultyBox" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets left="150.0" />
-               </GridPane.margin>
-            </TextField>
             <Label fx:id="facultyLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Faculty" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="150.0" />
@@ -142,6 +128,22 @@
                </GridPane.margin>
             </Label>
             <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSubmitButtonAction" text="Submit" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="stuDrop" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <ChoiceBox fx:id="depDrop" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <ChoiceBox fx:id="facDrop" prefWidth="150.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <Label fx:id="errorLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </center>
