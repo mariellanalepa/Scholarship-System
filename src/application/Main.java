@@ -65,7 +65,7 @@ public class Main extends Application {
 	 */
 	public void stop() {
 		// check to see if user has logged in (ie. are there even any changes to save?)
-		if(this.session != null) {
+		if(this.session.getUser() != null) {
 			this.session.saveDatabases();
 		}
 		System.out.println("Goodbye!\n");

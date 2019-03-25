@@ -107,6 +107,7 @@ class CsvReader {
 				}
 			}
 		}
+		System.out.println(String.join(",", data));
 		return(data);
 	}
 	
