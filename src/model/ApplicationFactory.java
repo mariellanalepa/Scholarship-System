@@ -15,8 +15,9 @@ public class ApplicationFactory {
 	
 	
 	public ApplicationFactory(){
-		CsvReader c = new CsvReader();
-		this.applicationData = c.getApplicationData();
+		DataManager m = new DataManager();
+		counter = DataManager.getApplicationCounter();
+		this.applicationData = DataManager.getApplicationData();
 		List<Application> applicationList = new ArrayList<Application>();
 		for(int i = 0; i < applicationData.size(); i++) {
 				Application s = new Application(applicationData.get(i));
@@ -27,14 +28,14 @@ public class ApplicationFactory {
 		this.appArraySize = applicationArray.size();
 		for(int i = 0; i < applicationArray.size(); i++) {
 			Application a = applicationArray.get(i);
-			System.out.println(c.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
-			a.setScholarshipName(c.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+			a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
 		}
 	}
 	
 	public ApplicationFactory(int studentID){
-		CsvReader c = new CsvReader();
-		this.applicationData = c.getApplicationData(studentID);
+		DataManager m = new DataManager();
+		counter = DataManager.getApplicationCounter();
+		this.applicationData = m.getApplicationDataByID(studentID);
 		List<Application> applicationList = new ArrayList<Application>();
 		for(int i = 0; i < applicationData.size(); i++) {
 				Application s = new Application(applicationData.get(i));
@@ -42,12 +43,10 @@ public class ApplicationFactory {
 		}
 		this.applicationArray = applicationList;
 		this.appArraySize = applicationArray.size();
-		System.out.println(this.appArraySize);
-		CsvReader s = new CsvReader();
 		for(int i = 0; i < applicationArray.size(); i++) {
 			Application a = applicationArray.get(i);
-			System.out.println(s.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
-			a.setScholarshipName(s.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+			//System.out.println(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+			a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
 		}
 	}
 	

@@ -1,11 +1,14 @@
 package model;
 
-import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Application class
+ * @author Natalie
+ *
+ */
 public class Application {
-	//private int counter;
 	StringProperty applicationID;
 	StringProperty studentID;
 	StringProperty scholarshipID;
@@ -18,12 +21,17 @@ public class Application {
 	
 	
 	
-	// new applications
+	/**
+	 * Constructor for a new Application object
+	 */
 	public Application() {
 		this.setStatus("open");
 	}
 	
-	// re-creating instances from a file
+	/**
+	 * Constructor for re-creating an Application object from CSV file data
+	 * @param applicationData : String[] application data from application database
+	 */
 	//applicationID		studentID	scholarshipID datesubmitted	status
 	public Application (String[] applicationData) {
 		this.setApplicationId(applicationData[0]);
@@ -32,13 +40,17 @@ public class Application {
 		this.setDateSubmitted(applicationData[3]); 
 		this.setStatus(applicationData[4]);
 		
-		
-		
 	}
 	/* String[] applicationData = [applicationID,	scholarshipID,	studentID,	datesubmitted]
 	 * */
-	public boolean submitApplication() {
-		CsvReader c = new CsvReader();
+	/**
+	 * Function for submitting a new application
+	 * If the application object does not have an ID, one is assigned
+	 * Data is added to the Session applicationData attribute
+	 * @return boolean indicating success of operation
+	 */
+	public void saveApplication() {
+		DataManager m = new DataManager();
 		this.setStatus("submitted");
 		/* if this is a new application (does not yet have an ID)
 		 * set the ID number
@@ -49,23 +61,21 @@ public class Application {
 			this.applicationID.set(String.valueOf(counter));
 		}
 		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateAdded.get(), status.get()};
-		boolean success = c.addApplicationEntry(applicationData);
-		return success;
+		m.addApplicationEntry(applicationData);
 	}
-	public boolean stashApplication() {
-		CsvReader c = new CsvReader();
-		/* if this is a new application (does not yet have an ID)
-		 * set the ID number
-		 */
-		if(this.getApplicationId() == null) {
-			int counter = ApplicationFactory.getCounter();
-			ApplicationFactory.incrementCounter();
-			this.applicationID.set(String.valueOf(counter));
-		}
-		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateAdded.get(), status.get()};
-		boolean success = c.addApplicationEntry(applicationData);
-		return success;
-	}
+//	public void stashApplication() {
+//		DataManager m = new DataManager();
+//		/* if this is a new application (does not yet have an ID)
+//		 * set the ID number
+//		 */
+//		if(this.getApplicationId() == null) {
+//			int counter = ApplicationFactory.getCounter();
+//			ApplicationFactory.incrementCounter();
+//			this.applicationID.set(String.valueOf(counter));
+//		}
+//		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateAdded.get(), status.get()};
+//		m.addApplicationEntry(applicationData);
+//	}
 
 
 	public void setApplicationId(String value) { applicationIDProperty().set(value); }

@@ -14,8 +14,8 @@ public class ScholarshipFactory {
 	
 	
 	public ScholarshipFactory() {
-		CsvReader c = new CsvReader();
-		this.scholarshipData = c.getScholarshipData();
+		counter = DataManager.getScholarshipCounter();
+		this.scholarshipData = DataManager.getScholarshipData();
 		List<Scholarship> ls = new ArrayList<Scholarship>();
 		for(int i = 0; i < scholarshipData.size(); i++) {
 				Scholarship s = new Scholarship(scholarshipData.get(i));

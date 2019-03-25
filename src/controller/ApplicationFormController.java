@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import model.Application;
-import model.CsvReader;
+import model.DataManager;
 import model.Session;
 import model.Student;
 
@@ -42,17 +42,18 @@ public class ApplicationFormController implements Initializable
 		
 		Student student = (Student) session.getUser();
 		welcomeLabel.setText(welcomeLabel.getText() + " " + student.getName());
-		CsvReader s = new CsvReader();
-
-		Application a = new Application();
+		
+		DataManager m = new DataManager();
+		
 		//event styling - uses lambda expressions
 		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
 		signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
+		
+		Application a = new Application();
 		a.setStudentId(student.getStudentIDString());
 		a.setDateAdded(dateTimeFormat(LocalDateTime.now()));
 		a.setScholarshipId("1"); //temp hardcode 
-		a.setScholarshipName(s.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
-		//a.setScholarshipDeadline(s.getDeadline(Integer.valueOf(a.getScholarshipDeadlineProperty())));
+		a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
 		this.application = a;
 		
 		FNAME_FIELD.setText(student.getFirstName());
@@ -63,8 +64,7 @@ public class ApplicationFormController implements Initializable
 		FACULTY_FIELD.setText(student.getStudentFaculty());
 		GPA_FIELD.setText(student.getStudentGPAString());
 		TYPE_FIELD.setText(student.getStudentType());
-		
-		//scholarshipSelectDropDown.setItems(FXCollections.observableArrayList("Scholarship A", "Scholarship B", "Scholarship C"));
+
 	}
 	
 	@FXML 
@@ -81,7 +81,8 @@ public class ApplicationFormController implements Initializable
 	@FXML
 	protected void handleSaveAndExitButtonAction(ActionEvent event) throws Exception
 	{
-		this.application.stashApplication();
+		this.application.saveApplication();
+		session.updateApplicationDatabase();
 		main.setScene("/view/StudentMain.fxml");
 	}
 	
@@ -89,7 +90,7 @@ public class ApplicationFormController implements Initializable
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception
 	{
 		this.application.setDateSubmitted(dateTimeFormat(LocalDateTime.now()));
-		this.application.submitApplication();
+		this.application.saveApplication();
 		confirmationLabel.setVisible(true);
 	}
 	

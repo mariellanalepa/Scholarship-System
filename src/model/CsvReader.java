@@ -17,121 +17,25 @@ import java.util.List;
  * @author Natalie
  */
 
-public class CsvReader {
-	final String adminDatabase = "res/adminDatabase.csv";
-	final String studentDatabase = "res/studentDatabase.csv";
-	final String scholarshipDatabase = "res/scholarshipDatabase.csv";
-	final String applicationDatabase = "res/applicationDatabase.csv";
+class CsvReader {
+	final static String adminDatabase = "res/adminDatabase.csv";
+	final static String studentDatabase = "res/studentDatabase.csv";
+	final static String scholarshipDatabase = "res/scholarshipDatabase.csv";
+	final static String applicationDatabase = "res/applicationDatabase.csv";
 	private String[] data;
 	private List<String[]> databaseData;
 	private int databaseCounter;
 	
 	
-	/**
-	 * Fetches student information from the student CSVFile by username
-	 * @param username : String
-	 * @return data : String[] of data from the CSVFile 
-	 */
-	public String[] getStudentData(String username) {
-		getDatabaseEntry(username, studentDatabase);
-		return this.data;
-	}
 	
-	/**
-	 * Fetches admin information from the admin CSVFile by username
-	 * @param username : String
-	 * @return data : String[] of data from the CSVFile 
-	 */
-	public String[] getAdminData(String username) {
-		getDatabaseEntry(username, adminDatabase);
-		return this.data;
-	}
-	
-	
-	/**
-	 * Loads the entire scholarship database into memory,
-	 * updates the databaseCounter, and
-	 * returns data as List<String[]>
-	 * @return databaseData : List<String[]> of database data
-	 */
-	public List<String[]> getScholarshipData(){
-		getDatabase(scholarshipDatabase);
-		ScholarshipFactory.setCounter(this.databaseCounter);
-		return this.databaseData;
-	}
-	
-	/**
-	 *  DAVID CURATED FUNCTION HERE
-	 * Loads the entire scholarship database into memory,
-	 * updates the databaseCounter, and
-	 * returns data as List<String[]>
-	 * @return databaseData : List<String[]> of database data
-	 */
-	public List<String[]> getScholarshipData(int studentID){
-		getDatabase(scholarshipDatabase);
-		ScholarshipFactory.setCounter(this.databaseCounter);
-		// CURATING CODE HERE //
-		return this.databaseData;
-	}
-	
-	/**
-	 * Loads the entire application database into memory,
-	 * updates the databaseCounter, and
-	 * returns data as List<String[]>
-	 * @return databaseData : List<String[]> of database data
-	 */
-	public List<String[]> getApplicationData(){
-		getDatabase(applicationDatabase);
-		System.out.println("@ getApplicationData(): "+this.databaseCounter);
-		ApplicationFactory.setCounter(this.databaseCounter);
-		return this.databaseData;
-	}
-	
-	/**
-	 * Reads the entire admin database,
-	 * filters the data keeping only the entries which have a studentID field 
-	 * equal to the supplied argument.
-	 * Updates the databaseCounter, and returns data as List<String[]>
-	 * @param studentID : int
-	 * @return databaseData : List<String[]> of database data
-	 */
-
-	public List<String[]> getApplicationData(int studentID){
-		getDatabase(applicationDatabase);
-		List<String[]> dataList = new ArrayList<String[]>();
-		for(int i = 0; i < this.databaseData.size(); i++) {
-			if(this.databaseData.get(i)[1].equals(String.valueOf(studentID))) {
-				dataList.add(this.databaseData.get(i));
-			}		
-		}
-		return dataList;
-	}
-	
-	/**
-	 * Returns a List<String[]> of application data from applicationDatabase CSVFile
-	 * whose status matches that provided as an argument
-	 * @param status : String 
-	 * @return databaseData : List<String[]> of database data
-	 */
-
-	public List<String[]> getApplicationData(String status){
-		getDatabase(applicationDatabase);
-		List<String[]> dataList = new ArrayList<String[]>();
-		for(int i = 0; i < this.databaseData.size(); i++) {
-			if(this.databaseData.get(i)[4].equals(status)) {
-				dataList.add(this.databaseData.get(i));
-			}		
-		}
-		return dataList;
-	}
 	
 	/**
 	 * Opens specified CSVFile, reads each line splitting on comma, 
-	 * and stores the result into a List<String[]>
-	 * which is set as the databaseData attribute
+	 * and returns the result as a List<String[]>
 	 * @param databaseName
+	 * @return List<String[]> Database
 	 */
-	private void getDatabase(String databaseName) {
+	List<String[]> getDatabase(String databaseName) {
 		List<String[]> list = new ArrayList<String[]>();
 		BufferedReader buffread = null;
 		String line = "";
@@ -150,10 +54,8 @@ public class CsvReader {
 				list.add(line.split(delimiter));
 				i++;
 			}
-			this.databaseData = list;
-			this.databaseCounter = list.size();
+			this.setDatabaseCounter(list.size());
 
-			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -167,20 +69,28 @@ public class CsvReader {
 				}
 			}
 		}
+		return list;
 	}
 	
 	
-	private void getDatabaseEntry(String entryIdentifier, String databaseName) {
+	/**
+	 * Fetches database data from database specified by databaseName whose
+	 * ID number matches the given entryIdentifier
+	 * @param userID
+	 * @param databaseName
+	 * @return String[] containing data from csv
+	 */
+	String[] getUserDatabaseEntry(String userID, String databaseName) {
 		BufferedReader buffread = null;
+		String[] data = null;
 		String line = "";
 		String delimiter = ",";
 		try {
 			File f = new File(databaseName);
 			buffread = new BufferedReader(new FileReader(f));
 			while ((line = buffread.readLine()) != null) {
-				String[] data = line.split(delimiter);
-				if(data[0].equalsIgnoreCase(entryIdentifier)) {
-					this.data = data;
+				data = line.split(delimiter);
+				if(data[0].equalsIgnoreCase(userID)) {
 					break;
 				}
 			}
@@ -197,7 +107,13 @@ public class CsvReader {
 				}
 			}
 		}
+		return(data);
 	}
+	
+	
+	
+	
+	
 	
 	private void deleteDatabaseEntry(String databaseName, int index) throws IOException {
 		File f = new File(databaseName);
@@ -244,6 +160,11 @@ public class CsvReader {
 		}
 	}
 	
+	/**
+	 * yes
+	 * @param databaseName
+	 * @param data
+	 */
 	private void addDatabaseEntry(String databaseName, String[] data) {
 		BufferedWriter bw = null;
 		String line = String.join(",", data);
@@ -267,23 +188,13 @@ public class CsvReader {
 	
 	
 	
-	public String getScholarshipName(int scholarshipID){
-		String sName = "null";
-		getDatabase(scholarshipDatabase);
-		for(int i = 0; i < this.databaseData.size(); i++) {
-			if(Integer.valueOf(this.databaseData.get(i)[0]) == scholarshipID) {
-				sName = this.databaseData.get(i)[1];
-				
-			}
-		}
-		return sName;
-	}
+	
 	
 	
 
 	
 	public boolean addScholarshipEntry(String[] scholarshipData) { 
-		addDatabaseEntry(scholarshipDatabase, scholarshipData);
+		this.addDatabaseEntry(CsvReader.scholarshipDatabase, scholarshipData);
 		boolean success = true;
 		return success;
 	}
@@ -294,23 +205,21 @@ public class CsvReader {
 		return success;
 	}
 	
-	public boolean addApplicationEntry(String[] applicationData) {
-		addDatabaseEntry(applicationDatabase, applicationData);
-		boolean success = true;
-		return success;
-	}
 
+
+	
+	
+	
 	/**
 	 * Writes updated database to file before closing
 	 * @param databaseName : String
-	 * @param databaseData : List<String[]>
+	 * @param data : List<String[]>
 	 */
-	public void saveDatabaseOnExit(String databaseName, List<String[]> databaseData) {
+	void writeDatabase(String databaseName, List<String[]> data) {
 		BufferedWriter bw = null;
-		List<String[]> data = updateData(databaseName, databaseData);
 		try {
 			File f = new File(databaseName);
-			bw = new BufferedWriter(new FileWriter(f, false));
+			bw = new BufferedWriter(new FileWriter(f, false)); // override mode
 			
 			for(int i = 0; i < data.size(); i++) {
 				String line = String.join(",", data.get(i));
@@ -330,83 +239,18 @@ public class CsvReader {
 			}
 		}
 	}
-	
-	/**
-	 * Checks and fixes coherency between data in saved file and data from current Session
-	 * @param databaseName : String
-	 * @param databaseData : List<String[]>
-	 */
-	private List<String[]> updateData(String databaseName, List<String[]> freshDatabase) {
-		List<String[]> data = new ArrayList<String[]>();
-		
-		// get database from file for comparison
-		getDatabase(databaseName);
-		List<String[]> staleDatabase = this.databaseData;
-		
-		int newLen = freshDatabase.size();
-		int oldLen = staleDatabase.size();
-		int i = 0;
-		//int m = java.lang.Math.min(newLen, oldLen)
-		int j = 0;
-			
-		
-		while((i < newLen) & (j < oldLen)) {
-			String[] newLine = freshDatabase.get(i);
-			String[] oldLine = staleDatabase.get(j);
-				
-			// get integer values of id numbers
-			int newID = Integer.valueOf(newLine[0]);
-			int oldID = Integer.valueOf(oldLine[0]);
-				
-			if(newID == oldID) {
-				// case 1: same ID number
-				// replace with new data
-				data.add(newLine);
-				i++;
-				j++;
 
-			} else if((newID > oldID) & (j < oldLen)) {
-				// case 2: ID number of new > old
-				// add data from old until oldID >= newID
-				while(newID > oldID) {
-					oldLine = staleDatabase.get(j);
-					oldID = Integer.valueOf(oldLine[0]);
-					data.add(oldLine);
-					j++;
-				}
 
-			} else {
-				// case 3: ID number of new < old
-				// add data from new until newID <= oldID
-				while((newID < oldID) & (i < newLen)) {
-					newLine = freshDatabase.get(i);
-					newID = Integer.valueOf(newLine[0]);
-					data.add(newLine);
-					i++;
-				}
-			}
-		
-		}
-		
-		// if list lengths are not equal
-		// add all remaining data from the longer list 
-		if(newLen > oldLen) {
-			while(i < newLen) {
-				String[] newLine = freshDatabase.get(i);
-				data.add(newLine);
-				i++;
-			}
-		} else if(newLen < oldLen) {
-			while(j < oldLen) {
-				String[] oldLine = staleDatabase.get(j);
-				data.add(oldLine);
-				j++;
-			}
-			
-		}
-			
-		return data;
+	public int getDatabaseCounter() {
+		return databaseCounter;
 	}
+
+
+	public void setDatabaseCounter(int databaseCounter) {
+		this.databaseCounter = databaseCounter;
+	}
+	
+	
 	
 	
 }

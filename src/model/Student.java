@@ -10,12 +10,10 @@ public class Student extends User {
 	private String studentFaculty;
 	private float studentGPA;
 	private List<String[]> applications;
-	//private CsvReader c;
 	
 	public Student(String username) {
-		CsvReader c = new CsvReader();
-		//this.c = c;
-		String[] data = c.getStudentData(username);
+		DataManager m = new DataManager();
+		String[] data = m.getStudentData(username);
 		this.userName = data[0];
 		this.userID = Integer.valueOf(data[1]);
 		this.firstName = data[2];
@@ -25,7 +23,7 @@ public class Student extends User {
 		this.studentFaculty = data[6];
 		this.studentDepartment = data[7];
 		this.studentGPA = Float.valueOf(data[8]);
-		this.applications = c.getApplicationData(this.userID);
+		this.applications = m.getApplicationDataByID(this.userID);
 	}
 	
 	public String getStudentIDString() {
