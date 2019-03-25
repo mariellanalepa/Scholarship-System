@@ -195,14 +195,34 @@ public class DataManager {
 	 *********************************************************************************/
 	
 	/**
-	 * Updates data for specified database and invokes CsvReader to write the file
+	 * Handles data synchronization on program exit 
+	 * Calls functions to update data for specified database and invokes CsvReader to write the file
 	 * @param databaseName
 	 * @param databaseData
 	 */
-	public void saveDatabaseOnExit(String databaseName, List<String[]> databaseData) {
+//	public void saveDatabaseOnExit(String databaseName, List<String[]> databaseData) {
+//		List<String[]> updatedDatabase = updateData(databaseName, databaseData);
+//		c.writeDatabase(databaseName, updatedDatabase);	
+//	}
+	public void saveDatabaseOnExit(String databaseName) {
+		List<String[]> databaseData = null;
+		// write appropriate header for database
+		if(databaseName == CsvReader.scholarshipDatabase) {
+			databaseData = masterScholarshipDatabase;
+		} else if(databaseName == CsvReader.applicationDatabase) {
+			databaseData = masterScholarshipDatabase;
+		}
+		
+		// if null (never initialized) throw error
+		if(databaseData == null) {
+			NullPointerException e = new NullPointerException();
+			throw e;
+		}
+		
 		List<String[]> updatedDatabase = updateData(databaseName, databaseData);
 		c.writeDatabase(databaseName, updatedDatabase);	
 	}
+	
 	
 	/**
 	 * updateData

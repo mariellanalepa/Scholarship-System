@@ -166,7 +166,7 @@ class CsvReader {
 	}
 	
 	/**
-	 * yes
+	 * 
 	 * @param databaseName
 	 * @param data
 	 */
@@ -211,22 +211,12 @@ class CsvReader {
 	}
 	
 
-
-	
-	
-	
 	/**
 	 * Writes updated database to file before closing
 	 * @param databaseName : String
 	 * @param data : List<String[]>
 	 */
 	void writeDatabase(String databaseName, List<String[]> data) {
-//
-//		for(int i = 0; i < data.size(); i++) {
-//			System.out.println(String.join(",", data.get(i)));
-//		}
-//		
-		
 		BufferedWriter bw = null;
 		try {
 			File f = new File(databaseName);

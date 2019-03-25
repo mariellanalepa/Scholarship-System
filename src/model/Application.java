@@ -25,7 +25,7 @@ public class Application {
 	 * Constructor for a new Application object
 	 */
 	public Application() {
-		this.setStatus("open");
+		this.setStatus("saved");
 	}
 	
 	/**
@@ -51,7 +51,6 @@ public class Application {
 	 */
 	public void saveApplication() {
 		DataManager m = new DataManager();
-		this.setStatus("submitted");
 		/* if this is a new application (does not yet have an ID)
 		 * set the ID number
 		 */
