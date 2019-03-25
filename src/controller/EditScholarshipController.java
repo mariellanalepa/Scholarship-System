@@ -23,13 +23,14 @@ public class EditScholarshipController implements Initializable {
 	private Main main;
 	private Session session;
 	@FXML private Button signOut, submitButton, editScholarship, mainMenuButton;
-	@FXML private TextField deadlineBox, yearBox, donorBox, nameBox, numberBox, amountBox, GPABox, typeBox, departmentBox, facultyBox; 
-	@FXML private Label welcomeLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
-	@FXML protected ChoiceBox<String> scholDrop; 
+	@FXML private TextField deadlineBox, yearBox, donorBox, nameBox, numberBox, amountBox, GPABox; 
+	@FXML private Label welcomeLabel, errorLabel, editLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
+	@FXML protected ChoiceBox<String> scholDrop, stuDrop, facDrop, depDrop; 
 	ArrayList<String> nameArray = new ArrayList<String>();
 	ScholarshipFactory sf = new ScholarshipFactory();
 	List<Scholarship> scholArray = sf.getScholarshipArray();		
 	private int i;
+	private boolean empty = false;
 
 	public EditScholarshipController(Main main, Session session) {
 		this.main = main;
@@ -46,31 +47,55 @@ public class EditScholarshipController implements Initializable {
 		main.setScene("/view/AdminMain.fxml");
 	}
 
+	/**
+	 * extract input from form when submit button is pressed
+	 * error checking for empty values
+	 * @param event Submit Button pressed
+	 * @throws Exception	
+	 */
 	@FXML
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception 
 	{
 		String[] scholarshipData = new String[13];
-		
+	
 		Scholarship s = scholArray.get(nameArray.indexOf(scholDrop.getValue().toString()));
-		scholarshipData[0] = Integer.toString(s.getId());
-		scholarshipData[1] = nameBox.getText();
-		scholarshipData[2] = donorBox.getText();
-		scholarshipData[3] = deadlineBox.getText();
-		scholarshipData[4] = amountBox.getText();
-		scholarshipData[5] = numberBox.getText();
-		scholarshipData[6] = facultyBox.getText();
-		scholarshipData[7] = departmentBox.getText();
-		scholarshipData[8] = typeBox.getText();
-		scholarshipData[9] = GPABox.getText();
-		scholarshipData[10] = yearBox.getText();
+		empty = false; 
+
+		scholarshipData[0] = Integer.toString(s.getId());		
+		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
+		else { empty = true;}
+		if (!donorBox.getText().isEmpty()) { scholarshipData[2] = donorBox.getText(); }
+		else { 			empty = true; }
+		if (!deadlineBox.getText().isEmpty()) { scholarshipData[3] = deadlineBox.getText(); }
+		else { 	empty = true;	}
+		if (!amountBox.getText().isEmpty()) { scholarshipData[4] = amountBox.getText(); }
+		else { 			empty = true;}
+		if (!numberBox.getText().isEmpty()) { scholarshipData[5] = numberBox.getText(); }
+		else {			empty = true; }
+		if (!facDrop.getValue().isEmpty()) { scholarshipData[6] =  facDrop.getValue(); }
+		else { 			empty = true;	}	
+		if (!depDrop.getValue().isEmpty()) { scholarshipData[7] = depDrop.getValue(); }
+		else { 			empty = true; }
+		if (!stuDrop.getValue().isEmpty()) { scholarshipData[8] = stuDrop.getValue(); }
+		else { 			empty = true; }
+		if (!GPABox.getText().isEmpty()) { scholarshipData[9] = GPABox.getText(); }
+		else {			empty = true; }
+		if (!yearBox.getText().isEmpty()) { scholarshipData[10] = yearBox.getText();}
+		else {			empty = true; }
 		scholarshipData[11] = "Open";		
 		scholarshipData[12] = dateTimeFormat(LocalDateTime.now());
-		Scholarship scholarship = new Scholarship(scholarshipData);
 		
-		scholarship.deleteScholarship(i+1);
-		scholarship.saveScholarship(scholarshipData);
-		//Set scene to Admin Main
-		main.setScene("/view/AdminMain.fxml");
+		if (empty == false) {
+			Scholarship scholarship = new Scholarship(scholarshipData);
+			scholarship.deleteScholarship(i+1);							
+			scholarship.saveScholarship(scholarshipData);
+			//Set scene to Admin Main Page
+			main.setScene("/view/AdminMain.fxml");
+		}
+		else {
+			errorLabel.setText("Error! Not all boxes contain a value");
+			
+		}
 	}
 	
 	@Override
@@ -84,7 +109,45 @@ public class EditScholarshipController implements Initializable {
 			nameArray.add(scholArray.get(i).getName());
 			scholDrop.setItems(FXCollections.observableArrayList(nameArray));
 		}
+	
+		facDrop.setItems(FXCollections.observableArrayList("ANY", "SC", "H", "AR", "EN", "ED"));	
+		depDrop.setItems(FXCollections.observableArrayList("ANY"));
+		stuDrop.setItems(FXCollections.observableArrayList("ANY", "U", "G", "CS"));
 		
+		//listener for facDrop to detect change; so depDrop changes based on the faculty
+		facDrop.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) ->
+		{
+				if (facDrop.getValue() == "H") {
+					depDrop.setItems(FXCollections.observableArrayList("ANY", "ACCT", "FNCE", "HR", "ENTI", "MKTG"));
+					depDrop.setValue("ANY");
+           
+				}
+				else if (facDrop.getValue() == "SC") {
+					depDrop.setItems(FXCollections.observableArrayList("ANY", "CPSC", "BIOL", "CHEM", "PHYS", "MATH", "GEOL"));
+					depDrop.setValue("ANY");
+
+				}		
+				else if (facDrop.getValue() == "AR") {
+					depDrop.setItems(FXCollections.observableArrayList("ANY", "ECON", "ENGL", "PSYC", "PHIL"));
+					depDrop.setValue("ANY");
+
+				}
+				else if (facDrop.getValue() == "EN") {
+					depDrop.setItems(FXCollections.observableArrayList("ANY", "CIVL", "MECH", "SENG", "CHEM"));
+					depDrop.setValue("ANY");
+
+				}
+				else if (facDrop.getValue() == "ED") {
+					depDrop.setItems(FXCollections.observableArrayList("ANY"));
+					depDrop.setValue("ANY");
+
+				}
+				else if (facDrop.getValue() == "ANY") {
+					depDrop.setItems(FXCollections.observableArrayList("ANY"));
+					depDrop.setValue("ANY");
+
+				}
+		});
 	}
 
 	@FXML
@@ -97,14 +160,16 @@ public class EditScholarshipController implements Initializable {
 		deadlineBox.setText(scholarship.getDeadline());
 		amountBox.setText(Integer.toString(scholarship.getAmount()));
 		numberBox.setText(Integer.toString(scholarship.getNumber()));
-		facultyBox.setText(scholarship.getFaculty());
-		departmentBox.setText(scholarship.getDepartment());
-		typeBox.setText(scholarship.getType());
+		facDrop.setValue(scholarship.getFaculty());
+		depDrop.setValue(scholarship.getDepartment());
+		stuDrop.setValue(scholarship.getType());
 		GPABox.setText(Float.toString(scholarship.getGpa()));
 		yearBox.setText(scholarship.getYear());
 	 
 	}
-	
+	/**
+	 * takes in current local date and time and formats it into the desired string format
+	 */
 	public String dateTimeFormat(LocalDateTime time) {
 		String dateTime = time.toString();
 		String year = dateTime.substring(0, 4)+ " ";

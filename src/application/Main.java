@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 /**
- * Main for Scholarship Managment System
+ * Main for Scholarship Management System
  * @author Mariella, Natalie
  *
  */
