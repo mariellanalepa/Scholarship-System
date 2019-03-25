@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
 			stage.show();
 			return;
 		} 
-			System.out.println((session.getUser() instanceof Admin));
+			System.out.println((session.getUser()));
 			if (session.getUser() instanceof Admin) {
 				//Set scene to Admin Main Page
 				main.setScene("/view/AdminMain.fxml");

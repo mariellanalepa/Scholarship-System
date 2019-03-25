@@ -2,7 +2,7 @@ package model;
 
 public class Admin extends User {
 	
-	public Admin(String usr) {
+	public Admin(String usr) throws InvalidUserException {
 		DataManager m = new DataManager();
 		String[] data = m.getAdminData(usr);
 		this.userName = data[0];

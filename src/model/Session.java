@@ -22,7 +22,11 @@ public class Session {
 	 * Session constructor. Creates a session that is 
 	 * customized to user upon call to login(String username).
 	 */
-	public Session() {}
+	public Session() {
+		DataManager m = new DataManager();
+		m.loadApplicationData(); // loads application database
+		m.loadScholarshipData(); // loads scholarship database
+	}
 	
 	/**
 	 * Session instantiates user object (Student/Admin),
@@ -36,11 +40,11 @@ public class Session {
 			this.user = new Admin(username);
 			initializeDabaseData();
 			
-		} catch(NullPointerException notAdmin) {
+		} catch(InvalidUserException notAdmin) {
 			try {
 			this.user = new Student(username);
 			initializeDabaseData();
-			} catch(NullPointerException notStudent) {
+			} catch(InvalidUserException notStudent) {
 				InvalidUserException e = new InvalidUserException("User not found");
 				throw e;
 			}
@@ -60,8 +64,8 @@ public class Session {
 	 */
 	private void initializeDabaseData() {
 		DataManager m = new DataManager();
-		m.loadApplicationData(); // loads application database
-		m.loadScholarshipData(); // loads scholarship database
+//		m.loadApplicationData(); // loads application database
+//		m.loadScholarshipData(); // loads scholarship database
 
 		
 		if(this.user instanceof Admin) {

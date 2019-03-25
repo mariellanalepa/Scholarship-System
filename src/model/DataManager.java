@@ -32,8 +32,9 @@ public class DataManager {
 	 * Fetches student information from the student CSVFile by username
 	 * @param username : String
 	 * @return data : String[] of data from the CSVFile 
+	 * @throws InvalidUserException 
 	 */
-	public String[] getStudentData(String username) {
+	public String[] getStudentData(String username) throws InvalidUserException {
 		return (c.getUserDatabaseEntry(username, CsvReader.studentDatabase));
 	}
 	
@@ -41,8 +42,9 @@ public class DataManager {
 	 * Fetches admin information from the admin CSVFile by username
 	 * @param username : String
 	 * @return data : String[] of data from the CSVFile 
+	 * @throws InvalidUserException 
 	 */
-	public String[] getAdminData(String username) {
+	public String[] getAdminData(String username) throws InvalidUserException {
 		return (c.getUserDatabaseEntry(username, CsvReader.adminDatabase));
 	}
 	

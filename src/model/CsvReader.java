@@ -79,8 +79,9 @@ class CsvReader {
 	 * @param userID
 	 * @param databaseName
 	 * @return String[] containing data from csv
+	 * @throws InvalidUserException 
 	 */
-	String[] getUserDatabaseEntry(String userID, String databaseName) {
+	String[] getUserDatabaseEntry(String userID, String databaseName) throws InvalidUserException {
 		BufferedReader buffread = null;
 		String[] data = null;
 		String line = "";
@@ -91,9 +92,10 @@ class CsvReader {
 			while ((line = buffread.readLine()) != null) {
 				data = line.split(delimiter);
 				if(data[0].equalsIgnoreCase(userID)) {
-					break;
+					return(data);
 				}
 			}
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -107,8 +109,9 @@ class CsvReader {
 				}
 			}
 		}
-		System.out.println(String.join(",", data));
-		return(data);
+		// If none of the database entries matched, throw exception
+		InvalidUserException e = new InvalidUserException();
+		throw e;
 	}
 	
 	

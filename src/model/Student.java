@@ -11,7 +11,7 @@ public class Student extends User {
 	private float studentGPA;
 	private List<String[]> applications;
 	
-	public Student(String username) {
+	public Student(String username) throws InvalidUserException {
 		DataManager m = new DataManager();
 		String[] data = m.getStudentData(username);
 		this.userName = data[0];
