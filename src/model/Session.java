@@ -12,9 +12,12 @@ import java.util.List;
  */
 public class Session {
 	private User user;
+	private DataManager m;
+	
+	/* Application and Scholarship Databases specific to the logged-in user*/
 	private List<String[]> userApplicationDatabase;	// specific to user 
 	private List<String[]> userScholarshipDatabase; // specific to user 
-	public DataManager m;
+	
 
 
 	/**

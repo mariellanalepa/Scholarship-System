@@ -6,7 +6,11 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
+/**
+ * 
+ * @author Natalie
+ *
+ */
 public class Scholarship {
 	private IntegerProperty id;
 	private StringProperty name;
@@ -21,8 +25,7 @@ public class Scholarship {
 	private StringProperty year;
 	private StringProperty status;
 	private StringProperty posted;
-	private final String scholarshipDatabase = "res/scholarshipDatabase.csv";
-	//CSV COLUMNS: IDNumber	Name	Donor	Deadline(dd/MM/yyyy HH:mm:ss)	Amount	Number	ReqFac	ReqDept	RecType	ReqGPA	ReqYear	Status	DatePosted(dd/MM/yyyy HH:mm:ss)
+
 	public Scholarship (String[] scholarshipData) {
 		this.setId(scholarshipData[0]);
 		this.setName(scholarshipData[1]);
@@ -39,17 +42,14 @@ public class Scholarship {
 		this.setPosted(scholarshipData[12]);
 	}
 	
-	public boolean saveScholarship(String[] scholarshipData) {
-		CsvReader c = new CsvReader();
-		boolean success = c.addScholarshipEntry(scholarshipData);
-		return success;
+	public void saveScholarship(String[] scholarshipData) {
+		DataManager m = new DataManager();
+		m.addScholarshipEntry(scholarshipData);
 	}
 
-	public boolean deleteScholarship(int index) throws Exception {
-		CsvReader c = new CsvReader();
-		c.getDatabaseForDelete(scholarshipDatabase);
-		boolean success = c.deleteScholarshipEntry(index);
-		return success;
+	public void deleteScholarship(int index) throws NullPointerException {
+		DataManager m = new DataManager();
+		m.deleteScholarshipEntry(index);
 	}
 	
 	/* following code adapted from Oracle Docs

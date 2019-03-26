@@ -14,6 +14,8 @@ public class DataManager {
 	public static int applicationCounter;
 	private static List<String[]> masterApplicationDatabase;
 	private static List<String[]> masterScholarshipDatabase;
+	private static List<String[]> userApplicationDatabase;	// specific to user 
+	private static List<String[]> userScholarshipDatabase; // specific to user 
 	private static CsvReader c = new CsvReader();
 	
 	/**
@@ -61,9 +63,9 @@ public class DataManager {
 	 */
 	public static void loadScholarshipData(){
 		masterScholarshipDatabase = c.getDatabase(CsvReader.scholarshipDatabase);
-		scholarshipCounter = c.getDatabaseCounter();
 
 	}
+	
 	/**
 	 * returns master scholarship database as List<String[]>
 	 * @return masterScholarshipDatabase : List<String[]> of scholarship data
@@ -80,14 +82,21 @@ public class DataManager {
 	 * returns data as List<String[]>
 	 * @return databaseData : List<String[]> of database data
 	 */
-	public List<String[]> getScholarshipDataByID(int studentID){
+	public static List<String[]> getScholarshipDataByID(int studentID){
 		List<String[]> curatedList = masterScholarshipDatabase;
 
 		// CURATING CODE HERE //
-		return curatedList;
+		
+		
+		userScholarshipDatabase = curatedList;
+		return userScholarshipDatabase;
 	}
 	
-	
+	/**
+	 * 
+	 * @param scholarshipID
+	 * @return String scholarshipName
+	 */
 	public String getScholarshipName(int scholarshipID){
 		String sName = "";
 		for(int i = 0; i < masterScholarshipDatabase.size(); i++) {
@@ -107,6 +116,11 @@ public class DataManager {
 		masterScholarshipDatabase.add(scholarshipData);
 	}
 	
+	/**
+	 * 
+	 * @param scholarshipID
+	 * @param scholarshipData
+	 */
 	public void updateScholarshipEntry(int scholarshipID, String[] scholarshipData) {
 		for(int i = 0; i < masterScholarshipDatabase.size(); i++) {
 			if(masterScholarshipDatabase.get(i)[0] == String.valueOf(scholarshipID)) {
@@ -115,6 +129,22 @@ public class DataManager {
 		}
 		
 	}
+	
+	
+	public void deleteScholarshipEntry(int index) throws NullPointerException {
+		boolean foundEntry = false;
+		for(int i = 0; i < masterScholarshipDatabase.size(); i++) {
+			if(Integer.valueOf(masterScholarshipDatabase.get(i)[0]) == index) {
+				foundEntry = true;
+				masterScholarshipDatabase.remove(i);
+			}
+		}
+		if(!foundEntry) {
+			NullPointerException notFound = new NullPointerException();
+			throw notFound;
+		}
+	}
+	
 	/*******************************************************************
 	 * 
 	 *  Methods for Application Database
@@ -126,7 +156,6 @@ public class DataManager {
 	 */
 	public static void loadApplicationData(){
 		masterApplicationDatabase = c.getDatabase(CsvReader.applicationDatabase);
-		applicationCounter = c.getDatabaseCounter();
 	}
 	
 
@@ -178,6 +207,7 @@ public class DataManager {
 	}
 
 	public void addApplicationEntry(String[] applicationData) {
+		List<String[]> l = new ArrayList<String[]>();
 		masterApplicationDatabase.add(applicationData);
 	}
 	public void updateApplicationEntry(int applicationID, String[] applicationData) {

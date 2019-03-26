@@ -12,10 +12,29 @@ public class ScholarshipFactory {
 	private List<Scholarship> scholarshipArray;
 	private int scholArraySize;
 	
-	
+	/**
+	 * Scholarship factory constructor for master list
+	 */
 	public ScholarshipFactory() {
 		counter = DataManager.getScholarshipCounter();
 		this.scholarshipData = DataManager.getScholarshipData();
+		List<Scholarship> ls = new ArrayList<Scholarship>();
+		for(int i = 0; i < scholarshipData.size(); i++) {
+				Scholarship s = new Scholarship(scholarshipData.get(i));
+				ls.add(s);
+			
+		}
+		this.scholarshipArray = ls;
+		this.scholArraySize = scholarshipArray.size();
+	}
+	
+	/**
+	 * Scholarship factory for curated list
+	 * @param studentID
+	 */
+	public ScholarshipFactory(int studentID) {
+		counter = DataManager.getScholarshipCounter();
+		this.scholarshipData = DataManager.getScholarshipDataByID(studentID);
 		List<Scholarship> ls = new ArrayList<Scholarship>();
 		for(int i = 0; i < scholarshipData.size(); i++) {
 				Scholarship s = new Scholarship(scholarshipData.get(i));

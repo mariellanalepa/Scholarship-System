@@ -22,8 +22,6 @@ class CsvReader {
 	final static String studentDatabase = "res/studentDatabase.csv";
 	final static String scholarshipDatabase = "res/scholarshipDatabase.csv";
 	final static String applicationDatabase = "res/applicationDatabase.csv";
-	private String[] data;
-	private List<String[]> databaseData;
 	private int databaseCounter;
 	
 	private static String applicationDatabaseHeader ="applicationID,studentID,scholarshipID,dateAdded,status\n";
@@ -55,8 +53,7 @@ class CsvReader {
 				list.add(line.split(delimiter));
 				i++;
 			}
-			this.setDatabaseCounter(list.size());
-
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -69,6 +66,12 @@ class CsvReader {
 					e.printStackTrace();
 				}
 			}
+		}
+		// initialize counters in DataManager
+		if(databaseName == CsvReader.scholarshipDatabase) {
+			DataManager.scholarshipCounter = list.size();
+		} else if(databaseName == CsvReader.applicationDatabase) {
+			DataManager.applicationCounter = list.size();
 		}
 		return list;
 	}
@@ -116,101 +119,6 @@ class CsvReader {
 	}
 	
 	
-	
-	
-	
-	
-	private void deleteDatabaseEntry(String databaseName, int index) throws IOException {
-		File f = new File(databaseName);
-		if (f.exists() && f.isFile()) {
-			f.delete();
-		}
-		f.createNewFile();
-		for (int i = 0; i < databaseData.size(); i++) {
-			if (i != index) {
-				String[] d = databaseData.get(i);
-				addDatabaseEntry(scholarshipDatabase, d);
-			}
-		}
-		
-	}
-	
-	/* THIS FUNCTION DUPLICATES FUNCTIONALITY 
-	 * UPDATE CALLING CODE TO CALL getDatabase(String databaseName) INSTEAD 
-	 * REMOVE FUNCTION AFTER UPDATED*/
-	public void getDatabaseForDelete(String databaseName) {
-		List<String[]> list = new ArrayList<String[]>();
-		BufferedReader buffread = null;
-		String line = "";
-		String delimiter = ",";
-		try {
-			File f = new File(databaseName);
-			buffread = new BufferedReader(new FileReader(f));
-			while ((line = buffread.readLine()) != null) {
-				list.add(line.split(delimiter));
-			}
-			this.databaseData = list;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (buffread != null) {
-				try {
-					buffread.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	/**
-	 * 
-	 * @param databaseName
-	 * @param data
-	 */
-	private void addDatabaseEntry(String databaseName, String[] data) {
-		BufferedWriter bw = null;
-		String line = String.join(",", data);
-		line += "\n";
-		try {
-			File f = new File(databaseName);
-			bw = new BufferedWriter(new FileWriter(f, true));
-			bw.write(line);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (bw != null) {
-				try {
-					bw.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	
-	
-	
-	
-	
-
-	
-	public boolean addScholarshipEntry(String[] scholarshipData) { 
-		this.addDatabaseEntry(CsvReader.scholarshipDatabase, scholarshipData);
-		boolean success = true;
-		return success;
-	}
-	
-	public boolean deleteScholarshipEntry(int index) throws Exception {
-		this.deleteDatabaseEntry(scholarshipDatabase, index);
-		boolean success = true;
-		return success;
-	}
-	
-
 	/**
 	 * Writes updated database to file before closing
 	 * @param databaseName : String
@@ -251,15 +159,15 @@ class CsvReader {
 	}
 
 
-	public int getDatabaseCounter() {
-		return databaseCounter;
-	}
-
-
-	public void setDatabaseCounter(int databaseCounter) {
-		this.databaseCounter = databaseCounter;
-	}
-	
+//	public int getDatabaseCounter() {
+//		return databaseCounter;
+//	}
+//
+//
+//	public void setDatabaseCounter(int databaseCounter) {
+//		this.databaseCounter = databaseCounter;
+//	}
+//	
 	
 	
 	
