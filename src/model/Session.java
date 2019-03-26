@@ -16,7 +16,8 @@ public class Session {
 	private User user;
 	private DataManager m;
 	
-	
+	public ObservableList<Application> applications;
+	public ObservableList<Scholarship> scholarships;
 
 	/**
 	 * Session constructor. Creates a session that is 
