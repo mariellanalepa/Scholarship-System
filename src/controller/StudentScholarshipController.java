@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,14 +39,13 @@ public class StudentScholarshipController implements Initializable {
 		//User will be student if they have access to the page (scene) to which this controller is bound
 		Student student = (Student) session.getUser();
 		
-		welcomeLabel.setText(welcomeLabel.getText() + " " + student.getName());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 		
-		ScholarshipFactory s = new ScholarshipFactory();
+		ScholarshipFactory s = new ScholarshipFactory(session.getUser.getId());
 		
 		ObservableList<Scholarship> data = FXCollections.observableArrayList(s.getScholarshipArray());
-		FilteredList<Scholarship> filteredData = new FilteredList<>(data, p -> true);
 		
-		table.setItems(filteredData);
+		table.setItems(data);
 		idCol.setCellValueFactory(f->f.getValue().idProperty());
 		nameCol.setCellValueFactory(f->f.getValue().nameProperty());
 		donorCol.setCellValueFactory(f->f.getValue().donorProperty());
@@ -59,23 +57,8 @@ public class StudentScholarshipController implements Initializable {
 		typeCol.setCellValueFactory(f->f.getValue().typeProperty());
 		gpaCol.setCellValueFactory(f->f.getValue().gpaProperty());
 		yearCol.setCellValueFactory(f->f.getValue().yearProperty());
-		//table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
+		table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
 
-		filteredData.setPredicate(scholarship -> {
-			float studentGpa = Float.parseFloat(student.getStudentGPAString());
-			float requiredGpa = scholarship.getGpa();
-					
-			if ((scholarship.getFaculty().contains(student.getStudentFaculty()) || scholarship.getFaculty().toLowerCase().contains("any"))
-			&& (scholarship.getDepartment().contains(student.getStudentDepartment()) || scholarship.getDepartment().toLowerCase().contains("any"))
-			/*&& (scholarship.getType().contains(LoginController.studentType) || scholarship.getType().toLowerCase().contains("any"))*/
-			&& (scholarship.getYear().contains(student.getStudentYearString()) || scholarship.getYear().toLowerCase().contentEquals("any"))
-			&& (studentGpa >= requiredGpa) && (scholarship.getStatus().toLowerCase().contains("open")) ) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		});
 	}
 	
 	@FXML
