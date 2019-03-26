@@ -14,9 +14,9 @@ public class Session {
 	private User user;
 	private DataManager m;
 	
-	/* Application and Scholarship Databases specific to the logged-in user*/
-	private List<String[]> userApplicationDatabase;	// specific to user 
-	private List<String[]> userScholarshipDatabase; // specific to user 
+//	/* Application and Scholarship Databases specific to the logged-in user*/
+//	private List<String[]> userApplicationDatabase;	// specific to user 
+//	private List<String[]> userScholarshipDatabase; // specific to user 
 	
 
 
@@ -66,11 +66,9 @@ public class Session {
 	 */
 	private void initializeDabaseData() {
 		if(this.user instanceof Admin) {
-			this.setUserApplicationDatabase(m.getApplicationDataByStatus("submitted"));
-			this.setUserScholarshipDatabase(DataManager.getScholarshipData());
+			DataManager.initAdminDatabases();
 		} else if(this.user instanceof Student) {
-			this.setUserApplicationDatabase(m.getApplicationDataByID(Integer.valueOf(user.getID())));
-			this.setUserScholarshipDatabase(m.getScholarshipDataByID(Integer.valueOf(user.getID())));
+			DataManager.initStudentDatabases(this.user.getID());
 		} 
 
 	}

@@ -35,7 +35,7 @@ public class ApplicationFactory {
 	public ApplicationFactory(int studentID){
 		DataManager m = new DataManager();
 		counter = DataManager.getApplicationCounter();
-		this.applicationData = m.getApplicationDataByID(studentID);
+		this.applicationData = DataManager.getApplicationDataByID(studentID);
 		List<Application> applicationList = new ArrayList<Application>();
 		for(int i = 0; i < applicationData.size(); i++) {
 				Application s = new Application(applicationData.get(i));
