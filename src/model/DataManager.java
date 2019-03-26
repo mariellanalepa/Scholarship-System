@@ -173,7 +173,7 @@ public class DataManager {
 	 * @param studentID
 	 * @return List<String[]> of filtered application data
 	 */
-	public List<String[]> getApplicationDataByID(int studentID){
+	public static List<String[]> getApplicationDataByID(int studentID){
 		List<String[]> dataList = new ArrayList<String[]>();
 		
 		for(int i = 0; i < masterApplicationDatabase.size(); i++) {
@@ -192,7 +192,7 @@ public class DataManager {
 	 * @param status : String 
 	 * @return List<String[]> of filtered application data
 	 */
-	public List<String[]> getApplicationDataByStatus(String status){
+	public static List<String[]> getApplicationDataByStatus(String status){
 		List<String[]> dataList = new ArrayList<String[]>();
 		for(int i = 0; i < masterApplicationDatabase.size(); i++) {
 			if(masterApplicationDatabase.get(i)[4].equals(status)) {
@@ -218,6 +218,20 @@ public class DataManager {
 		}
 		
 	}
+	/**
+	 * Methods for Initialization
+	 */
+	
+	public static void initStudentDatabases(int studentID) {
+		DataManager.userApplicationDatabase = getApplicationDataByID(studentID);
+		DataManager.userScholarshipDatabase = getScholarshipDataByID(studentID);
+	}
+	public static void initAdminDatabases() {
+		DataManager.userApplicationDatabase = getApplicationDataByStatus("submitted");
+		DataManager.userScholarshipDatabase = getScholarshipData();
+	}
+	
+	
 	/*********************************************************************************
 	 * 
 	 * Methods for CsvReader Functionality
