@@ -16,6 +16,7 @@ public class DataManager {
 	private static List<String[]> masterScholarshipDatabase;
 	private static List<String[]> userApplicationDatabase;	// specific to user 
 	private static List<String[]> userScholarshipDatabase; // specific to user 
+	
 	private static CsvReader c = new CsvReader();
 	
 	/**
@@ -23,6 +24,35 @@ public class DataManager {
 	 */
 	public DataManager() {}
 	
+	
+	public static List<String[]> getUserApplicationDatabase(){
+		return userApplicationDatabase;
+	}
+	
+	public static List<String[]> getUserScholarshipDatabase(){
+		return userScholarshipDatabase;
+	}
+	public static List<String[]> getMasterApplicationDatabase(){
+		return masterApplicationDatabase;
+	}
+	
+	public static List<String[]> getMasterScholarshipDatabase(){
+		return masterScholarshipDatabase;
+	}
+	
+	
+	/**
+	 * Methods for Initialization
+	 */
+	
+	public static void initStudentUserDatabases(int studentID) {
+		DataManager.userApplicationDatabase = getApplicationDataByID(studentID);
+		DataManager.userScholarshipDatabase = getScholarshipDataByID(studentID);
+	}
+	public static void initAdminUserDatabases() {
+		DataManager.userApplicationDatabase = getApplicationDataByStatus("submitted");
+		DataManager.userScholarshipDatabase = getScholarshipData();
+	}
 	
 	/*******************************************************************
 	 * 
@@ -218,18 +248,7 @@ public class DataManager {
 		}
 		
 	}
-	/**
-	 * Methods for Initialization
-	 */
 	
-	public static void initStudentDatabases(int studentID) {
-		DataManager.userApplicationDatabase = getApplicationDataByID(studentID);
-		DataManager.userScholarshipDatabase = getScholarshipDataByID(studentID);
-	}
-	public static void initAdminDatabases() {
-		DataManager.userApplicationDatabase = getApplicationDataByStatus("submitted");
-		DataManager.userScholarshipDatabase = getScholarshipData();
-	}
 	
 	
 	/*********************************************************************************

@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import javafx.collections.ObservableList;
+
 
 /**
  * Class in which we contain the summary of application data that constitutes the MODEL in the MVC design.
@@ -14,11 +16,7 @@ public class Session {
 	private User user;
 	private DataManager m;
 	
-//	/* Application and Scholarship Databases specific to the logged-in user*/
-//	private List<String[]> userApplicationDatabase;	// specific to user 
-//	private List<String[]> userScholarshipDatabase; // specific to user 
 	
-
 
 	/**
 	 * Session constructor. Creates a session that is 
@@ -66,9 +64,9 @@ public class Session {
 	 */
 	private void initializeDabaseData() {
 		if(this.user instanceof Admin) {
-			DataManager.initAdminDatabases();
+			DataManager.initAdminUserDatabases();
 		} else if(this.user instanceof Student) {
-			DataManager.initStudentDatabases(this.user.getID());
+			DataManager.initStudentUserDatabases(this.user.getID());
 		} 
 
 	}
@@ -102,18 +100,18 @@ public class Session {
 		return this.user;
 	}
 	public List<String[]> getUserApplicationDatabase() {
-		return userApplicationDatabase;
+		return DataManager.getUserApplicationDatabase();
 	}
 	public List<String[]> getUserScholarshipDatabase() {
-		return userScholarshipDatabase;
+		return DataManager.getUserScholarshipDatabase();
 	}
 
-	protected void setUserApplicationDatabase(List<String[]> applicationDatabase) {
-		this.userApplicationDatabase = applicationDatabase;
-	}
-	protected void setUserScholarshipDatabase(List<String[]> scholarshipDatabase) {
-		this.userScholarshipDatabase = scholarshipDatabase;
-	}
+//	protected void setUserApplicationDatabase(List<String[]> applicationDatabase) {
+//		this.userApplicationDatabase = applicationDatabase;
+//	}
+//	protected void setUserScholarshipDatabase(List<String[]> scholarshipDatabase) {
+//		this.userScholarshipDatabase = scholarshipDatabase;
+//	}
 
 
 
