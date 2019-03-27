@@ -41,7 +41,7 @@ public class StudentScholarshipController implements Initializable {
 		
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 		
-		ScholarshipFactory s = new ScholarshipFactory(session.getUser.getId());
+		ScholarshipFactory s = new ScholarshipFactory(session.getUser().getID());
 		
 		ObservableList<Scholarship> data = FXCollections.observableArrayList(s.getScholarshipArray());
 		
