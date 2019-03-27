@@ -79,9 +79,10 @@ public class Scholarship {
 	
 	/**
 	 * Helper method to calculate top candidates with addition of new application
+	 * or modification of application status to "submitted"
 	 * @param application
 	 */
-	private void findTopCandidates(Application application) 
+	public void findTopCandidates(Application application) 
 	{
 		//Only consider application for award if status is "submitted"
 		if (application.getStatus().equals("submitted"))

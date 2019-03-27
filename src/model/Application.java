@@ -175,7 +175,19 @@ public class Application {
         if (dateAdded == null) dateAdded = new SimpleStringProperty(this, "dateAdded");
         return dateAdded; 
     } 
-    public void setStatus(String value) { statusProperty().set(value); }
+    public void setStatus(String value) 
+    { 
+    		statusProperty().set(value);
+    		//Ensure that if status changes to submitted, Application is now considered
+    		//for award
+    		if (value.equals("submitted"))
+    		{
+    			//Get relevant scholarship
+    			Scholarship scholarship = this.db.getScholarships().get(this.getScholarshipId());
+    			//Recalculate top candidates 
+    			scholarship.findTopCandidates(this);
+    		}
+    }
     
     public String getStatus() { return statusProperty().get(); }
     
