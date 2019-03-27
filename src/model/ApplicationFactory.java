@@ -20,15 +20,15 @@ public class ApplicationFactory {
 		this.applicationData = DataManager.getApplicationData();
 		List<Application> applicationList = new ArrayList<Application>();
 		for(int i = 0; i < applicationData.size(); i++) {
-				Application s = new Application(applicationData.get(i));
-				applicationList.add(s);
+				//Application s = new Application(applicationData.get(i));
+				//applicationList.add(s);
 			
 		}
 		this.applicationArray = applicationList;
 		this.appArraySize = applicationArray.size();
 		for(int i = 0; i < applicationArray.size(); i++) {
 			Application a = applicationArray.get(i);
-			a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+			//a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
 		}
 	}
 	
@@ -38,15 +38,15 @@ public class ApplicationFactory {
 		this.applicationData = DataManager.getApplicationDataByID(studentID);
 		List<Application> applicationList = new ArrayList<Application>();
 		for(int i = 0; i < applicationData.size(); i++) {
-				Application s = new Application(applicationData.get(i));
-				applicationList.add(s);
+				//Application s = new Application(applicationData.get(i));
+				//applicationList.add(s);
 		}
 		this.applicationArray = applicationList;
 		this.appArraySize = applicationArray.size();
 		for(int i = 0; i < applicationArray.size(); i++) {
 			Application a = applicationArray.get(i);
 			//System.out.println(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
-			a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+			//a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
 		}
 	}
 	

@@ -1,8 +1,8 @@
 IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,RecType,ReqGPA,ReqYear,Status,DatePosted(dd/MM/yyyy HH:mm:ss)
-1,Chancellor�s Scholarship,n/a,2020-12-15 23:59,40000,10,Any,Any,UGRAD,3.6,0,Open,01/01/2019 16:01
+1,Chancellors Scholarship,n/a,2020-12-15 23:59,40000,10,Any,Any,UGRAD,3.6,0,Open,01/01/2019 16:01
 2,Continuing Student Scholarship,n/a,2020-12-15 23:59,1000,20,Any,Any,UGRAD,3.6,2+,Open,01/01/2019 16:00 
 3,Scholarship in Mathematics and Statistics,Department of Mathematics and Statistics,2020-12-15 23:59,1200,3,SC,AMAT/PMAT/STAT,UGRAD,3.2,2+,Open,01/01/2019 16:00 
 4,A.D. Winspear Prize,A.D. Winspear,2020-12-15 23:59,200,1,AR,GRST,UGRAD,3.2,2+,Open,01/01/2019 16:00 
-5,A.T.J. Cairns Memorial Undergraduate Scholarship,Estate of Professor A.T.J. Cairns,2020-12-15 23:59,2800,15,AR,ENGL,UGRAD,3,2+,Open,01/01/2019 16:00 
+5,A.T.J. Cairns Memorial Undergraduate Scholarship,Estate of Professor A.T.J. Cairns,2020-12-15 23:59,2800,15,AR,ENGL,UGRAD,3.0,2+,Open,01/01/2019 16:00 
 6,AECOM Scholarship,UMA Engineering Ltd.,2020-12-15 23:59,3000,1,EN,ENCL,UGRAD,3.2,3+,Open,01/01/2019 16:01
 7,Husky Energy Scholarship Program,Husky Energy,2020-12-15 23:59,5000,5,Any,Any,UGRAD,2.3,Any,Open,13/03/2019 23:00:36

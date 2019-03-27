@@ -9,6 +9,11 @@ import javafx.beans.property.StringProperty;
  *
  */
 public class Application {
+	
+	//Must have database access to get name of scholarship, rather than ID
+	//Might be able to bypass this later
+	Database db;
+	
 	StringProperty applicationID;
 	StringProperty studentID;
 	StringProperty scholarshipID;
@@ -17,14 +22,14 @@ public class Application {
 	StringProperty scholarshipName;
 	StringProperty scholarshipDeadline;
 	StringProperty dateSubmitted;
-	
-	
+		
 	
 	
 	/**
 	 * Constructor for a new Application object
 	 */
-	public Application() {
+	public Application(Database database) {
+		this.db = database;
 		this.setStatus("saved");
 	}
 	
@@ -33,14 +38,34 @@ public class Application {
 	 * @param applicationData : String[] application data from application database
 	 */
 	//applicationID		studentID	scholarshipID datesubmitted	status
-	public Application (String[] applicationData) {
-		this.setApplicationId(applicationData[0]);
-		this.setStudentId(applicationData[1]);
-		this.setScholarshipId(applicationData[2]);
-		this.setDateSubmitted(applicationData[3]); 
-		this.setStatus(applicationData[4]);
+	public Application(Database database, String[] applicationData) {
+		
+			this.db = database;
+		
+			this.setApplicationId(Integer.valueOf(applicationData[0]));
+			this.setStudentId(Integer.valueOf(applicationData[1]));
+			this.setScholarshipId(Integer.valueOf(applicationData[2]));
+			this.setDateSubmitted(applicationData[3]); 
+			this.setStatus(applicationData[4]);
+			
+			//associated scholarship object
+			Scholarship scholarship = db.getScholarships().get(this.getScholarshipId());
+			//and now we can add these scholarship-specific attributes
+			this.setScholarshipName(scholarship.getName());
+			this.setScholarshipDeadline(scholarship.getDeadline());
 		
 	}
+	
+	
+	/**
+	 * Constructor for Application that should only be called from Submit Application interface
+	 * @param id
+	 */
+	public Application(int id) {
+		//Id should come from session.getDatabase().getApplications().size()
+		this.setApplicationId(id);
+	}
+	
 	/* String[] applicationData = [applicationID,	scholarshipID,	studentID,	datesubmitted]
 	 * */
 	/**
@@ -49,11 +74,19 @@ public class Application {
 	 * Data is added to the Session applicationData attribute
 	 * @return boolean indicating success of operation
 	 */
+	/* String[] applicationData = [applicationID,	scholarshipID,	studentID,	datesubmitted]
+	 * */
+	/**
+	 * Function for submitting a new application
+	 * If the application object does not have an ID, one is assigned
+	 * Data is added to the Session applicationData attribute
+	 * @return boolean indicating success of operation
+	 *//*
 	public void saveApplication() {
 		DataManager m = new DataManager();
-		/* if this is a new application (does not yet have an ID)
+		 if this is a new application (does not yet have an ID)
 		 * set the ID number
-		 */
+		 
 		if(this.getApplicationId() == null) {
 			int counter = ApplicationFactory.getCounter();
 			ApplicationFactory.incrementCounter();
@@ -61,70 +94,128 @@ public class Application {
 		}
 		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateAdded.get(), status.get()};
 		m.addApplicationEntry(applicationData);
+	}*/
+	
+	/*GETTERS & SETTERS*/
+
+	/*public int getApplicationId() { return Integer.valueOf(this.applicationID.getValue()); }
+    
+    public int getStudentId() { return this.studentID; }
+   
+    public int getScholarshipId() { return this.scholarshipID; }
+   
+    public String getDateAdded() { return this.dateAdded; }
+    
+    public String getStatus() { return this.status; } 
+    
+    public void setStatus(String status) {
+		this.status = status;
 	}
-//	public void stashApplication() {
-//		DataManager m = new DataManager();
-//		/* if this is a new application (does not yet have an ID)
-//		 * set the ID number
-//		 */
-//		if(this.getApplicationId() == null) {
-//			int counter = ApplicationFactory.getCounter();
-//			ApplicationFactory.incrementCounter();
-//			this.applicationID.set(String.valueOf(counter));
-//		}
-//		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateAdded.get(), status.get()};
-//		m.addApplicationEntry(applicationData);
-//	}
 
+	public void setScholarshipId(Integer scholarshipId) {
+		this.scholarshipID = scholarshipId;	
+	}
 
-	public void setApplicationId(String value) { applicationIDProperty().set(value); }
-    public String getApplicationId() { return applicationIDProperty().get(); }
-    public StringProperty applicationIDProperty() { 
+	public void setStudentId(Integer studentId) {
+		this.studentID = studentId;	
+	}
+
+	public void setApplicationId(Integer applicationID) {
+		this.applicationID = new SimpleStringProperty(this, "applicationID");
+	}
+	
+	public void setDateAdded(String date) {
+		this.dateAdded = date;		
+	}
+ 
+	public StringProperty applicationIDProperty() { 
+        return new SimpleStringProperty(); 
+    } */
+
+	
+	/**
+	 * Set the application id to the input value
+	 * @param value - int representing the application id
+	 */
+	public void setApplicationId(int value) { applicationIDProperty().set(Integer.toString(value)); }
+    
+	public int getApplicationId() { return Integer.valueOf(applicationIDProperty().get()); }
+    
+	public StringProperty applicationIDProperty() { 
         if (applicationID == null) applicationID = new SimpleStringProperty(this, "applciationID");
         return applicationID; 
     } 
-    public void setStudentId(String value) { studentIdProperty().set(value); }
-    public String getStudentId() { return studentIdProperty().get(); }
+    public void setStudentId(int value) { studentIdProperty().set(Integer.toString(value)); }
+    
+    public int getStudentId() { return Integer.valueOf(studentIdProperty().get()); }
+    
     public StringProperty studentIdProperty() { 
         if (studentID == null) studentID = new SimpleStringProperty(this, "studentID");
         return studentID; 
     } 
-    public void setScholarshipId(String value) { scholarshipIdProperty().set(value); }
-    public String getScholarshipId() { return scholarshipIdProperty().get(); }
+    public void setScholarshipId(int value) { scholarshipIdProperty().set(Integer.toString(value)); }
+    
+    public int getScholarshipId() { return Integer.valueOf(scholarshipIdProperty().get()); }
+    
     public StringProperty scholarshipIdProperty() { 
         if (scholarshipID == null) scholarshipID = new SimpleStringProperty(this, "scholarshipID");
         return scholarshipID; 
     } 
     public void setDateAdded(String value) { dateAddedProperty().set(value); }
+    
     public String getDateAdded() { return dateAddedProperty().get(); }
+    
     public StringProperty dateAddedProperty() { 
         if (dateAdded == null) dateAdded = new SimpleStringProperty(this, "dateAdded");
         return dateAdded; 
     } 
     public void setStatus(String value) { statusProperty().set(value); }
-    public String getStatusProperty() { return statusProperty().get(); }
+    
+    public String getStatus() { return statusProperty().get(); }
+    
     public StringProperty statusProperty() { 
         if (status == null) status = new SimpleStringProperty(this, "status");
         return status; 
     } 
     
     public void setScholarshipName(String value) { scholarshipNameProperty().set(value); }
+    
     public String getScholarshipNameProperty() { return scholarshipNameProperty().get(); }
+    
     public StringProperty scholarshipNameProperty() { 
         if (scholarshipName == null) scholarshipName = new SimpleStringProperty(this, "scholarshipName");
         return scholarshipName; 
     } 
     public void setScholarshipDeadline(String value) { scholarshipDeadlineProperty().set(value); }
+    
     public String getScholarshipDeadlineProperty() { return scholarshipDeadlineProperty().get(); }
+    
     public StringProperty scholarshipDeadlineProperty() { 
         if (scholarshipDeadline == null) scholarshipDeadline = new SimpleStringProperty(this, "scholarshipDeadline");
         return scholarshipDeadline; 
     } 
     public void setDateSubmitted(String value) { dateSubmittedProperty().set(value); }
+    
     public String getDateSubmitted() { return dateSubmittedProperty().get(); }
+    
     public StringProperty dateSubmittedProperty() { 
         if (dateSubmitted == null) dateSubmitted = new SimpleStringProperty(this, "dateSubmitted");
         return dateSubmitted; 
     } 
 
-}
+    /**
+     * Method to aid in writing application data to file upon program termination.
+     */
+    public String[] toStringArray() {
+    		String[] applicationString = new String[5];
+    		applicationString[0] = Integer.toString(this.getApplicationId());
+    		applicationString[1] = Integer.toString(this.getStudentId());
+    		applicationString[2] = Integer.toString(this.getScholarshipId());
+    		applicationString[3] = this.getDateSubmitted();
+    		applicationString[4] = this.getStatus();
+    		
+    		return applicationString;
+    }
+    
+	
+  }

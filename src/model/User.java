@@ -29,4 +29,8 @@ public abstract class User {
 		return this.userID;
 	}
 	
+	public String getUserName() {
+		return this.userName;
+	}
+	
 }

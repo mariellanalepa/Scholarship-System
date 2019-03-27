@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -12,6 +14,9 @@ import javafx.beans.property.StringProperty;
  *
  */
 public class Scholarship {
+	//List of applications related to this scholarships
+	private ArrayList<Application> applications;
+	
 	private IntegerProperty id;
 	private StringProperty name;
 	private StringProperty donor;
@@ -27,6 +32,7 @@ public class Scholarship {
 	private StringProperty posted;
 
 	public Scholarship (String[] scholarshipData) {
+		this.applications = new ArrayList<Application>();
 		this.setId(scholarshipData[0]);
 		this.setName(scholarshipData[1]);
 		this.setDonor(scholarshipData[2]);
@@ -42,7 +48,7 @@ public class Scholarship {
 		this.setPosted(scholarshipData[12]);
 	}
 	
-	public void saveScholarship(String[] scholarshipData) {
+	/*public void saveScholarship(String[] scholarshipData) {
 		DataManager m = new DataManager();
 		m.addScholarshipEntry(scholarshipData);
 	}
@@ -50,13 +56,27 @@ public class Scholarship {
 	public void deleteScholarship(int index) throws NullPointerException {
 		DataManager m = new DataManager();
 		m.deleteScholarshipEntry(index);
+	}*/
+	
+	/* GETTERS & SETTERS */
+	
+	public void addApplication(Application application)
+	{
+		this.applications.add(application);
+	}
+	
+	public ArrayList<Application> getApplications() 
+	{
+		return this.applications;
 	}
 	
 	/* following code adapted from Oracle Docs
 	 * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html
 	 */
 	public void setId(String value) { idProperty().set(Integer.parseInt(value)); }
+	
     public Integer getId() { return idProperty().get(); }
+    
     public IntegerProperty idProperty() { 
         if (id == null) id = new SimpleIntegerProperty(this, "id");
         return id; 
@@ -133,5 +153,27 @@ public class Scholarship {
         if (posted == null) posted = new SimpleStringProperty(this, "posted");
         return posted; 
     } 
+    
+    /**
+     * Method to aid in writing scholarship data to file upon program termination.
+     */
+    public String[] toStringArray() {
+    		String[] scholarshipString = new String[13];
+    		scholarshipString[0] = Integer.toString(this.getId());
+    		scholarshipString[1] = this.getName();
+    		scholarshipString[2] = this.getDonor();
+    		scholarshipString[3] = this.getDeadline();
+    		scholarshipString[4] = Integer.toString(this.getAmount());
+    		scholarshipString[5] = Integer.toString(this.getNumber());
+    		scholarshipString[6] = this.getFaculty();
+    		scholarshipString[7] = this.getDepartment();
+    		scholarshipString[8] = this.getType();
+    		scholarshipString[9] = Float.toString(this.getGpa());
+    		scholarshipString[10] = this.getYear();
+    		scholarshipString[11] = this.getStatus();
+    		scholarshipString[12] = this.getPosted();
+    		
+    		return scholarshipString;
+    }
     
 }

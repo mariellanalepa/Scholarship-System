@@ -41,11 +41,16 @@ public class DeleteScholarshipController implements Initializable {
 	@FXML
 	protected void handleDeleteButtonAction(ActionEvent event) throws Exception
 	{
-		ScholarshipFactory sf = new ScholarshipFactory();
-		List<Scholarship> scholArray = sf.getScholarshipArray();
+		//ScholarshipFactory sf = new ScholarshipFactory();
+		//List<Scholarship> scholArray = sf.getScholarshipArray();
 		int i = nameArray.indexOf(scholarshipSelectDropDown.getValue().toString())+1; //nameArray is 1 shorter than scholArray
-		scholarship = scholArray.get(i-1); 				
-		scholarship.deleteScholarship(i); 
+		//scholarship = scholArray.get(i-1); 				
+		//scholarship.deleteScholarship(i); 
+		//Find scholarship in database
+		this.scholarship = this.session.getDatabase().getScholarships().get(i);
+		//Remove scholarship from database
+		this.session.getDatabase().deleteScholarship(this.scholarship);
+		
 		//Set scene to Admin Main 
 		main.setScene("/view/AdminMain.fxml");
 	}

@@ -2,6 +2,8 @@ package controller;
 import model.Application;
 import model.ApplicationFactory;
 import model.Session;
+import model.Student;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,10 +23,12 @@ public class ApplicationHistoryController implements Initializable {
 	
 	private Main main;
 	private Session session;
+	private Student student;
 	@FXML private Button signOut, mainMenuButton;
 	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Application,String> applicationIdCol, scholarshipIdCol, scholarshipNameCol, dateSubmittedCol, deadlineCol, status;
 	@FXML private TableView<Application> table;
+	
 	
 	public ApplicationHistoryController(Main main, Session session) {
 		this.main = main;
@@ -43,10 +47,12 @@ public class ApplicationHistoryController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
-		System.out.println(session.getUser().getID());
-		ApplicationFactory af = new ApplicationFactory(session.getUser().getID());
-		ObservableList<Application> data = FXCollections.observableArrayList(af.getApplicationArray());
+
+		this.student = (Student) this.session.getUser();
+		welcomeLabel.setText(welcomeLabel.getText() + " " + student.getName());
+		System.out.println(student.getID());
+		//ApplicationFactory af = new ApplicationFactory(session.getUser().getID());
+		ObservableList<Application> data = FXCollections.observableArrayList(this.student.getApplications());
 
 		table.setItems(data);
 		applicationIdCol.setCellValueFactory(f->f.getValue().applicationIDProperty());

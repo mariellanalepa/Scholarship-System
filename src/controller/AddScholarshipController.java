@@ -52,10 +52,11 @@ public class AddScholarshipController implements Initializable
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception
 	{
 		String[] scholarshipData = new String[13];
-		ScholarshipFactory s = new ScholarshipFactory();
+		//ScholarshipFactory s = new ScholarshipFactory();
 		
-		empty = false;
-		scholarshipData[0] = Integer.toString(1 + s.getScholarshipListLength());
+		//empty = false;
+		//scholarshipData[0] = Integer.toString(1 + s.getScholarshipListLength());
+		//
 
 		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
 		else { empty = true;}
@@ -83,7 +84,10 @@ public class AddScholarshipController implements Initializable
 		
 		if (empty == false) {
 			Scholarship scholarship = new Scholarship(scholarshipData);
-			scholarship.saveScholarship(scholarshipData);
+			//Add scholarship to database
+			this.session.getDatabase().addScholarship(scholarship);
+			
+			//scholarship.saveScholarship(scholarshipData);
 			//Set scene to Admin Main Page
 			main.setScene("/view/AdminMain.fxml");
 		}
