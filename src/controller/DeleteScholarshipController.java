@@ -10,11 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import model.ScholarshipFactory;
 import model.Session;
 import model.Scholarship;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class DeleteScholarshipController implements Initializable {
 	
@@ -41,11 +40,12 @@ public class DeleteScholarshipController implements Initializable {
 	@FXML
 	protected void handleDeleteButtonAction(ActionEvent event) throws Exception
 	{
-		ScholarshipFactory sf = new ScholarshipFactory();
-		List<Scholarship> scholArray = sf.getScholarshipArray();
 		int i = nameArray.indexOf(scholarshipSelectDropDown.getValue().toString())+1; //nameArray is 1 shorter than scholArray
-		scholarship = scholArray.get(i-1); 				
-		scholarship.deleteScholarship(i); 
+		//Find scholarship in database
+		this.scholarship = this.session.getDatabase().getScholarships().get(i);
+		//Remove scholarship from database
+		this.session.getDatabase().deleteScholarship(this.scholarship);
+		
 		//Set scene to Admin Main 
 		main.setScene("/view/AdminMain.fxml");
 	}
@@ -57,11 +57,10 @@ public class DeleteScholarshipController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ScholarshipFactory sf = new ScholarshipFactory();
-		List<Scholarship> scholArray = sf.getScholarshipArray();		
-		for (int i = 0; i < sf.getScholarshipListLength(); i++)
+			
+		for (Scholarship scholarship : this.session.getDatabase().getScholarships().values())
 		{
-			nameArray.add(scholArray.get(i).getName());
+			nameArray.add(scholarship.getName());
 			scholarshipSelectDropDown.setItems(FXCollections.observableArrayList(nameArray));
 		}	
 	}

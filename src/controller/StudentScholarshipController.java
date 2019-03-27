@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.ScholarshipFactory;
 import model.Session;
 import model.Student;
 import model.Scholarship;
@@ -39,11 +38,11 @@ public class StudentScholarshipController implements Initializable {
 		//User will be student if they have access to the page (scene) to which this controller is bound
 		Student student = (Student) session.getUser();
 		
-		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + student.getName());
 		
-		ScholarshipFactory s = new ScholarshipFactory(session.getUser().getID());
+		//ScholarshipFactory s = new ScholarshipFactory(session.getUser().getID());
 		
-		ObservableList<Scholarship> data = FXCollections.observableArrayList(s.getScholarshipArray());
+		ObservableList<Scholarship> data = FXCollections.observableArrayList(this.session.getDatabase().getScholarships().values());
 		
 		table.setItems(data);
 		idCol.setCellValueFactory(f->f.getValue().idProperty());

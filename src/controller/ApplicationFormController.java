@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import model.Application;
-import model.DataManager;
 import model.Scholarship;
 import model.Session;
 import model.Student;
@@ -44,7 +43,6 @@ public class ApplicationFormController implements Initializable
 		
 		Student student = (Student) session.getUser();
 		welcomeLabel.setText(welcomeLabel.getText() + " " + student.getName());
-		DataManager m = new DataManager();
 		
 		//Check if a scholarship has been selected via table GUI
 		this.scholarship = this.session.getScholarshipSelection();
@@ -59,12 +57,19 @@ public class ApplicationFormController implements Initializable
 		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
 		signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
 		
-		Application a = new Application();
-		a.setStudentId(student.getStudentIDString());
-		a.setDateAdded(dateTimeFormat(LocalDateTime.now()));
-		a.setScholarshipId(Integer.toString(this.scholarship.getId())); 
-		a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
+		String[] applicationData = new String[5];
+		applicationData[0] = Integer.toString(this.session.getDatabase().getApplicationIdCounter());
+		applicationData[1] = Integer.toString(student.getID());
+		applicationData[2] = Integer.toString(this.scholarship.getId());
+		applicationData[3] = dateTimeFormat(LocalDateTime.now());
+		applicationData[4] = "saved";
+		
+		Application a = new Application(this.session.getDatabase(), applicationData);
+		//a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
 		this.application = a;
+		
+		//Add application to database
+		this.session.getDatabase().addApplication(application);
 		
 		FNAME_FIELD.setText(student.getFirstName());
 		LNAME_FIELD.setText(student.getLastName());
@@ -91,16 +96,16 @@ public class ApplicationFormController implements Initializable
 	@FXML
 	protected void handleSaveAndExitButtonAction(ActionEvent event) throws Exception
 	{
-		this.application.saveApplication();
+		//this.application.saveApplication();
 		main.setScene("/view/StudentMain.fxml");
 	}
 	
 	@FXML
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception
 	{
-		this.application.setDateSubmitted(dateTimeFormat(LocalDateTime.now()));
+		this.application.setDateAdded(dateTimeFormat(LocalDateTime.now()));
 		this.application.setStatus("submitted");
-		this.application.saveApplication();
+		//this.application.saveApplication();
 		
 		submitButton.setVisible(false);
 		saveAndExitButton.setVisible(false);

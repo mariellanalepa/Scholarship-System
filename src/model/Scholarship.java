@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -12,6 +14,13 @@ import javafx.beans.property.StringProperty;
  *
  */
 public class Scholarship {
+	//List of applications related to this scholarships
+	private ArrayList<Application> applications;
+	//Top candidate(s) based on GPA of submitted scholarships
+	private Student[] topCandidates;
+	//Database
+	private Database db;
+	
 	private IntegerProperty id;
 	private StringProperty name;
 	private StringProperty donor;
@@ -26,7 +35,9 @@ public class Scholarship {
 	private StringProperty status;
 	private StringProperty posted;
 
-	public Scholarship (String[] scholarshipData) {
+	public Scholarship (Database database, String[] scholarshipData) {
+		this.db = database;
+		this.applications = new ArrayList<Application>();
 		this.setId(scholarshipData[0]);
 		this.setName(scholarshipData[1]);
 		this.setDonor(scholarshipData[2]);
@@ -40,9 +51,15 @@ public class Scholarship {
 		this.setYear(scholarshipData[10]);
 		this.setStatus(scholarshipData[11]);
 		this.setPosted(scholarshipData[12]);
+		
+		//Make as many positions for top candidate as number of scholarships
+		//to be awarded
+		this.topCandidates = new Student[this.getNumber()];
 	}
 	
-	public void saveScholarship(String[] scholarshipData) {
+	
+	
+	/*public void saveScholarship(String[] scholarshipData) {
 		DataManager m = new DataManager();
 		m.addScholarshipEntry(scholarshipData);
 	}
@@ -50,13 +67,78 @@ public class Scholarship {
 	public void deleteScholarship(int index) throws NullPointerException {
 		DataManager m = new DataManager();
 		m.deleteScholarshipEntry(index);
+	}*/
+	
+	/* GETTERS & SETTERS */
+	
+	public void addApplication(Application application)
+	{
+		this.applications.add(application);
+		this.findTopCandidates(application);
+	}
+	
+	/**
+	 * Helper method to calculate top candidates with addition of new application
+	 * or modification of application status to "submitted"
+	 * @param application
+	 */
+	public void findTopCandidates(Application application) 
+	{
+		//Only consider application for award if status is "submitted"
+		if (application.getStatus().equals("submitted"))
+		{
+			//Get associated student
+			int studentID = application.getStudentId();
+			Student student = this.db.getStudents().get(studentID);
+					
+			//Re-calculate top candidate
+			for (int s = 0; s < this.topCandidates.length; s++)
+			{
+				//If topCandidates is not yet full
+				if (this.topCandidates[s] == null)
+				{
+					topCandidates[s] = student;
+					break;
+				}
+				//Otherwise check to see if new application's student GPA is higher
+				else if (this.topCandidates[s].getGPA() < student.getGPA())
+				{
+					topCandidates[s] = student;
+					break;
+				}
+			}
+		}			
+	}
+	
+	public Student[] getTopCandidates() {
+		return this.topCandidates;
+	}
+	
+	public ArrayList<Application> getApplications() 
+	{
+		return this.applications;
+	}
+	
+	public ArrayList<Application> getApplicationsSubmittedOnly() {
+		ArrayList<Application> submittedApps = new ArrayList<Application>();
+		for (Application application : this.getApplications())
+		{
+			String status = application.getStatus();
+			if (status.equals("submitted"))
+			{
+				submittedApps.add(application);
+			}
+		}
+		return submittedApps;
 	}
 	
 	/* following code adapted from Oracle Docs
 	 * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html
 	 */
 	public void setId(String value) { idProperty().set(Integer.parseInt(value)); }
+	
     public Integer getId() { return idProperty().get(); }
+    
     public IntegerProperty idProperty() { 
         if (id == null) id = new SimpleIntegerProperty(this, "id");
         return id; 
@@ -133,5 +215,27 @@ public class Scholarship {
         if (posted == null) posted = new SimpleStringProperty(this, "posted");
         return posted; 
     } 
+    
+    /**
+     * Method to aid in writing scholarship data to file upon program termination.
+     */
+    public String[] toStringArray() {
+    		String[] scholarshipString = new String[13];
+    		scholarshipString[0] = Integer.toString(this.getId());
+    		scholarshipString[1] = this.getName();
+    		scholarshipString[2] = this.getDonor();
+    		scholarshipString[3] = this.getDeadline();
+    		scholarshipString[4] = Integer.toString(this.getAmount());
+    		scholarshipString[5] = Integer.toString(this.getNumber());
+    		scholarshipString[6] = this.getFaculty();
+    		scholarshipString[7] = this.getDepartment();
+    		scholarshipString[8] = this.getType();
+    		scholarshipString[9] = Float.toString(this.getGpa());
+    		scholarshipString[10] = this.getYear();
+    		scholarshipString[11] = this.getStatus();
+    		scholarshipString[12] = this.getPosted();
+    		
+    		return scholarshipString;
+    }
     
 }

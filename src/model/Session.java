@@ -14,7 +14,8 @@ import javafx.collections.ObservableList;
  */
 public class Session {
 	private User user;
-	private DataManager m;
+	//private DataManager m;
+	private Database db;
 	
 	public ObservableList<Application> applications;
 	public ObservableList<Scholarship> scholarships;
@@ -27,9 +28,10 @@ public class Session {
 	 * customized to user upon call to login(String username).
 	 */
 	public Session() {
-		this.m = new DataManager();
-		DataManager.loadApplicationData(); // loads application database
-		DataManager.loadScholarshipData(); // loads scholarship database
+		//this.m = new DataManager();
+		this.db = new Database();
+		//DataManager.loadApplicationData(); // loads application database
+		//DataManager.loadScholarshipData(); // loads scholarship database
 	}
 
 	/**
@@ -40,23 +42,19 @@ public class Session {
 	 */
 	public void login(String username) throws InvalidUserException
 	{
-		try {
-			this.user = new Admin(username);
-
-		} catch(InvalidUserException notAdmin) {
-			try {
-				this.user = new Student(username);
-			} catch(InvalidUserException notStudent) {
-				InvalidUserException e = new InvalidUserException("User not found");
-				throw e;
-			}
+		this.user = this.db.getUsers().get(username);
+		
+		if (this.user == null)
+		{
+			InvalidUserException e = new InvalidUserException("User not found");
+			throw e;
 		}
 		
-		initializeDabaseData();
+		//initializeDabaseData();
 	}
 
 
-	/**
+/*	*//**
 	 * Initializes the applicationDatabase and scholarshipDatabase attributes depending on user type:
 	 * 		if user is Admin, 
 	 * 			applicationDatabase contains all the SUBMITTED-status applications
@@ -65,7 +63,7 @@ public class Session {
 	 *  	if user is Student, 
 	 *  		applicationDatabase contains applications with the students ID number
 	 *  	 	scholarshipDatabase contains the curated list of scholarships for that student
-	 */
+	 *//*
 	private void initializeDabaseData() {
 		if(this.user instanceof Admin) {
 			DataManager.initAdminUserDatabases();
@@ -73,9 +71,9 @@ public class Session {
 			DataManager.initStudentUserDatabases(this.user.getID());
 		} 
 
-	}
+	}*/
 
-	public void saveDatabases() {
+	/*public void saveDatabases() {
 		try {
 			m.saveDatabaseOnExit(CsvReader.scholarshipDatabase);
 		}catch(NullPointerException e) {
@@ -88,7 +86,7 @@ public class Session {
 			return;
 		}
 
-	}
+	}*/
 
 
 //	public void updateApplicationDatabase() {
@@ -103,12 +101,13 @@ public class Session {
 	public User getUser() {
 		return this.user;
 	}
-	public List<String[]> getUserApplicationDatabase() {
+	
+	/*public List<String[]> getUserApplicationDatabase() {
 		return DataManager.getUserApplicationDatabase();
 	}
 	public List<String[]> getUserScholarshipDatabase() {
 		return DataManager.getUserScholarshipDatabase();
-	}
+	}*/
 	
 	public Scholarship getScholarshipSelection() {
 		return this.selectedScholarship;
@@ -116,6 +115,10 @@ public class Session {
 	
 	public void setScholarshipSelection(Scholarship scholarship) {
 		this.selectedScholarship = scholarship;
+	}
+	
+	public Database getDatabase() {
+		return this.db;
 	}
 
 //	protected void setUserApplicationDatabase(List<String[]> applicationDatabase) {

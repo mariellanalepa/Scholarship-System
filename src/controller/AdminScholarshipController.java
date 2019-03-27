@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import model.ScholarshipFactory;
 import model.Session;
 import model.Scholarship;
 
@@ -40,9 +39,9 @@ public class AdminScholarshipController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 		
-		ScholarshipFactory s = new ScholarshipFactory();
+		//ScholarshipFactory s = new ScholarshipFactory();
 		
-		ObservableList<Scholarship> data = FXCollections.observableArrayList(s.getScholarshipArray());
+		ObservableList<Scholarship> data = FXCollections.observableArrayList(this.session.getDatabase().getScholarships().values());
 		
 		table.setItems(data);
 		idCol.setCellValueFactory(f->f.getValue().idProperty());

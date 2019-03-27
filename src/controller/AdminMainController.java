@@ -19,7 +19,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.Scholarship;
-import model.ScholarshipFactory;
 import model.Session;
 
 public class AdminMainController implements Initializable {

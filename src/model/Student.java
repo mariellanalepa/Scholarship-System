@@ -1,6 +1,6 @@
 package model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Student extends User {
 	
@@ -9,11 +9,11 @@ public class Student extends User {
 	private String studentDepartment;
 	private String studentFaculty;
 	private float studentGPA;
-	private List<String[]> applications;
+	//List of applications related to this student
+	private ArrayList<Application> applications;
 	
-	public Student(String username) throws InvalidUserException {
-		DataManager m = new DataManager();
-		String[] data = m.getStudentData(username);
+	public Student(String[] data) {
+		this.applications = new ArrayList<Application>();
 		this.userName = data[0];
 		this.userID = Integer.valueOf(data[1]);
 		this.firstName = data[2];
@@ -24,6 +24,11 @@ public class Student extends User {
 		this.studentDepartment = data[7];
 		this.studentGPA = Float.valueOf(data[8]);
 		//this.applications = m.getApplicationDataByID(this.userID);
+	}
+	
+	public void addApplication(Application application)
+	{
+		this.applications.add(application);
 	}
 	
 	public String getStudentIDString() {
@@ -48,12 +53,12 @@ public class Student extends User {
 		return Float.toString(studentGPA);
 	}
 	
-
-//	public List<String[]> getStudentApplicationList() {
-//		CsvReader c = new CsvReader();
-//		List<String[]> data = c.getApplicationData(this.studentID);
-//		this.applications = data;
-//		return this.applications;
-//	}
+	public Float getGPA() {
+		return this.studentGPA;
+	}
+	
+	public ArrayList<Application> getApplications() {
+		return this.applications;
+	}
 	
 }
