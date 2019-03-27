@@ -407,6 +407,7 @@ public class Database {
 	 */
 	public void deleteScholarship(Scholarship scholarship) {
 		this.scholarshipsById.remove(scholarship.getId(),scholarship);
+		this.scholarshipsByName.remove(scholarship.getName(),scholarship);
 	}
 	
 	/**

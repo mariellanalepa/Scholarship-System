@@ -57,9 +57,9 @@ public class EditScholarshipController implements Initializable {
 		
 		//Get scholarship name
 		String scholarshipName = scholDrop.getValue().toString();
-		Scholarship scholarship = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);
+		Scholarship scholarshipOld = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);
 		
-		scholarshipData[0] = Integer.toString(scholarship.getId());
+		scholarshipData[0] = Integer.toString(scholarshipOld.getId());
 		
 		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
 		else { empty = true;}
@@ -85,8 +85,6 @@ public class EditScholarshipController implements Initializable {
 		scholarshipData[12] = dateTimeFormat(LocalDateTime.now());
 		
 		if (empty == false) {
-			//Retrieve "old version" of scholarship
-			Scholarship scholarshipOld = this.session.getDatabase().getScholarshipsById().get(Integer.valueOf(scholarshipData[0]));
 			//Delete "old version" of scholarship
 			this.session.getDatabase().deleteScholarship(scholarshipOld);
 			//Add "new version" of scholarship
