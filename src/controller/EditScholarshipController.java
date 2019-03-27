@@ -15,7 +15,6 @@ import javafx.scene.control.TextField;
 import model.Session;
 import model.Scholarship;
 import java.util.ArrayList;
-import java.util.List;
 
 public class EditScholarshipController implements Initializable {
 	
@@ -26,7 +25,6 @@ public class EditScholarshipController implements Initializable {
 	@FXML private Label welcomeLabel, errorLabel, editLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
 	@FXML protected ChoiceBox<String> scholDrop, stuDrop, facDrop, depDrop; 
 	ArrayList<String> nameArray = new ArrayList<String>();	
-	private int i;
 	private boolean empty = false;
 
 	public EditScholarshipController(Main main, Session session) {
@@ -55,11 +53,11 @@ public class EditScholarshipController implements Initializable {
 	{
 		String[] scholarshipData = new String[13];
 	
-		//Scholarship s = scholArray.get(nameArray.indexOf(scholDrop.getValue().toString()));
 		empty = false; 
-
-		//scholarshipData[0] = Integer.toString(s.getId());
+		
+		//Get scholarship ID
 		scholarshipData[0] = scholDrop.getValue().toString();
+		
 		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
 		else { empty = true;}
 		if (!donorBox.getText().isEmpty()) { scholarshipData[2] = donorBox.getText(); }
@@ -84,15 +82,13 @@ public class EditScholarshipController implements Initializable {
 		scholarshipData[12] = dateTimeFormat(LocalDateTime.now());
 		
 		if (empty == false) {
-			//Scholarship scholarship = new Scholarship(scholarshipData);
+			//Retrieve "old version" of scholarship
 			Scholarship scholarship = this.session.getDatabase().getScholarships().get(Integer.valueOf(scholarshipData[0]));
 			//Delete "old version" of scholarship
 			this.session.getDatabase().deleteScholarship(scholarship);
 			//Add "new version" of scholarship
 			this.session.getDatabase().addScholarship(new Scholarship(this.session.getDatabase(),scholarshipData));
 			
-			//scholarship.deleteScholarship(i+1);							
-			//scholarship.saveScholarship(scholarshipData);
 			//Set scene to Admin Main Page
 			main.setScene("/view/AdminMain.fxml");
 		}
@@ -105,9 +101,9 @@ public class EditScholarshipController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		//Welcome message customized to user's name
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
-		//ScholarshipFactory sf = new ScholarshipFactory();
-		//List<Scholarship> scholArray = sf.getScholarshipArray();		
+		
 		for (Scholarship scholarship : this.session.getDatabase().getScholarships().values())
 		{
 			nameArray.add(scholarship.getName());

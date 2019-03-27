@@ -6,9 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 // STUDENT CSV: username,StudentID,FName,LName,Type,Year,Faculty,Department,GPA
 // APPLICATION CSV : applicationID	studentID	scholarshipID	dateAdded	status
@@ -381,111 +379,10 @@ public class Database {
 	}
 	
 	
-	
 	/**
-	 * Opens specified CSVFile, reads each line splitting on comma, 
-	 * and returns the result as a List<String[]>
-	 * @param databaseName
-	 * @return List<String[]> Database
-	 *//*
-	List<String[]> getDatabase(String databaseName) {
-		List<String[]> list = new ArrayList<String[]>();
-		BufferedReader buffread = null;
-		String line = "";
-		String delimiter = ",";
-		try {
-			File f = new File(databaseName);
-			buffread = new BufferedReader(new FileReader(f));
-			int i = 0;
-			while ((line = buffread.readLine()) != null) {
-				 first line of application and student database are not data
-				 * line 1 is header data 
-				if(i == 0) {
-					i++;
-					continue;
-				}
-				list.add(line.split(delimiter));
-				i++;
-			}
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (buffread != null) {
-				try {
-					buffread.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		// initialize counters in DataManager
-		if(databaseName == Database.scholarshipDatabase) {
-			DataManager.scholarshipCounter = list.size();
-		} else if(databaseName == Database.applicationDatabase) {
-			DataManager.applicationCounter = list.size();
-		}
-		return list;
-	}*/
-	
-	
-	/**
-	 * Fetches database data from database specified by databaseName whose
-	 * ID number matches the given entryIdentifier
-	 * @param userID
-	 * @param databaseName
-	 * @return String[] containing data from csv
-	 * @throws InvalidUserException 
-	 *//*
-	String[] getUserDatabaseEntry(String userID, String databaseName) throws InvalidUserException {
-		BufferedReader buffread = null;
-		String[] data = null;
-		String line = "";
-		String delimiter = ",";
-		try {
-			File f = new File(databaseName);
-			buffread = new BufferedReader(new FileReader(f));
-			while ((line = buffread.readLine()) != null) {
-				data = line.split(delimiter);
-				if(data[0].equalsIgnoreCase(userID)) {
-					return(data);
-				}
-			}
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (buffread != null) {
-				try {
-					buffread.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		// If none of the database entries matched, throw exception
-		InvalidUserException e = new InvalidUserException();
-		throw e;
-	}*/
-	
-	
-	
-
-
-//	public int getDatabaseCounter() {
-//		return databaseCounter;
-//	}
-//
-//
-//	public void setDatabaseCounter(int databaseCounter) {
-//		this.databaseCounter = databaseCounter;
-//	}
-//	
-	
+	 * Main method for testing this class
+	 * @param args -- from command line (none used)
+	 */
 	public static void main(String[] args) {
 		Database db = new Database();
 		

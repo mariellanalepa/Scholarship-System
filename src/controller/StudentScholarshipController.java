@@ -38,7 +38,7 @@ public class StudentScholarshipController implements Initializable {
 		//User will be student if they have access to the page (scene) to which this controller is bound
 		Student student = (Student) session.getUser();
 		
-		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
+		welcomeLabel.setText(welcomeLabel.getText() + " " + student.getName());
 		
 		//ScholarshipFactory s = new ScholarshipFactory(session.getUser().getID());
 		

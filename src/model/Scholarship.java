@@ -16,8 +16,8 @@ import javafx.beans.property.StringProperty;
 public class Scholarship {
 	//List of applications related to this scholarships
 	private ArrayList<Application> applications;
-	//Top candidate based on GPA of submitted scholarships
-	private Student topCandidate;
+	//Top candidate(s) based on GPA of submitted scholarships
+	private Student[] topCandidates;
 	//Database
 	private Database db;
 	
@@ -51,6 +51,10 @@ public class Scholarship {
 		this.setYear(scholarshipData[10]);
 		this.setStatus(scholarshipData[11]);
 		this.setPosted(scholarshipData[12]);
+		
+		//Make as many positions for top candidate as number of scholarships
+		//to be awarded
+		this.topCandidates = new Student[this.getNumber()];
 	}
 	
 	
@@ -70,24 +74,43 @@ public class Scholarship {
 	public void addApplication(Application application)
 	{
 		this.applications.add(application);
-		//Get associated student
-		int studentID = application.getStudentId();
-		Student student = this.db.getStudents().get(studentID);
-		
-		//Re-calculate top candidate
-		if (this.topCandidate == null)
-		{
-			this.topCandidate = student;
-		}
-		//Student becomes top candidate if their GPA is higher than current selection
-		else if (this.topCandidate.getGPA() < student.getGPA())
-		{
-			this.topCandidate = student;
-		}
+		this.findTopCandidates(application);
 	}
 	
-	public Student getTopCandidate() {
-		return this.topCandidate;
+	/**
+	 * Helper method to calculate top candidates with addition of new application
+	 * @param application
+	 */
+	private void findTopCandidates(Application application) 
+	{
+		//Only consider application for award if status is "submitted"
+		if (application.getStatus().equals("submitted"))
+		{
+			//Get associated student
+			int studentID = application.getStudentId();
+			Student student = this.db.getStudents().get(studentID);
+					
+			//Re-calculate top candidate
+			for (int s = 0; s < this.topCandidates.length; s++)
+			{
+				//If topCandidates is not yet full
+				if (this.topCandidates[s] == null)
+				{
+					topCandidates[s] = student;
+					break;
+				}
+				//Otherwise check to see if new application's student GPA is higher
+				else if (this.topCandidates[s].getGPA() < student.getGPA())
+				{
+					topCandidates[s] = student;
+					break;
+				}
+			}
+		}			
+	}
+	
+	public Student[] getTopCandidates() {
+		return this.topCandidates;
 	}
 	
 	public ArrayList<Application> getApplications() 
