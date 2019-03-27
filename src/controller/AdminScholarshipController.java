@@ -41,7 +41,7 @@ public class AdminScholarshipController implements Initializable {
 		
 		//ScholarshipFactory s = new ScholarshipFactory();
 		
-		ObservableList<Scholarship> data = FXCollections.observableArrayList(this.session.getDatabase().getScholarships().values());
+		ObservableList<Scholarship> data = FXCollections.observableArrayList(this.session.getDatabase().getScholarshipsById().values());
 		
 		table.setItems(data);
 		idCol.setCellValueFactory(f->f.getValue().idProperty());

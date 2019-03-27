@@ -32,7 +32,8 @@ public class Database {
 	private HashMap<Integer,Admin> admins;
 	private HashMap<Integer,Student> students;
 	private HashMap<String,User> users;	//users key is userName
-	private HashMap<Integer,Scholarship> scholarships;
+	private HashMap<Integer,Scholarship> scholarshipsById;
+	private HashMap<String,Scholarship> scholarshipsByName;
 	private HashMap<Integer,Application> applications;
 	
 	public Database() {
@@ -135,7 +136,8 @@ public class Database {
 	private void initScholarships() 
 	{
 		//Initialize hashmap
-		scholarships = new HashMap<Integer,Scholarship>();
+		scholarshipsById = new HashMap<Integer,Scholarship>();
+		scholarshipsByName = new HashMap<String,Scholarship>();
 		
 		String[] attributes = new String[8];
 		BufferedReader buffread = null;
@@ -151,7 +153,8 @@ public class Database {
 				
 				//Create Scholarship object
 				Scholarship scholarship = new Scholarship(this,attributes);
-				scholarships.put(scholarship.getId(),scholarship);
+				scholarshipsById.put(scholarship.getId(),scholarship);
+				scholarshipsByName.put(scholarship.getName(), scholarship);
 				
 				//Keep track of the highest numbered ID so always generate unique ID
 				if (scholarship.getId() > this.scholarshipIdCounter)
@@ -202,7 +205,7 @@ public class Database {
 				
 				//Get Scholarship that this Application is associated with,
 				// and add Application to that Scholarship's Application list
-				Scholarship scholarship = scholarships.get(application.getScholarshipId());
+				Scholarship scholarship = scholarshipsById.get(application.getScholarshipId());
 				scholarship.addApplication(application);
 				//Get Student that this Application is associated with,
 				// and add Application to that Student's Application list
@@ -246,8 +249,16 @@ public class Database {
 	 * Getter method for scholarships in database
 	 * @return Hashmap of scholarships, where key is Scholarship ID
 	 */
-	public HashMap<Integer,Scholarship> getScholarships() {
-		return this.scholarships;
+	public HashMap<Integer,Scholarship> getScholarshipsById() {
+		return this.scholarshipsById;
+	}
+	
+	/**
+	 * Getter method for scholarships in database
+	 * @return Hashmap of scholarships, where key is Scholarship name
+	 */
+	public HashMap<String,Scholarship> getScholarshipsByName() {
+		return this.scholarshipsByName;
 	}
 	
 	/**
@@ -322,7 +333,7 @@ public class Database {
 			bw.write(scholarshipDatabaseHeader);
 			
 			//write contents of map
-			for (Scholarship scholarship: scholarships.values())
+			for (Scholarship scholarship: scholarshipsById.values())
 			{
 				String line = String.join(",",scholarship.toStringArray());
 				line += "\n";
@@ -357,7 +368,7 @@ public class Database {
 			bw.write(applicationDatabaseHeader);
 			
 			//write contents of map
-			for (Scholarship scholarship: scholarships.values())
+			for (Scholarship scholarship: scholarshipsById.values())
 			{
 				for (Application application: scholarship.getApplications())
 				{
@@ -387,7 +398,7 @@ public class Database {
 	 * @param scholarship - Scholarship object
 	 */
 	public void addScholarship(Scholarship scholarship) {
-		this.scholarships.put(scholarship.getId(),scholarship);
+		this.scholarshipsById.put(scholarship.getId(),scholarship);
 	}
 	
 	/**
@@ -395,7 +406,7 @@ public class Database {
 	 * @param scholarship - Scholarship object
 	 */
 	public void deleteScholarship(Scholarship scholarship) {
-		this.scholarships.remove(scholarship.getId(),scholarship);
+		this.scholarshipsById.remove(scholarship.getId(),scholarship);
 	}
 	
 	/**
@@ -415,7 +426,7 @@ public class Database {
 		int scholarshipId = application.getScholarshipId();
 		if (scholarshipId != 0)
 		{
-			Scholarship scholarship = this.scholarships.get(scholarshipId);
+			Scholarship scholarship = this.scholarshipsById.get(scholarshipId);
 			scholarship.addApplication(application);
 		}		
 	}
@@ -434,7 +445,7 @@ public class Database {
 			
 			for (Application application : student.getApplications())
 			{
-				System.out.println(db.getScholarships().get(application.getScholarshipId()).getName());
+				System.out.println(db.getScholarshipsById().get(application.getScholarshipId()).getName());
 			}
 		}
 		

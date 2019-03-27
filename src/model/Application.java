@@ -49,7 +49,7 @@ public class Application {
 			this.setStatus(applicationData[4]);
 			
 			//associated scholarship object
-			Scholarship scholarship = db.getScholarships().get(this.getScholarshipId());
+			Scholarship scholarship = db.getScholarshipsById().get(this.getScholarshipId());
 			//and now we can add these scholarship-specific attributes
 			this.setScholarshipName(scholarship.getName());
 			this.setScholarshipDeadline(scholarship.getDeadline());
@@ -66,7 +66,7 @@ public class Application {
 		this.setApplicationId(id);
 		//associated scholarship object
 		this.db = database;
-		Scholarship scholarship = db.getScholarships().get(this.getScholarshipId());
+		Scholarship scholarship = db.getScholarshipsById().get(this.getScholarshipId());
 		//and now we can add these scholarship-specific attributes
 		this.setScholarshipName(scholarship.getName());
 		this.setScholarshipDeadline(scholarship.getDeadline());
@@ -119,7 +119,7 @@ public class Application {
     		if (value.equals("submitted"))
     		{
     			//Get relevant scholarship
-    			Scholarship scholarship = this.db.getScholarships().get(this.getScholarshipId());
+    			Scholarship scholarship = this.db.getScholarshipsById().get(this.getScholarshipId());
     			//Recalculate top candidates 
     			scholarship.findTopCandidates(this);
     		}

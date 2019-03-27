@@ -55,8 +55,11 @@ public class EditScholarshipController implements Initializable {
 	
 		empty = false; 
 		
-		//Get scholarship ID
-		scholarshipData[0] = scholDrop.getValue().toString();
+		//Get scholarship name
+		String scholarshipName = scholDrop.getValue().toString();
+		Scholarship scholarship = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);
+		
+		scholarshipData[0] = Integer.toString(scholarship.getId());
 		
 		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
 		else { empty = true;}
@@ -83,9 +86,9 @@ public class EditScholarshipController implements Initializable {
 		
 		if (empty == false) {
 			//Retrieve "old version" of scholarship
-			Scholarship scholarship = this.session.getDatabase().getScholarships().get(Integer.valueOf(scholarshipData[0]));
+			Scholarship scholarshipOld = this.session.getDatabase().getScholarshipsById().get(Integer.valueOf(scholarshipData[0]));
 			//Delete "old version" of scholarship
-			this.session.getDatabase().deleteScholarship(scholarship);
+			this.session.getDatabase().deleteScholarship(scholarshipOld);
 			//Add "new version" of scholarship
 			this.session.getDatabase().addScholarship(new Scholarship(this.session.getDatabase(),scholarshipData));
 			
@@ -104,7 +107,7 @@ public class EditScholarshipController implements Initializable {
 		//Welcome message customized to user's name
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 		
-		for (Scholarship scholarship : this.session.getDatabase().getScholarships().values())
+		for (Scholarship scholarship : this.session.getDatabase().getScholarshipsById().values())
 		{
 			nameArray.add(scholarship.getName());
 			scholDrop.setItems(FXCollections.observableArrayList(nameArray));
@@ -153,8 +156,8 @@ public class EditScholarshipController implements Initializable {
 	@FXML
 	public void handleEdit(ActionEvent event) throws Exception 
 	{
-		int scholarshipId = Integer.valueOf(scholDrop.getValue().toString());
-		Scholarship scholarship = this.session.getDatabase().getScholarships().get(scholarshipId);
+		String scholarshipName = scholDrop.getValue().toString();
+		Scholarship scholarship = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);
 		nameBox.setText(scholarship.getName());
 		donorBox.setText(scholarship.getDonor());
 		deadlineBox.setText(scholarship.getDeadline());

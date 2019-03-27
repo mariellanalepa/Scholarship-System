@@ -42,7 +42,7 @@ public class DeleteScholarshipController implements Initializable {
 	{
 		int i = nameArray.indexOf(scholarshipSelectDropDown.getValue().toString())+1; //nameArray is 1 shorter than scholArray
 		//Find scholarship in database
-		this.scholarship = this.session.getDatabase().getScholarships().get(i);
+		this.scholarship = this.session.getDatabase().getScholarshipsById().get(i);
 		//Remove scholarship from database
 		this.session.getDatabase().deleteScholarship(this.scholarship);
 		
@@ -58,7 +58,7 @@ public class DeleteScholarshipController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 			
-		for (Scholarship scholarship : this.session.getDatabase().getScholarships().values())
+		for (Scholarship scholarship : this.session.getDatabase().getScholarshipsById().values())
 		{
 			nameArray.add(scholarship.getName());
 			scholarshipSelectDropDown.setItems(FXCollections.observableArrayList(nameArray));
