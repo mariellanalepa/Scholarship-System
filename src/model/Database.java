@@ -150,7 +150,7 @@ public class Database {
 				attributes = line.split(delimiter);
 				
 				//Create Scholarship object
-				Scholarship scholarship = new Scholarship(attributes);
+				Scholarship scholarship = new Scholarship(this,attributes);
 				scholarships.put(scholarship.getId(),scholarship);
 			}
 			

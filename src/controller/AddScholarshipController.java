@@ -82,7 +82,7 @@ public class AddScholarshipController implements Initializable
 		scholarshipData[12] = dateTimeFormat(LocalDateTime.now());
 		
 		if (empty == false) {
-			Scholarship scholarship = new Scholarship(scholarshipData);
+			Scholarship scholarship = new Scholarship(this.session.getDatabase(),scholarshipData);
 			//Add scholarship to database
 			this.session.getDatabase().addScholarship(scholarship);
 			

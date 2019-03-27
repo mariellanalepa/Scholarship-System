@@ -89,7 +89,7 @@ public class EditScholarshipController implements Initializable {
 			//Delete "old version" of scholarship
 			this.session.getDatabase().deleteScholarship(scholarship);
 			//Add "new version" of scholarship
-			this.session.getDatabase().addScholarship(new Scholarship(scholarshipData));
+			this.session.getDatabase().addScholarship(new Scholarship(this.session.getDatabase(),scholarshipData));
 			
 			//scholarship.deleteScholarship(i+1);							
 			//scholarship.saveScholarship(scholarshipData);

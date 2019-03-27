@@ -57,6 +57,10 @@ public class Student extends User {
 		return Float.toString(studentGPA);
 	}
 	
+	public Float getGPA() {
+		return this.studentGPA;
+	}
+	
 	public ArrayList<Application> getApplications() {
 		return this.applications;
 	}

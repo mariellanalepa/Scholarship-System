@@ -16,6 +16,10 @@ import javafx.beans.property.StringProperty;
 public class Scholarship {
 	//List of applications related to this scholarships
 	private ArrayList<Application> applications;
+	//Top candidate based on GPA of submitted scholarships
+	private Student topCandidate;
+	//Database
+	private Database db;
 	
 	private IntegerProperty id;
 	private StringProperty name;
@@ -31,7 +35,8 @@ public class Scholarship {
 	private StringProperty status;
 	private StringProperty posted;
 
-	public Scholarship (String[] scholarshipData) {
+	public Scholarship (Database database, String[] scholarshipData) {
+		this.db = database;
 		this.applications = new ArrayList<Application>();
 		this.setId(scholarshipData[0]);
 		this.setName(scholarshipData[1]);
@@ -65,6 +70,24 @@ public class Scholarship {
 	public void addApplication(Application application)
 	{
 		this.applications.add(application);
+		//Get associated student
+		int studentID = application.getStudentId();
+		Student student = this.db.getStudents().get(studentID);
+		
+		//Re-calculate top candidate
+		if (this.topCandidate == null)
+		{
+			this.topCandidate = student;
+		}
+		//Student becomes top candidate if their GPA is higher than current selection
+		else if (this.topCandidate.getGPA() < student.getGPA())
+		{
+			this.topCandidate = student;
+		}
+	}
+	
+	public Student getTopCandidate() {
+		return this.topCandidate;
 	}
 	
 	public ArrayList<Application> getApplications() 
