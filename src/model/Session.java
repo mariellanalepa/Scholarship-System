@@ -18,6 +18,9 @@ public class Session {
 	
 	public ObservableList<Application> applications;
 	public ObservableList<Scholarship> scholarships;
+	
+	//If a scholarship has been selected via GUI table, this variable will be set
+	private Scholarship selectedScholarship = null;
 
 	/**
 	 * Session constructor. Creates a session that is 
@@ -105,6 +108,14 @@ public class Session {
 	}
 	public List<String[]> getUserScholarshipDatabase() {
 		return DataManager.getUserScholarshipDatabase();
+	}
+	
+	public Scholarship getScholarshipSelection() {
+		return this.selectedScholarship;
+	}
+	
+	public void setScholarshipSelection(Scholarship scholarship) {
+		this.selectedScholarship = scholarship;
 	}
 
 //	protected void setUserApplicationDatabase(List<String[]> applicationDatabase) {
