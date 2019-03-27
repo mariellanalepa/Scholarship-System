@@ -14,6 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import model.Application;
 import model.DataManager;
+import model.Scholarship;
 import model.Session;
 import model.Student;
 
@@ -21,10 +22,11 @@ public class ApplicationFormController implements Initializable
 {	
 	private Main main;
 	private Session session;
-	@FXML protected Label welcomeLabel, confirmationLabel, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
+	@FXML protected Label welcomeLabel, confirmationLabel, SCHOLARSHIP_FIELD, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
 	@FXML protected Button signOut, saveAndExitButton, submitButton, mainMenuButton; 
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
 	private Application application;
+	private Scholarship scholarship;
 	
 	
 	//CSS styling
@@ -42,8 +44,16 @@ public class ApplicationFormController implements Initializable
 		
 		Student student = (Student) session.getUser();
 		welcomeLabel.setText(welcomeLabel.getText() + " " + student.getName());
-		
 		DataManager m = new DataManager();
+		
+		//Check if a scholarship has been selected via table GUI
+		this.scholarship = this.session.getScholarshipSelection();
+		
+		if (this.scholarship != null)
+		{
+			//System.out.println(this.scholarship.getName());
+			SCHOLARSHIP_FIELD.setText(this.scholarship.getName());
+		}
 		
 		//event styling - uses lambda expressions
 		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
@@ -52,7 +62,7 @@ public class ApplicationFormController implements Initializable
 		Application a = new Application();
 		a.setStudentId(student.getStudentIDString());
 		a.setDateAdded(dateTimeFormat(LocalDateTime.now()));
-		a.setScholarshipId("1"); //temp hardcode 
+		a.setScholarshipId(Integer.toString(this.scholarship.getId())); 
 		a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
 		this.application = a;
 		
