@@ -48,6 +48,8 @@ public class Scholarship {
 		this.setPosted(scholarshipData[12]);
 	}
 	
+	
+	
 	/*public void saveScholarship(String[] scholarshipData) {
 		DataManager m = new DataManager();
 		m.addScholarshipEntry(scholarshipData);

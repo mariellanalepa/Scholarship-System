@@ -54,8 +54,8 @@ public class AddScholarshipController implements Initializable
 		String[] scholarshipData = new String[13];
 		//ScholarshipFactory s = new ScholarshipFactory();
 		
-		//empty = false;
-		//scholarshipData[0] = Integer.toString(1 + s.getScholarshipListLength());
+		empty = false;
+		scholarshipData[0] = Integer.toString(this.session.getDatabase().getScholarships().size() + 1);
 		//
 
 		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
