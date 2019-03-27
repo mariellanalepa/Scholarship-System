@@ -58,7 +58,7 @@ public class ApplicationFormController implements Initializable
 		signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
 		
 		String[] applicationData = new String[5];
-		applicationData[0] = Integer.toString(this.session.getDatabase().getApplications().size()+1);
+		applicationData[0] = Integer.toString(this.session.getDatabase().getApplicationIdCounter());
 		applicationData[1] = Integer.toString(student.getID());
 		applicationData[2] = Integer.toString(this.scholarship.getId());
 		applicationData[3] = dateTimeFormat(LocalDateTime.now());

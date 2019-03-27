@@ -72,72 +72,8 @@ public class Application {
 		this.setScholarshipDeadline(scholarship.getDeadline());
 	}
 	
-	/* String[] applicationData = [applicationID,	scholarshipID,	studentID,	datesubmitted]
-	 * */
-	/**
-	 * Function for submitting a new application
-	 * If the application object does not have an ID, one is assigned
-	 * Data is added to the Session applicationData attribute
-	 * @return boolean indicating success of operation
-	 */
-	/* String[] applicationData = [applicationID,	scholarshipID,	studentID,	datesubmitted]
-	 * */
-	/**
-	 * Function for submitting a new application
-	 * If the application object does not have an ID, one is assigned
-	 * Data is added to the Session applicationData attribute
-	 * @return boolean indicating success of operation
-	 *//*
-	public void saveApplication() {
-		DataManager m = new DataManager();
-		 if this is a new application (does not yet have an ID)
-		 * set the ID number
-		 
-		if(this.getApplicationId() == null) {
-			int counter = ApplicationFactory.getCounter();
-			ApplicationFactory.incrementCounter();
-			this.applicationID.set(String.valueOf(counter));
-		}
-		String[] applicationData = {this.applicationID.get(), studentID.get(), scholarshipID.get(), dateAdded.get(), status.get()};
-		m.addApplicationEntry(applicationData);
-	}*/
 	
 	/*GETTERS & SETTERS*/
-
-	/*public int getApplicationId() { return Integer.valueOf(this.applicationID.getValue()); }
-    
-    public int getStudentId() { return this.studentID; }
-   
-    public int getScholarshipId() { return this.scholarshipID; }
-   
-    public String getDateAdded() { return this.dateAdded; }
-    
-    public String getStatus() { return this.status; } 
-    
-    public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public void setScholarshipId(Integer scholarshipId) {
-		this.scholarshipID = scholarshipId;	
-	}
-
-	public void setStudentId(Integer studentId) {
-		this.studentID = studentId;	
-	}
-
-	public void setApplicationId(Integer applicationID) {
-		this.applicationID = new SimpleStringProperty(this, "applicationID");
-	}
-	
-	public void setDateAdded(String date) {
-		this.dateAdded = date;		
-	}
- 
-	public StringProperty applicationIDProperty() { 
-        return new SimpleStringProperty(); 
-    } */
-
 	
 	/**
 	 * Set the application id to the input value

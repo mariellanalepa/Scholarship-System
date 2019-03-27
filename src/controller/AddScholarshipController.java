@@ -55,7 +55,7 @@ public class AddScholarshipController implements Initializable
 		empty = false;
 		
 		//Create scholarship ID based on how many items are presently in Scholarships
-		scholarshipData[0] = Integer.toString(this.session.getDatabase().getScholarships().size() + 1);
+		scholarshipData[0] = Integer.toString(this.session.getDatabase().getScholarshipIdCounter());
 
 		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
 		else { empty = true;}

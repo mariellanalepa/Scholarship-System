@@ -18,13 +18,15 @@ import java.util.HashMap;
  */
 
 public class Database {
-	final static String adminDatabase = "res/adminDatabase.csv";
-	final static String studentDatabase = "res/studentDatabase.csv";
-	final static String scholarshipDatabase = "res/scholarshipDatabase.csv";
-	final static String applicationDatabase = "res/applicationDatabase.csv";
+	private int scholarshipIdCounter = 0;
+	private int applicationIdCounter = 0;
 	
-	private static String applicationDatabaseHeader ="applicationID,studentID,scholarshipID,dateAdded,status\n";
-	private static String scholarshipDatabaseHeader = "IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,RecType,ReqGPA,ReqYear,Status,DatePosted(dd/MM/yyyy HH:mm:ss)\n";
+	final private String adminDatabase = "res/adminDatabase.csv";
+	final private String studentDatabase = "res/studentDatabase.csv";
+	final private String scholarshipDatabase = "res/scholarshipDatabase.csv";
+	final private String applicationDatabase = "res/applicationDatabase.csv";
+	final private String applicationDatabaseHeader ="applicationID,studentID,scholarshipID,dateAdded,status\n";
+	final private String scholarshipDatabaseHeader = "IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,RecType,ReqGPA,ReqYear,Status,DatePosted(dd/MM/yyyy HH:mm:ss)\n";
 	
 	//Maps to store DB objects
 	private HashMap<Integer,Admin> admins;
@@ -150,6 +152,14 @@ public class Database {
 				//Create Scholarship object
 				Scholarship scholarship = new Scholarship(this,attributes);
 				scholarships.put(scholarship.getId(),scholarship);
+				
+				//Keep track of the highest numbered ID so always generate unique ID
+				if (scholarship.getId() > this.scholarshipIdCounter)
+				{
+					this.scholarshipIdCounter = scholarship.getId() + 1;
+				}
+				
+				
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -200,6 +210,13 @@ public class Database {
 				student.addApplication(application);
 				//Finally, add to central database
 				this.applications.put(application.getApplicationId(),application);
+				
+				//Keep track of the highest numbered ID so always generate unique ID
+				if (application.getApplicationId() > this.applicationIdCounter)
+				{
+					this.applicationIdCounter = application.getApplicationId() + 1;
+				}
+				
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -255,6 +272,22 @@ public class Database {
 	 */
 	public HashMap<Integer,Application> getApplications() {
 		return this.applications;
+	}
+	
+	/**
+	 * Get the application ID counter to determine next ID number to assign
+	 * @return int value of next application ID
+	 */
+	public int getApplicationIdCounter() {
+		return this.applicationIdCounter;
+	}
+	
+	/**
+	 * Get the scholarship ID counter to determine next ID number to assign
+	 * @return int value of next scholarship ID
+	 */
+	public int getScholarshipIdCounter() {
+		return this.scholarshipIdCounter;
 	}
 	
 	/**
