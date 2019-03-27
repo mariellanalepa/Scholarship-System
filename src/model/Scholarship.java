@@ -72,6 +72,19 @@ public class Scholarship {
 		return this.applications;
 	}
 	
+	public ArrayList<Application> getApplicationsSubmittedOnly() {
+		ArrayList<Application> submittedApps = new ArrayList<Application>();
+		for (Application application : this.getApplications())
+		{
+			String status = application.getStatus();
+			if (status.equals("submitted"))
+			{
+				submittedApps.add(application);
+			}
+		}
+		return submittedApps;
+	}
+	
 	/* following code adapted from Oracle Docs
 	 * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html
 	 */
