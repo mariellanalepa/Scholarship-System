@@ -21,7 +21,7 @@ public class StudentScholarshipController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	@FXML private Button signOut, mainMenuButton;
+	@FXML private Button signOut, mainMenuButton, startApplicationButton;
 	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
 	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
@@ -57,8 +57,7 @@ public class StudentScholarshipController implements Initializable {
 		typeCol.setCellValueFactory(f->f.getValue().typeProperty());
 		gpaCol.setCellValueFactory(f->f.getValue().gpaProperty());
 		yearCol.setCellValueFactory(f->f.getValue().yearProperty());
-		table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
-
+		table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);		
 	}
 	
 	@FXML
@@ -69,5 +68,17 @@ public class StudentScholarshipController implements Initializable {
 	@FXML 
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
 		main.setScene("/view/StudentMain.fxml");
+	}
+	
+	@FXML 
+	protected void handleStartApplicationButtonAction(ActionEvent event) throws Exception {
+		//If there is a scholarship currently selected in the table
+		//Should only ever be one selected
+		if (table.getSelectionModel().getSelectedItem() != null)
+		{
+			Scholarship scholarship = table.getSelectionModel().getSelectedItem();
+			session.setScholarshipSelection(scholarship);
+			main.setScene("/view/ApplicationForm.fxml");
+		}
 	}
 }

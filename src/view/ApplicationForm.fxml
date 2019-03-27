@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApplicationFormController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApplicationFormController">
    <center>
       <GridPane alignment="TOP_CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" minHeight="450.0" prefHeight="600.0" prefWidth="800.0" vgap="20.0" BorderPane.alignment="CENTER">
          <columnConstraints>
@@ -41,7 +41,7 @@
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
                </font></Label>
-            <Button fx:id="saveAndExitButton" contentDisplay="CENTER" onAction="#handleSaveAndExitButtonAction" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Save &amp; Return to Dashboard" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+            <Button fx:id="saveAndExitButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSaveAndExitButtonAction" prefHeight="25.0" prefWidth="175.0" text="Save &amp; Return to Dashboard" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
             <Label text="GPA" GridPane.rowIndex="4">
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
@@ -87,6 +87,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
+            <Label fx:id="SCHOLARSHIP_FIELD" GridPane.columnIndex="1" />
          </children>
          <BorderPane.margin>
             <Insets top="10.0" />

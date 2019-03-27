@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,6 +11,7 @@ import java.util.List;
  *
  */
 public class DataManager {
+	
 	public static int scholarshipCounter;
 	public static int applicationCounter;
 	private static List<String[]> masterApplicationDatabase;
@@ -22,7 +24,8 @@ public class DataManager {
 	/**
 	 * Constructor for DataManager class.
 	 */
-	public DataManager() {}
+	public DataManager() 
+	{}
 	
 	
 	public static List<String[]> getUserApplicationDatabase(){
