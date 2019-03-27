@@ -279,7 +279,11 @@ public class Database {
 	 * @return int value of next application ID
 	 */
 	public int getApplicationIdCounter() {
-		return this.applicationIdCounter;
+		int id = this.applicationIdCounter;
+		//Since this was called, means an application has taken this ID,
+		//need to increment the counter
+		this.applicationIdCounter++;
+		return id;
 	}
 	
 	/**
@@ -287,7 +291,12 @@ public class Database {
 	 * @return int value of next scholarship ID
 	 */
 	public int getScholarshipIdCounter() {
-		return this.scholarshipIdCounter;
+		int id = this.scholarshipIdCounter;
+		//Since this was called, means a scholarship has taken this ID,
+		//need to increment the counter
+		this.scholarshipIdCounter++;
+		return id;
+		
 	}
 	
 	/**
