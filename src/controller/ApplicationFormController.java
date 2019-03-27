@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import model.Application;
-import model.DataManager;
 import model.Scholarship;
 import model.Session;
 import model.Student;

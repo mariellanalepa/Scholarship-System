@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.ScholarshipFactory;
 import model.Session;
 import model.Student;
 import model.Scholarship;

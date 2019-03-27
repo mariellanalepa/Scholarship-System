@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.ScholarshipFactory;
 import model.Session;
 import model.Scholarship;
 import java.util.ArrayList;

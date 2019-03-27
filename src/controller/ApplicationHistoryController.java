@@ -1,6 +1,5 @@
 package controller;
 import model.Application;
-import model.ApplicationFactory;
 import model.Session;
 import model.Student;
 

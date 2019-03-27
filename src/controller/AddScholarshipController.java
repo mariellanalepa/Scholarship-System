@@ -12,7 +12,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Scholarship;
-import model.ScholarshipFactory;
 import model.Session;
 
 public class AddScholarshipController implements Initializable
@@ -52,11 +51,11 @@ public class AddScholarshipController implements Initializable
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception
 	{
 		String[] scholarshipData = new String[13];
-		//ScholarshipFactory s = new ScholarshipFactory();
 		
 		empty = false;
+		
+		//Create scholarship ID based on how many items are presently in Scholarships
 		scholarshipData[0] = Integer.toString(this.session.getDatabase().getScholarships().size() + 1);
-		//
 
 		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
 		else { empty = true;}
@@ -87,7 +86,6 @@ public class AddScholarshipController implements Initializable
 			//Add scholarship to database
 			this.session.getDatabase().addScholarship(scholarship);
 			
-			//scholarship.saveScholarship(scholarshipData);
 			//Set scene to Admin Main Page
 			main.setScene("/view/AdminMain.fxml");
 		}
