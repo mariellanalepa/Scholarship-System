@@ -68,9 +68,7 @@ public class ApplicationFormController implements Initializable
 		//a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
 		this.application = a;
 		
-		//Add application to lists in relevant Student, Scholarship
-		student.addApplication(a);
-		scholarship.addApplication(a);
+		//Add application to database
 		this.session.getDatabase().addApplication(application);
 		
 		FNAME_FIELD.setText(student.getFirstName());

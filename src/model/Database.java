@@ -364,6 +364,20 @@ public class Database {
 	 */
 	public void addApplication(Application application) {
 		this.applications.put(application.getApplicationId(),application);
+		//Find associated student, add application to their list of applications
+		int studentId = application.getStudentId();
+		if (studentId != 0)
+		{
+			Student student = this.students.get(studentId);
+			student.addApplication(application);
+		}
+		//Find associated scholarship, add application to its list of applications
+		int scholarshipId = application.getScholarshipId();
+		if (scholarshipId != 0)
+		{
+			Scholarship scholarship = this.scholarships.get(scholarshipId);
+			scholarship.addApplication(application);
+		}		
 	}
 	
 	
