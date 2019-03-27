@@ -58,10 +58,14 @@ public class ApplicationFormController implements Initializable
 		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
 		signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
 		
-		Application a = new Application(this.session.getDatabase().getApplications().size()+1);
-		a.setStudentId(student.getID());
-		a.setDateAdded(dateTimeFormat(LocalDateTime.now()));
-		a.setScholarshipId(this.scholarship.getId()); 
+		String[] applicationData = new String[5];
+		applicationData[0] = Integer.toString(this.session.getDatabase().getApplications().size()+1);
+		applicationData[1] = Integer.toString(student.getID());
+		applicationData[2] = Integer.toString(this.scholarship.getId());
+		applicationData[3] = dateTimeFormat(LocalDateTime.now());
+		applicationData[4] = "saved";
+		
+		Application a = new Application(this.session.getDatabase(), applicationData);
 		//a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
 		this.application = a;
 		

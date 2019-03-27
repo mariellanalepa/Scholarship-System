@@ -61,9 +61,15 @@ public class Application {
 	 * Constructor for Application that should only be called from Submit Application interface
 	 * @param id
 	 */
-	public Application(int id) {
+	public Application(Database database, int id) {
 		//Id should come from session.getDatabase().getApplications().size()
 		this.setApplicationId(id);
+		//associated scholarship object
+		this.db = database;
+		Scholarship scholarship = db.getScholarships().get(this.getScholarshipId());
+		//and now we can add these scholarship-specific attributes
+		this.setScholarshipName(scholarship.getName());
+		this.setScholarshipDeadline(scholarship.getDeadline());
 	}
 	
 	/* String[] applicationData = [applicationID,	scholarshipID,	studentID,	datesubmitted]

@@ -5,7 +5,9 @@ applicationID,studentID,scholarshipID,dateAdded,status
 11,30065479,1,2019 03/17/19:22:29,open
 12,30065479,1,2019 03/17/19:22:55,open
 13,30065479,1,2019 03/17/19:30:37,submitted
+8,30065479,3,null,submitted
 8,30065479,4,null,submitted
 8,30065479,5,null,submitted
+8,30065479,5,2019 03/27/01:13:56,submitted
 7,30065479,6,null,submitted
 8,30065479,7,null,submitted
