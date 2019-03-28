@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Student extends User {
 	
 	private int studentYear;
@@ -59,6 +62,31 @@ public class Student extends User {
 	
 	public ArrayList<Application> getApplications() {
 		return this.applications;
+	}
+
+	/*
+	 * Following functions are to create StringProperties for display in View Recipients
+	 */
+	public StringProperty studentIDProperty() {
+		if (this.getStudentIDString() != null) {
+		StringProperty studentID = new SimpleStringProperty(getStudentIDString());
+		return studentID; }
+		return new SimpleStringProperty(this, "studentID");
+	}
+	public StringProperty GPAProperty() {
+		if (this.getGPA() != null) {
+			StringProperty GPA = new SimpleStringProperty(Float.toString(getGPA()));
+			return GPA;
+		}
+		return new SimpleStringProperty(this, "GPA");
+	}
+	
+	public StringProperty nameProperty() {
+		if (this != null && this.getFirstName() != null && this.getLastName() != null) {
+			StringProperty studentName = new SimpleStringProperty(this.getFirstName() + " " + this.getLastName());
+			return studentName;
+		}
+		return new SimpleStringProperty(this, "studentName");
 	}
 	
 }
