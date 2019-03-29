@@ -17,9 +17,11 @@
    <center>
       <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="434.0" prefWidth="611.0" vgap="20.0">
          <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="343.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="343.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="59.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="358.0" minWidth="10.0" prefWidth="358.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="358.0" minWidth="10.0" prefWidth="358.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -27,10 +29,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="newApplicationButton" mnemonicParsing="false" onAction="#handleNewApplicationButtonAction" text="Begin New Application" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="reviewApplicationButton" mnemonicParsing="false" onAction="#handleReviewApplicationsButtonAction" text="Review My Applications" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="viewScholarshipButton" layoutX="182.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleViewScholarshipButtonAction" text="View Scholarships" GridPane.rowIndex="1" />
-            <Label fx:id="submissionConfirmationLabel" GridPane.columnIndex="1" />
+            <Button fx:id="newApplicationButton" mnemonicParsing="false" onAction="#handleNewApplicationButtonAction" text="Begin New Application" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="reviewApplicationButton" mnemonicParsing="false" onAction="#handleReviewApplicationsButtonAction" text="Review My Applications" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button fx:id="viewScholarshipButton" layoutX="182.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleViewScholarshipButtonAction" text="View Scholarships" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="submissionConfirmationLabel" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </center>

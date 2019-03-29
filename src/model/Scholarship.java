@@ -57,19 +57,8 @@ public class Scholarship {
 		this.topCandidates = new Student[this.getNumber()];
 	}
 	
-	
-	
-	/*public void saveScholarship(String[] scholarshipData) {
-		DataManager m = new DataManager();
-		m.addScholarshipEntry(scholarshipData);
-	}
 
-	public void deleteScholarship(int index) throws NullPointerException {
-		DataManager m = new DataManager();
-		m.deleteScholarshipEntry(index);
-	}*/
 	
-	/* GETTERS & SETTERS */
 	
 	public void addApplication(Application application)
 	{
@@ -131,7 +120,7 @@ public class Scholarship {
 		}
 		return submittedApps;
 	}
-	
+	/* GETTERS & SETTERS */
 	/* following code adapted from Oracle Docs
 	 * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html
 	 */

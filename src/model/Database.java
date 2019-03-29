@@ -31,7 +31,7 @@ public class Database {
 	final private String studentDatabase = "res/studentDatabase.csv";
 	final private String scholarshipDatabase = "res/scholarshipDatabase.csv";
 	final private String applicationDatabase = "res/applicationDatabase.csv";
-	final private String offerDatabase = "res/offerDatabase.csv";
+	final private String offerDatabase = "res/offersDatabase.csv";
 	final private String applicationDatabaseHeader ="applicationID,studentID,scholarshipID,dateAdded,status\n";
 	final private String scholarshipDatabaseHeader = "IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,RecType,ReqGPA,ReqYear,Status,DatePosted(dd/MM/yyyy HH:mm:ss)\n";
 	final private String offerDatabaseHeader = "StudentID,ScholarshipName,OfferStatus\n";
