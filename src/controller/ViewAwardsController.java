@@ -1,3 +1,8 @@
+/**
+ * Controller to handle viewing, accepting, and declining awards.
+ * @author Jasmine Roebuck
+ */
+
 package controller;
 
 import java.net.URL;
@@ -27,7 +32,8 @@ public class ViewAwardsController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		// need to access the awards offered to this student
+		// display confirmation messages for accept/decline?
 
 	}
 	
