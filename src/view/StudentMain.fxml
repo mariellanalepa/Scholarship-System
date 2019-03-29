@@ -80,4 +80,7 @@
          </children>
       </VBox>
    </top>
+   <bottom>
+      <Label fx:id="lblMessage" prefHeight="108.0" prefWidth="800.0" BorderPane.alignment="TOP_LEFT" />
+   </bottom>
 </BorderPane>

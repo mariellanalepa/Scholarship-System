@@ -6,7 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 // STUDENT CSV: username,StudentID,FName,LName,Type,Year,Faculty,Department,GPA
 // APPLICATION CSV : applicationID	studentID	scholarshipID	dateAdded	status
@@ -25,9 +31,10 @@ public class Database {
 	final private String studentDatabase = "res/studentDatabase.csv";
 	final private String scholarshipDatabase = "res/scholarshipDatabase.csv";
 	final private String applicationDatabase = "res/applicationDatabase.csv";
+	final private String offerDatabase = "res/offerDatabase.csv";
 	final private String applicationDatabaseHeader ="applicationID,studentID,scholarshipID,dateAdded,status\n";
 	final private String scholarshipDatabaseHeader = "IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,RecType,ReqGPA,ReqYear,Status,DatePosted(dd/MM/yyyy HH:mm:ss)\n";
-	
+	final private String offerDatabaseHeader = "StudentID,ScholarshipName,OfferStatus\n";
 	//Maps to store DB objects
 	private HashMap<Integer,Admin> admins;
 	private HashMap<Integer,Student> students;
@@ -35,6 +42,9 @@ public class Database {
 	private HashMap<Integer,Scholarship> scholarshipsById;
 	private HashMap<String,Scholarship> scholarshipsByName;
 	private HashMap<Integer,Application> applications;
+	private ArrayList<Offer> offers;
+	
+	
 	
 	public Database() {
 		
@@ -44,10 +54,11 @@ public class Database {
 		initStudents();
 		initScholarships();
 		initApplications();
+		initOffers();
 	}
 	
 	/**
-	 * Initialize database admin entries to Admin objects
+	 * Initialize database admin entries to Admin object  s
 	 */
 	private void initAdmins() 
 	{
@@ -96,7 +107,7 @@ public class Database {
 		//Initialize hashmap
 		students = new HashMap<Integer,Student>();
 		
-		String[] attributes = new String[8];
+		String[] attributes = new String[3];
 		BufferedReader buffread = null;
 		String line = "";
 		String delimiter = ",";
@@ -237,6 +248,85 @@ public class Database {
 		}	
 	}
 	
+	private void initOffers() {
+		//Initialize ArrayList of offers
+			this.offers = new ArrayList<Offer>();
+			
+			String[] attributes = new String[3];
+			BufferedReader buffread = null;	
+			String line = "";
+			String delimiter = ",";
+			try {
+				File f = new File(offerDatabase);
+				buffread = new BufferedReader(new FileReader(f));
+				/*Discard first line -- header data */
+				buffread.readLine();
+				while ((line = buffread.readLine()) != null) {
+					attributes = line.split(delimiter);
+					//Create Offer object		
+					Offer offer = new Offer(this, attributes);
+					
+					Student student = students.get(offer.getStudentID());
+					if (student != null) student.addOffer(offer);		 
+				
+					//Finally, add to central database
+					this.offers.add(offer);
+				}
+					
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					if (buffread != null) {
+						try {
+							buffread.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+				/*
+				 * filter through scholarships. If they are open and should be closed, their status is updated to
+				 * closed and the top recipients at that moment are given offers
+				 */
+				//Go through scholarships compare their closing date/time with current date/time
+				for (Scholarship scholarship : this.getScholarshipsById().values()) {
+					try {
+						Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(scholarship.getDeadline());
+						Date now = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(dateTimeFormat(LocalDateTime.now()));
+						if (deadline.compareTo(now) <= 0) {	//deadline has passed
+							
+							if (scholarship.getStatus() == "Open") {		//scholarship is still open
+							for (Student student : scholarship.getTopCandidates()) {
+								if (student != null) {	
+									Offer offer = new Offer(scholarship, student, "open");	//create offer for each student in top candidates
+									student.addOffer(offer);	 }
+								}
+							}
+							try { scholarship.setStatus("Closed");	}	//set to closed
+							catch (Exception e) { e.printStackTrace(); }
+						}				
+					} catch (ParseException e) {	e.printStackTrace(); }
+				}
+			}
+	
+	/*
+	 * helper method to set current date and time into string format
+	 * 		
+	 */
+	public String dateTimeFormat(LocalDateTime time) {
+		String dateTime = time.toString();
+		String year = dateTime.substring(0, 4)+ "-";
+		String month = dateTime.substring(5, 7) + "-";
+		String day = dateTime.substring(8, 10) + " ";
+		String hm = dateTime.substring(11, 16);
+		String dateTimeString = year + month + day + hm;
+		return dateTimeString;
+	}
+
+
+	
 	/**
 	 * Getter method for students in database
 	 * @return Hashmap of students, where key is Student ID
@@ -316,6 +406,7 @@ public class Database {
 	public void close() {
 		this.writeApplicationsToDatabase();
 		this.writeScholarshipsToDatabase();
+		this.writeOffersToDatabase();
 	}
 	
 	/**
@@ -391,7 +482,46 @@ public class Database {
 			}
 		}
 	}
+	/**
+	 * Writes updated database to file before closing
+	 */
+	void writeOffersToDatabase() {
+		BufferedWriter bw = null;
+		try {
+			File f = new File(offerDatabase);
+			
+			// filewriter in *overwrite mode*
+			bw = new BufferedWriter(new FileWriter(f, false)); 
+			
+			// write appropriate header for database
+			bw.write(offerDatabaseHeader);
+			
+			//write contents of map
+			for (Student student: students.values())
+			{
+				for (Offer offer : student.getOffers())
+				{
+					String line = String.join(",",offer.toStringArray());
+					line += "\n";
+					bw.write(line);
+				}
+				
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bw != null) {
+				try {
+					bw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	
+
 	
 	/**
 	 * Method to add Scholarship to database
@@ -432,6 +562,22 @@ public class Database {
 		}		
 	}
 	
+	public ArrayList<Offer> getOffersByStudentID(Integer id) {
+		
+		ArrayList<Offer> studentOffers = new ArrayList<Offer>();
+		for (Offer offer : this.getOffers()) {
+			if (offer.getStudentID() == id) {
+				studentOffers.add(offer);
+			}
+		}
+		return studentOffers;
+		
+		
+	}
+	
+	public ArrayList<Offer> getOffers() {
+		return this.offers;
+	}
 	
 	/**
 	 * Main method for testing this class
