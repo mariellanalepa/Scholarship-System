@@ -1,7 +1,9 @@
 package controller;
 
+import model.Offer;
 import model.Session;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import application.Main;
 import javafx.event.ActionEvent;
@@ -15,7 +17,7 @@ public class StudentMainController implements Initializable {
 	private Main main;
 	private Session session;
 	@FXML private Button newApplicationButton, signOut, viewScholarshipButton, reviewApplicationButton;
-	@FXML private Label welcomeLabel;
+	@FXML private Label welcomeLabel, lblMessage;
 	
 	public StudentMainController(Main main, Session session) {
 		this.main = main;
@@ -45,6 +47,26 @@ public class StudentMainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
+	
+		ArrayList<Offer> studentOffers = new ArrayList<Offer>();
+		studentOffers = session.getDatabase().getOffersByStudentID(session.getUser().getID());
+		
+		if (studentOffers.size() >= 1) lblMessage.setText("Congratulations, you have been selected for ");
+		boolean first = true;
+		int i = 0;
+		for (Offer o : studentOffers) {
+			if (first = true) {
+			lblMessage.setText(lblMessage.getText() + " " + o.getScholarshipName() + "\n"); }
+			else {
+			lblMessage.setText(lblMessage.getText() + " and " + o.getScholarshipName());
+			}
+		first = false;
+		i++;
+		
+		}
+		System.out.println(i);
+		
+		
 	}
 
 }

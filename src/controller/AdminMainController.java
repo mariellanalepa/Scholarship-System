@@ -22,8 +22,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.Database;
+import model.Offer;
 import model.Scholarship;
 import model.Session;
+import model.Student;
 
 public class AdminMainController implements Initializable {
 
@@ -44,7 +47,7 @@ public class AdminMainController implements Initializable {
 	}
 	
 	@FXML
-	protected void handleScholarshipButtonAction(ActionEvent event) throws Exception {
+	protected void handleScholarshipButtonAction  (ActionEvent event) throws Exception {
 		main.setScene("/view/AdminScholarship.fxml");
 	}
 	
@@ -80,33 +83,5 @@ public class AdminMainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 		
-		//Go through scholarships compare their closing date/time with current date/time
-		for (Scholarship scholarship : this.session.getDatabase().getScholarshipsById().values()) {
-			try {
-				Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(scholarship.getDeadline());
-				Date now = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(dateTimeFormat(LocalDateTime.now()));
-				if (deadline.compareTo(now) <= 0) {	//deadline has passed
-		
-					try { scholarship.setStatus("Closed");	}	//set to closed
-					catch (Exception e) {e.printStackTrace();}
-					
-				}				
-			} catch (ParseException e) {	e.printStackTrace(); }
-	
-		}
-	
 	}
-	/*
-	 * helper method to set current date and time into string format
-	 */
-	public String dateTimeFormat(LocalDateTime time) {
-		String dateTime = time.toString();
-		String year = dateTime.substring(0, 4)+ "-";
-		String month = dateTime.substring(5, 7) + "-";
-		String day = dateTime.substring(8, 10) + " ";
-		String hm = dateTime.substring(11, 16);
-		String dateTimeString = year + month + day + hm;
-		return dateTimeString;
-	}
-
 }

@@ -14,9 +14,11 @@ public class Student extends User {
 	private float studentGPA;
 	//List of applications related to this student
 	private ArrayList<Application> applications;
+	private ArrayList<Offer> offers;
 	
 	public Student(String[] data) {
 		this.applications = new ArrayList<Application>();
+		this.offers = new ArrayList<Offer>();
 		this.userName = data[0];
 		this.userID = Integer.valueOf(data[1]);
 		this.firstName = data[2];
@@ -27,6 +29,15 @@ public class Student extends User {
 		this.studentDepartment = data[7];
 		this.studentGPA = Float.valueOf(data[8]);
 		//this.applications = m.getApplicationDataByID(this.userID);
+	}
+	
+	
+	public void addOffer(Offer offer) {
+			this.offers.add(offer);
+	}
+	
+	public ArrayList<Offer> getOffers() {
+		return this.offers;
 	}
 	
 	public void addApplication(Application application)
