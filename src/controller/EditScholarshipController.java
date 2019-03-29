@@ -150,7 +150,7 @@ public class EditScholarshipController implements Initializable {
 				}
 		});
 	}
-
+	
 	@FXML
 	public void handleEdit(ActionEvent event) throws Exception 
 	{

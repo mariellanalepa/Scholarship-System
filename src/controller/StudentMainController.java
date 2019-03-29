@@ -1,7 +1,9 @@
 package controller;
 
+import model.Offer;
 import model.Session;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import application.Main;
 import javafx.event.ActionEvent;
@@ -15,7 +17,7 @@ public class StudentMainController implements Initializable {
 	private Main main;
 	private Session session;
 	@FXML private Button newApplicationButton, signOut, viewScholarshipButton, reviewApplicationButton;
-	@FXML private Label welcomeLabel;
+	@FXML private Label welcomeLabel, lblMessage;
 	
 	public StudentMainController(Main main, Session session) {
 		this.main = main;
@@ -23,8 +25,9 @@ public class StudentMainController implements Initializable {
 	}
 	
 	@FXML
-	protected void handleNewApplicationButtonAction(ActionEvent event) throws Exception {	 
-		main.setScene("/view/ApplicationForm.fxml");
+	protected void handleNewApplicationButtonAction(ActionEvent event) throws Exception {	
+		// redirects to scholarship view to choose a new scholarship
+		main.setScene("/view/StudentScholarship.fxml");
 	}
 	
 	@FXML
@@ -45,6 +48,17 @@ public class StudentMainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
+	
+		ArrayList<Offer> studentOffers = new ArrayList<Offer>();
+		studentOffers = session.getDatabase().getOffersByStudentID(session.getUser().getID());
+		
+		if (studentOffers.size() >= 1) lblMessage.setText("Congratulations, you have been selected for the following awards: \n");
+		for (Offer o : studentOffers) {
+			lblMessage.setText(lblMessage.getText() + " " + o.getScholarshipName() + "\n"); 
+		}
+		//System.out.println(studentOffers.size());
+		
+		
 	}
 
 }
