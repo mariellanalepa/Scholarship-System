@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +28,7 @@ public class AdminScholarshipController implements Initializable {
 	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
 	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
 	@FXML private TableView<Scholarship> table;
-	@FXML private TextField filter;	
+	@FXML private TextField filterField;	
 	
 	
 	public AdminScholarshipController(Main main, Session session) {
@@ -43,7 +45,7 @@ public class AdminScholarshipController implements Initializable {
 		
 		ObservableList<Scholarship> data = FXCollections.observableArrayList(this.session.getDatabase().getScholarshipsById().values());
 		
-		table.setItems(data);
+		//table.setItems(data);
 		idCol.setCellValueFactory(f->f.getValue().idProperty());
 		nameCol.setCellValueFactory(f->f.getValue().nameProperty());
 		donorCol.setCellValueFactory(f->f.getValue().donorProperty());
@@ -57,6 +59,23 @@ public class AdminScholarshipController implements Initializable {
 		yearCol.setCellValueFactory(f->f.getValue().yearProperty());
 		table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
 
+		//Wrap observable list in filterable list
+		FilteredList<Scholarship> filteredData = new FilteredList<>(data, predicate -> true);
+		
+		//Add ChangeListener to filterField to see when its value changes
+		//ChangeListener is notified whenever the value of filterField.textProperty() changes 	
+		filterField.textProperty().addListener(new ScholarshipFilterListener(filteredData));
+		
+				
+		//Now wrap the filtered list in a sorted list
+		SortedList<Scholarship> sortedData = new SortedList<>(filteredData);
+		//Bind the SortedList comparator to the TableView comparator
+		//Comparator imposes total ordering on some collection of objects; 
+		//denotes the order of the sorted list
+		sortedData.comparatorProperty().bind(table.comparatorProperty());
+		
+		//Add sorted and/or filtered data to table
+		table.setItems(sortedData);
 	}
 	
 	
