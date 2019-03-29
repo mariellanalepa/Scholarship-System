@@ -25,8 +25,9 @@ public class StudentMainController implements Initializable {
 	}
 	
 	@FXML
-	protected void handleNewApplicationButtonAction(ActionEvent event) throws Exception {	 
-		main.setScene("/view/ApplicationForm.fxml");
+	protected void handleNewApplicationButtonAction(ActionEvent event) throws Exception {	
+		// redirects to scholarship view to choose a new scholarship
+		main.setScene("/view/StudentScholarship.fxml");
 	}
 	
 	@FXML
