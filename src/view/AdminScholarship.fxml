@@ -82,7 +82,7 @@
                   </VBox>
                   <VBox alignment="BOTTOM_RIGHT" prefHeight="73.0" prefWidth="125.0">
                      <children>
-                        <TextField fx:id="filter" promptText="Search Filter..." />
+                        <TextField fx:id="filterField" promptText="Search Filter..." />
                      </children>
                   </VBox>
                </children>
