@@ -51,20 +51,11 @@ public class StudentMainController implements Initializable {
 		ArrayList<Offer> studentOffers = new ArrayList<Offer>();
 		studentOffers = session.getDatabase().getOffersByStudentID(session.getUser().getID());
 		
-		if (studentOffers.size() >= 1) lblMessage.setText("Congratulations, you have been selected for ");
-		boolean first = true;
-		int i = 0;
+		if (studentOffers.size() >= 1) lblMessage.setText("Congratulations, you have been selected for the following awards: \n");
 		for (Offer o : studentOffers) {
-			if (first = true) {
-			lblMessage.setText(lblMessage.getText() + " " + o.getScholarshipName() + "\n"); }
-			else {
-			lblMessage.setText(lblMessage.getText() + " and " + o.getScholarshipName());
-			}
-		first = false;
-		i++;
-		
+			lblMessage.setText(lblMessage.getText() + " " + o.getScholarshipName() + "\n"); 
 		}
-		System.out.println(i);
+		//System.out.println(studentOffers.size());
 		
 		
 	}
