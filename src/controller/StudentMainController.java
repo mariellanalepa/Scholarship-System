@@ -16,7 +16,7 @@ public class StudentMainController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	@FXML private Button newApplicationButton, signOut, viewScholarshipButton, reviewApplicationButton;
+	@FXML private Button newApplicationButton, signOut, viewScholarshipButton, reviewApplicationButton, viewAwardsButton;
 	@FXML private Label welcomeLabel, lblMessage;
 	
 	public StudentMainController(Main main, Session session) {
@@ -44,17 +44,28 @@ public class StudentMainController implements Initializable {
 	protected void handleReviewApplicationsButtonAction(ActionEvent event) throws Exception {
 		main.setScene("/view/ApplicationHistory.fxml");
 	}
+	
+	@FXML
+	protected void handleViewAwardsButtonAction(ActionEvent event) throws Exception {
+		main.setScene("/view/Awards.fxml");
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 	
 		ArrayList<Offer> studentOffers = new ArrayList<Offer>();
-		studentOffers = session.getDatabase().getOffersByStudentID(session.getUser().getID());
+		
+		for (Offer offer : session.getDatabase().getOffersByStudentID(session.getUser().getID())) {
+			if (offer.getStatus().equals("open")) {
+				studentOffers.add(offer);				
+			}
+		}
 		
 		if (studentOffers.size() >= 1) lblMessage.setText("Congratulations, you have been selected for the following awards: \n");
 		for (Offer o : studentOffers) {
 			lblMessage.setText(lblMessage.getText() + " " + o.getScholarshipName() + "\n"); 
+			viewAwardsButton.setVisible(true);
 		}
 		//System.out.println(studentOffers.size());
 		

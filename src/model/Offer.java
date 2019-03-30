@@ -1,7 +1,5 @@
 package model;
 
-import javafx.beans.property.StringProperty;
-
 public class Offer {
 
 	private Scholarship scholarship;
@@ -12,9 +10,11 @@ public class Offer {
 	
 	
 	public Offer(Scholarship scholarship, Student student, String status) {
+		this.scholarship = scholarship;
+		this.student = student;
+		this.status = status;	
 		this.scholarshipName = scholarship.getName();
 		this.studentID = student.getID();
-		this.status = status;	
 	}
 	
 	public Offer(Database database, String[] attributes) {
@@ -47,6 +47,10 @@ public class Offer {
 	
 	public int getStudentID() {
 		return this.studentID;
+	}
+	
+	public Student getStudent() {
+		return this.student;
 	}
     /**
      * Method to aid in writing application data to file upon program termination.
