@@ -69,8 +69,8 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="179.0" prefWidth="1064.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Accept Award" translateX="-10.0" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Decline Award" translateX="10.0" />
+            <Button onAction="#handleAcceptAwardButtonAction" mnemonicParsing="false" text="Accept Award" translateX="-10.0" />
+            <Button onAction="#handleDeclineAwardButtonAction" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Decline Award" translateX="10.0" />
          </children>
       </HBox>
    </bottom>

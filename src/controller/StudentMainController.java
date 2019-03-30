@@ -55,7 +55,12 @@ public class StudentMainController implements Initializable {
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 	
 		ArrayList<Offer> studentOffers = new ArrayList<Offer>();
-		studentOffers = session.getDatabase().getOffersByStudentID(session.getUser().getID());
+		
+		for (Offer offer : session.getDatabase().getOffersByStudentID(session.getUser().getID())) {
+			if (offer.getStatus().equals("open")) {
+				studentOffers.add(offer);				
+			}
+		}
 		
 		if (studentOffers.size() >= 1) lblMessage.setText("Congratulations, you have been selected for the following awards: \n");
 		for (Offer o : studentOffers) {
