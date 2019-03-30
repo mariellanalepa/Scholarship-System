@@ -1,5 +1,9 @@
 /**
  * Controller to handle viewing, accepting, and declining awards.
+ * Student is shown a drop down menu of awards based on open offers they have.
+ * Student can accept or decline the award. A confirmation message will be printed,
+ * and the status of the offer in the offerDatabase will be updated from 'open'
+ * to either 'accepted' or 'declined'
  * @author Jasmine Roebuck
  */
 
@@ -19,13 +23,16 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import model.Offer;
 import model.Session;
+import model.Student;
 
 public class ViewAwardsController implements Initializable {
 	
 	private Main main;
 	private Session session;
+	private Offer offerOld;
+	private String awardName;
 	@FXML protected Button signOut, saveAndExitButton, submitButton, mainMenuButton; 
-	@FXML private Label welcomeLabel;
+	@FXML private Label welcomeLabel, awardMessage;
 	@FXML private ChoiceBox<String> awardDrop;
 	ArrayList<String> awardArray = new ArrayList<String>();
 
@@ -42,13 +49,18 @@ public class ViewAwardsController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		// Populate the drop down list of scholarships with the ones that are offered to this user
-		for (Offer offer : session.getDatabase().getOffersByStudentID(session.getUser().getID())) {
-			if (offer.getStatus().equals("open")) {
-				awardArray.add(offer.getScholarshipName());				
+		for (Offer o : session.getDatabase().getOffersByStudentID(session.getUser().getID())) {
+			if (o.getStatus().equals("open")) {
+				awardArray.add(o.getScholarshipName());				
 			}
 		}
 		awardDrop.setItems(FXCollections.observableArrayList(awardArray));
-	}
+		
+		// Set a listener to capture the dropdown menu selection
+		awardDrop.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) ->			{
+			awardName = awardDrop.getValue().toString();								
+			});
+		}
 	
 	@FXML 
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
@@ -63,16 +75,42 @@ public class ViewAwardsController implements Initializable {
 	
 	@FXML
 	protected void handleAcceptAwardButtonAction(ActionEvent event) throws Exception {
-		// Print out message to a label instead of the console
-		System.out.println("Congratulations on your award! You will be notified when your award is disbursed.");
-		// Change offer status in database to 'accepted'
+		// Only act if a selection has been made in the dropdown menu
+		if (!awardDrop.getSelectionModel().isEmpty()) {
+			for (Offer o : session.getDatabase().getOffersByStudentID(session.getUser().getID())) {
+				if (o.getScholarshipName().equals(awardName)) {
+					offerOld = o; // Get the offer the user has selected
+				}
+			}
+			Student student = this.session.getDatabase().getStudents().get(offerOld.getStudentID());
+			Offer offerNew = new Offer(this.session.getDatabase().getScholarshipsByName().get(offerOld.getScholarshipName()), student, "accepted");
+			student.addOffer(offerNew); // Add an offer with the edited status
+				// This is done on the student object because, when the database write to
+				// the offerDatabase.csv, it pulls offers from all student objects and writes those to the file
+			student.getOffers().remove(offerOld); 
+			awardMessage.setText("Congratulations on your award! You will be notified when your award is disbursed.");
+			awardMessage.setVisible(true);
+		}
 	}
 	
 	@FXML
 	protected void handleDeclineAwardButtonAction(ActionEvent event) throws Exception {
-		// Print out message to a label instead of the console
-		System.out.println("Thank you for your consideration. You have successfully declined this award.");
-		// Change offer status in database to 'declined'
+		// Only act if a selection has been made in the dropdown menu
+		if (!awardDrop.getSelectionModel().isEmpty()) {
+			for (Offer o : session.getDatabase().getOffersByStudentID(session.getUser().getID())) {
+				if (o.getScholarshipName().equals(awardName)) {
+					offerOld = o; // Get the offer the user has selected
+				}
+			}
+			Student student = this.session.getDatabase().getStudents().get(offerOld.getStudentID());
+			Offer offerNew = new Offer(this.session.getDatabase().getScholarshipsByName().get(offerOld.getScholarshipName()), student, "declined");
+			student.addOffer(offerNew); // Add an offer with the edited status
+			// This is done on the student object because, when the database write to
+			// the offerDatabase.csv, it pulls offers from all student objects and writes those to the file
+			student.getOffers().remove(offerOld);
+			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
+			awardMessage.setVisible(true);
+		}
 	}
 	
 	

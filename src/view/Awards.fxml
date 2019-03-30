@@ -69,12 +69,21 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="179.0" prefWidth="1064.0" BorderPane.alignment="CENTER">
          <children>
-            <Button onAction="#handleAcceptAwardButtonAction" mnemonicParsing="false" text="Accept Award" translateX="-10.0" />
-            <Button onAction="#handleDeclineAwardButtonAction" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Decline Award" translateX="10.0" />
+            <Button mnemonicParsing="false" onAction="#handleAcceptAwardButtonAction" text="Accept Award" translateX="-10.0" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDeclineAwardButtonAction" text="Decline Award" translateX="10.0" />
          </children>
       </HBox>
    </bottom>
    <center>
-      <ChoiceBox fx:id="awardDrop" prefWidth="150.0" BorderPane.alignment="CENTER" />
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ChoiceBox fx:id="awardDrop" prefWidth="150.0" />
+            <Label fx:id="awardMessage" text="Text" textAlignment="CENTER" visible="false">
+               <padding>
+                  <Insets top="50.0" />
+               </padding>
+            </Label>
+         </children>
+      </VBox>
    </center>
 </BorderPane>
