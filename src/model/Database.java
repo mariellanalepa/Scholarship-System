@@ -397,6 +397,7 @@ public class Database {
 		//Since this was called, means a scholarship has taken this ID,
 		//need to increment the counter
 		this.scholarshipIdCounter++;
+		System.out.println("Scholarship counter is " + this.scholarshipIdCounter);
 		return id;
 		
 	}

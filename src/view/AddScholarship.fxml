@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddScholarshipController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddScholarshipController">
    <center>
       <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="434.0" prefWidth="611.0" vgap="20.0">
          <columnConstraints>
@@ -31,11 +32,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="deadlineBox" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="150.0" />
-               </GridPane.margin>
-            </TextField>
             <TextField fx:id="yearBox" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="150.0" />
@@ -75,6 +71,11 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </TextField>
+            <DatePicker fx:id="deadlinePicker" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
+            </DatePicker>
             <Label fx:id="donorLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Donor" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="150.0" />
