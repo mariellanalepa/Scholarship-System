@@ -19,9 +19,9 @@ public class LoginController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	protected static String invalidUname = "Invalid username or password, please try again";
+	protected static String invalidLogin = "Invalid username or password, please try again";
 	@FXML private Button signIn;
-	@FXML private TextField usernameField;
+	@FXML private TextField usernameField, passwordField;
 	@FXML private Label errorLabel;
 	
 	
@@ -35,6 +35,7 @@ public class LoginController implements Initializable {
 	{	 
 		//Get student ID from text field
 		String userName = usernameField.getText().toLowerCase();
+		String password = passwordField.getText();
 		System.out.println(userName);
 	
 		/* Call login from session
@@ -42,11 +43,13 @@ public class LoginController implements Initializable {
 		 * or student ID not in database, login will throw InvalidUserException
 		 */
 		try {
-			session.login(userName);
+			session.login(userName, password);
 
 		} catch(InvalidUserException notValidUser) {
-			errorLabel.setText(invalidUname);
+			errorLabel.setText(invalidLogin);
 			System.out.println(notValidUser);
+			System.out.println(userName);
+			System.out.println(password);
 			// Reset stage
 			Stage stage = (Stage) errorLabel.getScene().getWindow();		
 			stage.show();

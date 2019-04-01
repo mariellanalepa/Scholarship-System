@@ -54,7 +54,7 @@
                </font>
             </Label>
             <TextField fx:id="usernameField" prefHeight="27.0" prefWidth="310.0" GridPane.columnIndex="1" />
-            <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <opaqueInsets>
             <Insets />

@@ -7,6 +7,7 @@ public class Admin extends User {
 		this.userID = Integer.valueOf(data[1]);
 		this.firstName = data[2];
 		this.lastName = data[3];
+		this.passwordHash = data[4];
 	}
 
 }

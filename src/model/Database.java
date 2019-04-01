@@ -35,6 +35,7 @@ public class Database {
 	final private String applicationDatabaseHeader ="applicationID,studentID,scholarshipID,dateAdded,status\n";
 	final private String scholarshipDatabaseHeader = "IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,RecType,ReqGPA,ReqYear,Status,DatePosted(dd/MM/yyyy HH:mm:ss)\n";
 	final private String offerDatabaseHeader = "StudentID,ScholarshipName,OfferStatus\n";
+	
 	//Maps to store DB objects
 	private HashMap<Integer,Admin> admins;
 	private HashMap<Integer,Student> students;
@@ -47,8 +48,8 @@ public class Database {
 	
 	
 	public Database() {
-		
 		this.users = new HashMap<String,User>();
+		
 		//Initialization must be done in this order 
 		initAdmins();
 		initStudents();
@@ -583,22 +584,22 @@ public class Database {
 	 * Main method for testing this class
 	 * @param args -- from command line (none used)
 	 */
-	public static void main(String[] args) {
-		Database db = new Database();
-		
-		for (Student student : db.getStudents().values())
-		{
-			System.out.println(student.getFirstName());
-			
-			for (Application application : student.getApplications())
-			{
-				System.out.println(db.getScholarshipsById().get(application.getScholarshipId()).getName());
-			}
-		}
-		
-		db.close();
-			
-	}
+//	public static void main(String[] args) {
+//		Database db = new Database();
+//		
+//		for (Student student : db.getStudents().values())
+//		{
+//			System.out.println(student.getFirstName());
+//			
+//			for (Application application : student.getApplications())
+//			{
+//				System.out.println(db.getScholarshipsById().get(application.getScholarshipId()).getName());
+//			}
+//		}
+//		
+//		db.close();
+//			
+//	}
 	
 	
 }

@@ -1,5 +1,7 @@
 package model;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -14,7 +16,6 @@ import javafx.collections.ObservableList;
  */
 public class Session {
 	private User user;
-	//private DataManager m;
 	private Database db;
 	
 	public ObservableList<Application> applications;
@@ -24,14 +25,10 @@ public class Session {
 	private Scholarship selectedScholarship = null;
 
 	/**
-	 * Session constructor. Creates a session that is 
-	 * customized to user upon call to login(String username).
+	 * Session constructor. Creates a session and initializes all the databases
 	 */
 	public Session() {
-		//this.m = new DataManager();
 		this.db = new Database();
-		//DataManager.loadApplicationData(); // loads application database
-		//DataManager.loadScholarshipData(); // loads scholarship database
 	}
 
 	/**
@@ -40,74 +37,57 @@ public class Session {
 	 * @param username : String
 	 * @throws InvalidUserException : not a valid username
 	 */
-	public void login(String username) throws InvalidUserException
+	public void login(String username, String password) throws InvalidUserException
 	{
 		this.user = this.db.getUsers().get(username);
 		
+		authenticateUser(password);
 		if (this.user == null)
 		{
 			InvalidUserException e = new InvalidUserException("User not found");
 			throw e;
 		}
 		
-		//initializeDabaseData();
+		
 	}
 
-
-/*	*//**
-	 * Initializes the applicationDatabase and scholarshipDatabase attributes depending on user type:
-	 * 		if user is Admin, 
-	 * 			applicationDatabase contains all the SUBMITTED-status applications
-	 * 			scholarshipDatabase contains all scholarships
-	 * 
-	 *  	if user is Student, 
-	 *  		applicationDatabase contains applications with the students ID number
-	 *  	 	scholarshipDatabase contains the curated list of scholarships for that student
-	 *//*
-	private void initializeDabaseData() {
-		if(this.user instanceof Admin) {
-			DataManager.initAdminUserDatabases();
-		} else if(this.user instanceof Student) {
-			DataManager.initStudentUserDatabases(this.user.getID());
-		} 
-
-	}*/
-
-	/*public void saveDatabases() {
-		try {
-			m.saveDatabaseOnExit(CsvReader.scholarshipDatabase);
-		}catch(NullPointerException e) {
-			System.out.println(e);
-		}
-		try {
-			m.saveDatabaseOnExit(CsvReader.applicationDatabase);
-		} catch(NullPointerException n) {
-			System.out.println(n);
-			return;
-		}
-
-	}*/
-
-
-//	public void updateApplicationDatabase() {
-//		this.userApplicationDatabase = DataManager.getApplicationData();	
-//	}
-//	public void updateScholarshipDatabase() {
-//		this.userScholarshipDatabase = DataManager.getScholarshipData();	
-//	}
+/**
+ * MD5 hashing algorithm. Takes in user password, generates the hash, 
+ * and compares it to the stored hash.
+ * @param password
+ * @throws InvalidUserException 
+ */
+	private void authenticateUser(String password) throws InvalidUserException {
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            //Convert bytes from decimal to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+            if(this.user.checkHash(generatedPassword) != true) {
+            	InvalidUserException incorrectPassword = new InvalidUserException("Invalid Password");
+            	throw incorrectPassword;
+            }
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println(generatedPassword);
+		
+	}
 
 	/*GETTERS & SETTERS*/
 
 	public User getUser() {
 		return this.user;
 	}
-	
-	/*public List<String[]> getUserApplicationDatabase() {
-		return DataManager.getUserApplicationDatabase();
-	}
-	public List<String[]> getUserScholarshipDatabase() {
-		return DataManager.getUserScholarshipDatabase();
-	}*/
 	
 	public Scholarship getScholarshipSelection() {
 		return this.selectedScholarship;
@@ -121,12 +101,7 @@ public class Session {
 		return this.db;
 	}
 
-//	protected void setUserApplicationDatabase(List<String[]> applicationDatabase) {
-//		this.userApplicationDatabase = applicationDatabase;
-//	}
-//	protected void setUserScholarshipDatabase(List<String[]> scholarshipDatabase) {
-//		this.userScholarshipDatabase = scholarshipDatabase;
-//	}
+
 
 
 

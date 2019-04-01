@@ -28,8 +28,9 @@ public class Student extends User {
 		this.studentFaculty = data[6];
 		this.studentDepartment = data[7];
 		this.studentGPA = Float.valueOf(data[8]);
-		//this.applications = m.getApplicationDataByID(this.userID);
+		this.passwordHash = data[9];
 	}
+	
 	
 	
 	public void addOffer(Offer offer) {

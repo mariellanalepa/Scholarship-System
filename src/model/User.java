@@ -12,6 +12,22 @@ public abstract class User {
 	protected String userName;
 	protected String firstName;
 	protected String lastName;
+	protected String passwordHash;
+	
+	/**
+	 * Checks generated hash with stored hash for user authentication method
+	 * returns boolean indicating success of match
+	 * @param hash : hash generated from entered password
+	 * @return boolean match : true if hashes match, false otherwise
+	 */
+	public boolean checkHash(String hash) {
+		boolean match = false;
+		if(hash.equalsIgnoreCase(this.passwordHash)) {
+			match = true;
+		}
+		return match;
+	}
+	
 	
 	public String getFirstName() {
 		return this.firstName;
