@@ -32,8 +32,7 @@ public class AdminMainController implements Initializable {
 
 	private Main main;
 	private Session session;
-	@FXML private Button signOut, viewScholarshipsButton, createScholarship, deleteButton, editScholarship, viewApplicationsButton, viewRecipientsButton;
-	@FXML private Label welcomeLabel;
+	@FXML private Button mainMenuButton, viewScholarshipsButton, createScholarship, deleteButton, editScholarship, viewApplicationsButton, viewRecipientsButton;
 
 	public AdminMainController(Main main, Session session)
 	{
@@ -41,9 +40,14 @@ public class AdminMainController implements Initializable {
 		this.session = session;
 	}
 	
-	@FXML
+	/*@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {	
 		main.setScene("/view/Login.fxml");
+	}*/
+	
+	@FXML 
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {	
+		main.setScene("/view/AdminMain.fxml");
 	}
 	
 	@FXML
@@ -81,7 +85,7 @@ public class AdminMainController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
+		//welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 		
 	}
 }

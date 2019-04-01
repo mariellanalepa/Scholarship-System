@@ -2,6 +2,8 @@ package application;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.Session;
 import javafx.scene.Parent;
@@ -15,6 +17,8 @@ import javafx.scene.Scene;
 public class Main extends Application {
 	private Stage primaryStage;
 	private Session session;  
+	//Visual bounds determined from screen size
+	private Rectangle2D visualBounds;
 	
 	/*Controller Factory for ensuring controllers is facilitate construction of controllers
 	  which require as parameter SessionDataModel object*/ 
@@ -41,8 +45,14 @@ public class Main extends Application {
 	 */
 	public void init() 
 	{
+		//Session instance corresponding to this program run
 		this.session = new Session();
+		//Create controller factory that will be used to initialize all controllers with dependency
+		//injection
 		this.controllerFactory = new ControllerFactory(this, session);
+		//Get visual bounds from screen size
+		visualBounds = Screen.getPrimary().getVisualBounds();
+		
 	}
 	
 	public void setScene(String url) throws Exception 
@@ -54,7 +64,7 @@ public class Main extends Application {
 		//Get node 'root' corresponding to FXML scene graph
 		Parent root = (Parent) loader.load();
 		//Create scene from root node and set scene to login UI 
-		this.primaryStage.setScene(new Scene(root));
+		this.primaryStage.setScene(new Scene(root, visualBounds.getWidth(), visualBounds.getHeight()));
 		this.primaryStage.show();
 	}
 	
