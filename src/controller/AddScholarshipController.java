@@ -1,6 +1,7 @@
 package controller;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import application.Main;
 import javafx.collections.FXCollections;
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Scholarship;
@@ -19,7 +21,8 @@ public class AddScholarshipController implements Initializable
 	private Main main;
 	private Session session;
 	@FXML private Button signOut, submitButton, mainMenuButton;
-	@FXML private TextField deadlineBox, yearBox, donorBox, nameBox, numberBox, amountBox, GPABox, typeBox, departmentBox, facultyBox; 
+	@FXML private DatePicker deadlinePicker;
+	@FXML private TextField yearBox, donorBox, nameBox, numberBox, amountBox, GPABox, typeBox, departmentBox, facultyBox; 
 	@FXML private Label welcomeLabel, errorLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
 	@FXML private ChoiceBox<String> facDrop, stuDrop, depDrop;
 	private boolean empty = false;			//to detect if at least one box is empty when submit is pressed
@@ -54,6 +57,10 @@ public class AddScholarshipController implements Initializable
 		
 		empty = false;
 		
+		//Formatter for date and time string: dd-MM-yyyy HH:mm:ss
+		//To be used to format date entered in DatePicker 
+		DateTimeFormatter deadlineFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+		
 		//Create scholarship ID based on how many items are presently in Scholarships
 		scholarshipData[0] = Integer.toString(this.session.getDatabase().getScholarshipIdCounter());
 
@@ -61,7 +68,8 @@ public class AddScholarshipController implements Initializable
 		else { empty = true;}
 		if (!donorBox.getText().isEmpty()) { scholarshipData[2] = donorBox.getText(); }
 		else { 			empty = true; }
-		if (!deadlineBox.getText().isEmpty()) { scholarshipData[3] = deadlineBox.getText(); }
+		//Make every deadline at 11:59 PM of the day
+		if (deadlinePicker.getValue() != null) { scholarshipData[3] = deadlinePicker.getValue().format(deadlineFormatter) + " 23:59"; }
 		else { 	empty = true;	}
 		if (!amountBox.getText().isEmpty()) { scholarshipData[4] = amountBox.getText(); }
 		else { 			empty = true;}
@@ -78,8 +86,11 @@ public class AddScholarshipController implements Initializable
 		if (!yearBox.getText().isEmpty()) { scholarshipData[10] = yearBox.getText();}
 		else {			empty = true; }
 		System.out.println(empty);
-		scholarshipData[11] = "Open";		
-		scholarshipData[12] = dateTimeFormat(LocalDateTime.now());
+		scholarshipData[11] = "Open";
+		
+		//Get current system time, and format to follow yyyy-MM-dd HH:mm:ss format
+		DateTimeFormatter postedFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
+		scholarshipData[12] = LocalDateTime.now().format(postedFormatter);
 		
 		if (empty == false) {
 			Scholarship scholarship = new Scholarship(this.session.getDatabase(),scholarshipData);
