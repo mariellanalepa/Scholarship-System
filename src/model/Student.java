@@ -15,10 +15,12 @@ public class Student extends User {
 	//List of applications related to this student
 	private ArrayList<Application> applications;
 	private ArrayList<Offer> offers;
+	private ArrayList<Award> awards;
 	
 	public Student(String[] data) {
 		this.applications = new ArrayList<Application>();
 		this.offers = new ArrayList<Offer>();
+		this.awards = new ArrayList<Award>();
 		this.userName = data[0];
 		this.userID = Integer.valueOf(data[1]);
 		this.firstName = data[2];
@@ -44,6 +46,14 @@ public class Student extends User {
 	public void addApplication(Application application)
 	{
 		this.applications.add(application);
+	}
+	
+	public void addAward(Award award) {
+		this.awards.add(award);
+	}
+	
+	public ArrayList<Award> getAwards() {
+		return this.awards;
 	}
 	
 	public String getStudentIDString() {
