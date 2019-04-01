@@ -35,7 +35,7 @@ public class AdminRecipientController implements Initializable {
 	@FXML private Button signOut, mainMenuButton;
 	@FXML private Label welcomeLabel;
 	@FXML private ChoiceBox<String> scholDrop;
-	@FXML private TableColumn<Student, String> GPACol, stuNameCol, stuIDCol;
+	@FXML private TableColumn<Student, String> GPACol, nameCol, stuIDCol;
 	@FXML private TableView<Student> table;
 	ArrayList<String> nameArray = new ArrayList<String>();
 
@@ -81,7 +81,7 @@ public class AdminRecipientController implements Initializable {
 			table.setItems(data);
 			stuIDCol.setCellValueFactory(f->f.getValue().studentIDProperty()); 
 			GPACol.setCellValueFactory(f->f.getValue().GPAProperty());	
-		//	stuNameCol.setCellValueFactory(f->f.getValue().nameProperty());	
+			nameCol.setCellValueFactory(f->f.getValue().nameProperty());	
 								
 		});
 		
