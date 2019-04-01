@@ -15,13 +15,16 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import model.Award;
 import model.Offer;
+import model.Scholarship;
 import model.Session;
 import model.Student;
 
@@ -34,6 +37,7 @@ public class ViewAwardsController implements Initializable {
 	@FXML protected Button signOut, saveAndExitButton, submitButton, mainMenuButton; 
 	@FXML private Label welcomeLabel, awardMessage;
 	@FXML private ChoiceBox<String> awardDrop;
+	private ObservableList<String> list;
 	ArrayList<String> awardArray = new ArrayList<String>();
 
 	//CSS styling
@@ -54,11 +58,18 @@ public class ViewAwardsController implements Initializable {
 				awardArray.add(o.getScholarshipName());				
 			}
 		}
-		awardDrop.setItems(FXCollections.observableArrayList(awardArray));
+		// Create a fixed observable list that feeds the data to the dropdown
+			// Changes to this list will update what is displayed in the dropdown
+		list = FXCollections.observableArrayList(awardArray);
+		awardDrop.setItems(list);
 		
 		// Set a listener to capture the dropdown menu selection
 		awardDrop.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) ->			{
-			awardName = awardDrop.getValue().toString();								
+			if (awardDrop.getValue() != null) {
+				awardName = awardDrop.getValue().toString();
+			} else {
+				awardName = "";
+			}
 			});
 		}
 	
@@ -83,13 +94,19 @@ public class ViewAwardsController implements Initializable {
 				}
 			}
 			Student student = this.session.getDatabase().getStudents().get(offerOld.getStudentID());
-			Offer offerNew = new Offer(this.session.getDatabase().getScholarshipsByName().get(offerOld.getScholarshipName()), student, "accepted");
+			Scholarship scholarship = this.session.getDatabase().getScholarshipsByName().get(offerOld.getScholarshipName());
+			Offer offerNew = new Offer(scholarship, student, "accepted");
 			student.addOffer(offerNew); // Add an offer with the edited status
 				// This is done on the student object because, when the database write to
 				// the offerDatabase.csv, it pulls offers from all student objects and writes those to the file
-			student.getOffers().remove(offerOld); 
+			student.getOffers().remove(offerOld); // Remove offer from the student
+			Award award = new Award(student, scholarship); // Create a new award object
+			student.addAward(award); // Add award object to the student object
+										// This will be written to the history database
+										// when the application closes
 			awardMessage.setText("Congratulations on your award! You will be notified when your award is disbursed.");
 			awardMessage.setVisible(true);
+			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
 		}
 	}
 	
@@ -110,6 +127,10 @@ public class ViewAwardsController implements Initializable {
 			student.getOffers().remove(offerOld);
 			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
 			awardMessage.setVisible(true);
+			
+			// Need to trigger the getTopCandidates and write to the offers file
+			
+			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
 		}
 	}
 	
