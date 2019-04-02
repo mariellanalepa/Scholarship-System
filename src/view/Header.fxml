@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefWidth="800.0" style="-fx-background-color: #8d827a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminHeaderController">
+<VBox alignment="CENTER" prefWidth="800.0" style="-fx-background-color: #8d827a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HeaderController">
    <children>
       <HBox alignment="TOP_RIGHT" prefHeight="26.0" style="-fx-background-color: #cf0722;">
                <children>
@@ -40,7 +40,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label prefHeight="36.0" prefWidth="514.0" text="Welcome to Student Scholarships (Admin)" textFill="WHITE" wrapText="true">
+                        <Label prefHeight="36.0" prefWidth="514.0" text="Welcome to Student Scholarships" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="System Bold Italic" size="25.0" />
                            </font></Label>

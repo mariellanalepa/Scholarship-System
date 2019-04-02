@@ -34,7 +34,7 @@ public class ViewAwardsController implements Initializable {
 	private Session session;
 	private Offer offerOld;
 	private String awardName;
-	@FXML protected Button signOut, saveAndExitButton, submitButton, mainMenuButton; 
+	@FXML protected Button saveAndExitButton, submitButton; 
 	@FXML private Label welcomeLabel, awardMessage;
 	@FXML private ChoiceBox<String> awardDrop;
 	private ObservableList<String> list;
@@ -72,17 +72,6 @@ public class ViewAwardsController implements Initializable {
 			}
 			});
 		}
-	
-	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
-		main.setScene("/view/StudentMain.fxml");
-	}
-	
-	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
-	{
-		main.setScene("/view/Login.fxml");
-	}
 	
 	@FXML
 	protected void handleAcceptAwardButtonAction(ActionEvent event) throws Exception {

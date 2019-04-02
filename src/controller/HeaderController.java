@@ -11,14 +11,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import model.Session;
 
-public class AdminHeaderController implements Initializable {
+public class HeaderController implements Initializable {
 	
 	private Main main;
 	private Session session;
 	@FXML private Button signOut;
 	@FXML private Label welcomeLabel;
+	//CSS styling
+	String HOVERING_SIGNOUT_STYLE = "-fx-background-color: #cf0722; -fx-opacity: 70%; -fx-underline: true;";
+	String NORMAL_SIGNOUT_STYLE = "-fx-background-color: #cf0722; -fx-text-fill: white;";
 
-	public AdminHeaderController(Main main, Session session)
+	public HeaderController(Main main, Session session)
 	{
 		this.main = main;
 		this.session = session;
@@ -33,6 +36,10 @@ public class AdminHeaderController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		//Generate welcome message based on user's name
 		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
+		
+		//event styling - uses lambda expressions
+		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
+		signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
 		
 	}
 

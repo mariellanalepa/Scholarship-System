@@ -2,6 +2,7 @@ package controller;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import application.Main;
@@ -21,16 +22,13 @@ public class ApplicationFormController implements Initializable
 {	
 	private Main main;
 	private Session session;
-	@FXML protected Label welcomeLabel, confirmationLabel, SCHOLARSHIP_FIELD, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
-	@FXML protected Button signOut, saveAndExitButton, submitButton, mainMenuButton; 
+	@FXML protected Label confirmationLabel, SCHOLARSHIP_FIELD, FNAME_FIELD, LNAME_FIELD, ID_FIELD, YEAR_FIELD, DEPT_FIELD, FACULTY_FIELD, GPA_FIELD, TYPE_FIELD;
+	@FXML protected Button saveAndExitButton, submitButton; 
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
 	private Application application;
 	private Scholarship scholarship;
-	
-	
-	//CSS styling
-	String HOVERING_SIGNOUT_STYLE = "-fx-background-color: #cf0722; -fx-opacity: 70%; -fx-underline: true;";
-	String NORMAL_SIGNOUT_STYLE = "-fx-background-color: #cf0722; -fx-text-fill: white;";
+	//Formatter for current system time: yyyy-MM-dd HH:mm:ss format
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
 
 	public ApplicationFormController(Main main, Session session) {
 		this.main = main;
@@ -42,7 +40,6 @@ public class ApplicationFormController implements Initializable
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		Student student = (Student) session.getUser();
-		welcomeLabel.setText(welcomeLabel.getText() + " " + student.getName());
 		
 		//Check if a scholarship has been selected via table GUI
 		this.scholarship = this.session.getScholarshipSelection();
@@ -53,15 +50,11 @@ public class ApplicationFormController implements Initializable
 			SCHOLARSHIP_FIELD.setText(this.scholarship.getName());
 		}
 		
-		//event styling - uses lambda expressions
-		signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
-		signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
-		
 		String[] applicationData = new String[5];
 		applicationData[0] = Integer.toString(this.session.getDatabase().getApplicationIdCounter());
 		applicationData[1] = Integer.toString(student.getID());
 		applicationData[2] = Integer.toString(this.scholarship.getId());
-		applicationData[3] = dateTimeFormat(LocalDateTime.now());
+		applicationData[3] = LocalDateTime.now().format(formatter);
 		applicationData[4] = "saved";
 		
 		Application a = new Application(this.session.getDatabase(), applicationData);
@@ -82,28 +75,17 @@ public class ApplicationFormController implements Initializable
 
 	}
 	
-	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception{
-		main.setScene("/view/StudentMain.fxml");
-	}
-	
-	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception
-	{
-		main.setScene("/view/Login.fxml");
-	}
-	
 	@FXML
 	protected void handleSaveAndExitButtonAction(ActionEvent event) throws Exception
 	{
 		//this.application.saveApplication();
-		main.setScene("/view/StudentMain.fxml");
+		main.injectPaneIntoScene("/view/StudentAwardsMessage.fxml");
 	}
 	
 	@FXML
 	protected void handleSubmitButtonAction(ActionEvent event) throws Exception
 	{
-		this.application.setDateAdded(dateTimeFormat(LocalDateTime.now()));
+		this.application.setDateAdded(LocalDateTime.now().format(formatter));
 		this.application.setStatus("submitted");
 		//this.application.saveApplication();
 		
@@ -113,7 +95,7 @@ public class ApplicationFormController implements Initializable
 		confirmationLabel.setVisible(true);
 	}
 	
-	private String dateTimeFormat(LocalDateTime time) {
+	/*private String dateTimeFormat(LocalDateTime time) {
 		String dateTime = time.toString();
 		String year = dateTime.substring(0, 4)+ " ";
 		String month = dateTime.substring(5, 7) + "/";
@@ -122,7 +104,7 @@ public class ApplicationFormController implements Initializable
 		String dateTimeString = year + month + day + hms;
 		return dateTimeString;
 				
-	}
+	}*/
 }
 
 

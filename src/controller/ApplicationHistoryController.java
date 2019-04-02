@@ -23,8 +23,6 @@ public class ApplicationHistoryController implements Initializable {
 	private Main main;
 	private Session session;
 	private Student student;
-	@FXML private Button signOut, mainMenuButton;
-	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Application,String> applicationIdCol, scholarshipIdCol, scholarshipNameCol, dateSubmittedCol, deadlineCol, status;
 	@FXML private TableView<Application> table;
 	
@@ -34,23 +32,13 @@ public class ApplicationHistoryController implements Initializable {
 		this.session = session;
 	}
 	
-	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/Login.fxml");
-	}
-	
-	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/StudentMain.fxml");
-	}
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		//Get the Student corresponding to this Session instance
+		//i.e., logged in User
 		this.student = (Student) this.session.getUser();
-		welcomeLabel.setText(welcomeLabel.getText() + " " + student.getName());
-		System.out.println(student.getID());
-		//ApplicationFactory af = new ApplicationFactory(session.getUser().getID());
+		
 		ObservableList<Application> data = FXCollections.observableArrayList(this.student.getApplications());
 
 		table.setItems(data);
