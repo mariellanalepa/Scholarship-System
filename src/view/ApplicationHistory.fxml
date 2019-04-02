@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApplicationHistoryController">
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApplicationHistoryController">
    <children>
       <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0">
         <columns>
@@ -17,5 +19,15 @@
             <TableColumn fx:id="status" text="Status" />
         </columns>
       </TableView>
+      <Button fx:id="submitApplicationButton" mnemonicParsing="false" onAction="#handleSubmitApplicationButtonAction" text="Submit ">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </Button>
+      <Label fx:id="confirmationLabel" text="Your application has been submitted." textFill="RED" visible="false">
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </Label>
    </children>
 </VBox>

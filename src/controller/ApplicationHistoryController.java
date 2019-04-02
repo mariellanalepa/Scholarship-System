@@ -1,5 +1,6 @@
 package controller;
 import model.Application;
+import model.Scholarship;
 import model.Session;
 import model.Student;
 
@@ -23,13 +24,33 @@ public class ApplicationHistoryController implements Initializable {
 	private Main main;
 	private Session session;
 	private Student student;
+	@FXML private Button submitApplicationButton;
 	@FXML private TableColumn<Application,String> applicationIdCol, scholarshipIdCol, scholarshipNameCol, dateSubmittedCol, deadlineCol, status;
 	@FXML private TableView<Application> table;
+	@FXML protected Label confirmationLabel;
 	
 	
 	public ApplicationHistoryController(Main main, Session session) {
 		this.main = main;
 		this.session = session;
+	}
+	
+	@FXML
+	public void handleSubmitApplicationButtonAction() {
+		
+		//If an application has been selected from the table
+		if (table.getSelectionModel().getSelectedItem() != null)
+		{
+			//Retrieve the object corresponding to the application
+			Application application = table.getSelectionModel().getSelectedItem();
+			//If its status is "saved", but not yet "submitted"
+			if (application.getStatus().equals("saved"))
+			{
+				application.setStatus("submitted");
+				confirmationLabel.setVisible(true);
+			}
+			
+		}
 	}
 	
 	@Override
@@ -48,6 +69,13 @@ public class ApplicationHistoryController implements Initializable {
 		deadlineCol.setCellValueFactory(f->f.getValue().scholarshipDeadlineProperty());
 		status.setCellValueFactory(f->f.getValue().statusProperty());
 		table.getColumns().setAll(applicationIdCol, scholarshipNameCol, deadlineCol, status);
+		
+		//Add listener to table selection
+		table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		    if (!newSelection.equals(oldSelection)) {
+		        confirmationLabel.setVisible(false);
+		    }
+		});
 	}
 
 }
