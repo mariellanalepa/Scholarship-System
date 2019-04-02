@@ -23,8 +23,7 @@ public class StudentScholarshipController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	@FXML private Button signOut, mainMenuButton, startApplicationButton;
-	@FXML private Label welcomeLabel;
+	@FXML private Button startApplicationButton;
 	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
 	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
 	@FXML private TableView<Scholarship> table;
@@ -41,10 +40,6 @@ public class StudentScholarshipController implements Initializable {
 		
 		//User will be student if they have access to the page (scene) to which this controller is bound
 		Student student = (Student) session.getUser();
-		
-		welcomeLabel.setText(welcomeLabel.getText() + " " + student.getName());
-		
-		//ScholarshipFactory s = new ScholarshipFactory(session.getUser().getID());
 		
 		ObservableList<Scholarship> data = FXCollections.observableArrayList(this.session.getDatabase().getScholarshipsById().values());
 		
@@ -81,16 +76,6 @@ public class StudentScholarshipController implements Initializable {
 		table.setItems(sortedData);
 	}
 	
-	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/Login.fxml");
-	}
-	
-	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/StudentMain.fxml");
-	}
-	
 	@FXML 
 	protected void handleStartApplicationButtonAction(ActionEvent event) throws Exception {
 		//If there is a scholarship currently selected in the table
@@ -99,7 +84,7 @@ public class StudentScholarshipController implements Initializable {
 		{
 			Scholarship scholarship = table.getSelectionModel().getSelectedItem();
 			session.setScholarshipSelection(scholarship);
-			main.setScene("/view/ApplicationForm.fxml");
+			main.injectPaneIntoScene("/view/ApplicationForm.fxml");
 		}
 	}
 }

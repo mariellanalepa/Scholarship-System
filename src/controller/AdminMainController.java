@@ -1,32 +1,13 @@
 package controller;
 
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
-
 import application.Main;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import model.Database;
-import model.Offer;
-import model.Scholarship;
 import model.Session;
-import model.Student;
 
 public class AdminMainController implements Initializable {
 
@@ -85,6 +66,6 @@ public class AdminMainController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		//welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
+		//Nothing to add here
 	}
 }

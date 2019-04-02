@@ -16,59 +16,42 @@ public class StudentMainController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	@FXML private Button newApplicationButton, signOut, viewScholarshipButton, reviewApplicationButton, viewAwardsButton;
-	@FXML private Label welcomeLabel, lblMessage;
+	@FXML private Button mainMenuButton, newApplicationButton, viewScholarshipButton, reviewApplicationButton, viewAwardsButton;
 	
 	public StudentMainController(Main main, Session session) {
 		this.main = main;
 		this.session = session;
 	}
 	
-	@FXML
-	protected void handleNewApplicationButtonAction(ActionEvent event) throws Exception {	
-		// redirects to scholarship view to choose a new scholarship
-		main.setScene("/view/StudentScholarship.fxml");
+	@FXML 
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
+		//Don't have anything to display in main right now
+		main.injectPaneIntoScene("/view/StudentAwardsMessage.fxml");
 	}
 	
 	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/Login.fxml");
+	protected void handleNewApplicationButtonAction(ActionEvent event) throws Exception {	
+		// redirects to scholarship view to choose a new scholarship
+		main.injectPaneIntoScene("/view/StudentScholarship.fxml");
 	}
 	
 	@FXML
 	protected void handleViewScholarshipButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/StudentScholarship.fxml");
+		main.injectPaneIntoScene("/view/StudentScholarship.fxml");
 	}
 	
 	@FXML
 	protected void handleReviewApplicationsButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/ApplicationHistory.fxml");
+		main.injectPaneIntoScene("/view/ApplicationHistory.fxml");
 	}
 	
 	@FXML
 	protected void handleViewAwardsButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/Awards.fxml");
+		main.injectPaneIntoScene("/view/Awards.fxml");
 	}
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
-	
-		ArrayList<Offer> studentOffers = new ArrayList<Offer>();
-		
-		for (Offer offer : session.getDatabase().getOffersByStudentID(session.getUser().getID())) {
-			if (offer.getStatus().equals("open")) {
-				studentOffers.add(offer);				
-			}
-		}
-		
-		if (studentOffers.size() >= 1) lblMessage.setText("Congratulations, you have been selected for the following awards: \n");
-		for (Offer o : studentOffers) {
-			lblMessage.setText(lblMessage.getText() + " " + o.getScholarshipName() + "\n"); 
-			viewAwardsButton.setVisible(true);
-		}
-		//System.out.println(studentOffers.size());
-		
+	public void initialize(URL location, ResourceBundle resources) {	
 		
 	}
 
