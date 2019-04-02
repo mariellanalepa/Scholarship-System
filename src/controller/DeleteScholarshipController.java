@@ -19,8 +19,8 @@ public class DeleteScholarshipController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	@FXML protected Label welcomeLabel, deleteLabel;
-	@FXML protected Button signOut, deleteButton, mainMenuButton;
+	@FXML protected Label deleteLabel;
+	@FXML protected Button deleteButton;
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
 	ArrayList<String> nameArray = new ArrayList<String>();
 	private Scholarship scholarship;
@@ -32,12 +32,6 @@ public class DeleteScholarshipController implements Initializable {
 	}
 	
 	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/Login.fxml");
-	}
-	
-	
-	@FXML
 	protected void handleDeleteButtonAction(ActionEvent event) throws Exception
 	{
 		int i = nameArray.indexOf(scholarshipSelectDropDown.getValue().toString())+1; //nameArray is 1 shorter than scholArray
@@ -46,13 +40,8 @@ public class DeleteScholarshipController implements Initializable {
 		//Remove scholarship from database
 		this.session.getDatabase().deleteScholarship(this.scholarship);
 		
-		//Set scene to Admin Main 
-		main.setScene("/view/AdminMain.fxml");
-	}
-	
-	@FXML
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/AdminMain.fxml");
+		//Return to Admin "Main Page" by injecting into Scene
+		main.injectPaneIntoScene("/view/AdminWelcomeText.fxml");
 	}
 	
 	@Override

@@ -25,8 +25,7 @@ public class AdminViewApplicationsController implements Initializable {
 
 	private Main main;
 	private Session session;
-	@FXML private Button signOut, viewScholarshipsButton, createScholarship, deleteButton, editScholarship, mainMenuButton;
-	@FXML private Label welcomeLabel;
+	@FXML private Button viewScholarshipsButton, createScholarship, deleteButton, editScholarship;
 	@FXML private ChoiceBox<String> scholDrop;
 	@FXML private TableColumn<Application, String> stuIDCol, appIDCol, dateCol;
 	@FXML private TableView<Application> table;
@@ -36,15 +35,6 @@ public class AdminViewApplicationsController implements Initializable {
 	{
 		this.main = main;
 		this.session = session;
-	}
-	
-	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {	
-		main.setScene("/view/Login.fxml");
-	}
-	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/AdminMain.fxml");
 	}
 	
 	@Override
@@ -71,16 +61,8 @@ public class AdminViewApplicationsController implements Initializable {
 			appIDCol.setCellValueFactory(f->f.getValue().applicationIDProperty());
 			dateCol.setCellValueFactory(f->f.getValue().dateSubmittedProperty());		
 			
-	
 		});
 	
-	}
-
-	
-		
-		
-
-	
-	
+	}	
 	
 }

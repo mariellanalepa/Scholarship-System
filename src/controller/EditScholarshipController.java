@@ -2,6 +2,7 @@ package controller;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import application.Main;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Session;
@@ -20,8 +22,9 @@ public class EditScholarshipController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	@FXML private Button signOut, submitButton, editScholarship, mainMenuButton;
-	@FXML private TextField deadlineBox, yearBox, donorBox, nameBox, numberBox, amountBox, GPABox; 
+	@FXML private Button submitButton, editScholarship;
+	@FXML private DatePicker deadlinePicker;
+	@FXML private TextField yearBox, donorBox, nameBox, numberBox, amountBox, GPABox; 
 	@FXML private Label welcomeLabel, errorLabel, editLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
 	@FXML protected ChoiceBox<String> scholDrop, stuDrop, facDrop, depDrop; 
 	ArrayList<String> nameArray = new ArrayList<String>();	
@@ -32,15 +35,6 @@ public class EditScholarshipController implements Initializable {
 		this.session = session;
 	}
 	
-	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/Login.fxml");
-	}
-	
-	@FXML
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/AdminMain.fxml");
-	}
 
 	/**
 	 * extract input from form when submit button is pressed
@@ -61,11 +55,15 @@ public class EditScholarshipController implements Initializable {
 		
 		scholarshipData[0] = Integer.toString(scholarshipOld.getId());
 		
+		//Formatter for date and time string: dd-MM-yyyy HH:mm:ss
+		//To be used to format date entered in DatePicker 
+		DateTimeFormatter deadlineFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+		
 		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
 		else { empty = true;}
 		if (!donorBox.getText().isEmpty()) { scholarshipData[2] = donorBox.getText(); }
 		else { 			empty = true; }
-		if (!deadlineBox.getText().isEmpty()) { scholarshipData[3] = deadlineBox.getText(); }
+		if (deadlinePicker.getValue() != null) { scholarshipData[3] = deadlinePicker.getValue().format(deadlineFormatter) + " 23:59"; }
 		else { 	empty = true;	}
 		if (!amountBox.getText().isEmpty()) { scholarshipData[4] = amountBox.getText(); }
 		else { 			empty = true;}
@@ -91,7 +89,7 @@ public class EditScholarshipController implements Initializable {
 			this.session.getDatabase().addScholarship(new Scholarship(this.session.getDatabase(),scholarshipData));
 			
 			//Set scene to Admin Main Page
-			main.setScene("/view/AdminMain.fxml");
+			main.injectPaneIntoScene("/view/AdminWelcomeText.fxml");
 		}
 		else {
 			errorLabel.setText("Error! Not all boxes contain a value");
@@ -101,9 +99,6 @@ public class EditScholarshipController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		//Welcome message customized to user's name
-		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 		
 		for (Scholarship scholarship : this.session.getDatabase().getScholarshipsById().values())
 		{
@@ -158,7 +153,7 @@ public class EditScholarshipController implements Initializable {
 		Scholarship scholarship = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);
 		nameBox.setText(scholarship.getName());
 		donorBox.setText(scholarship.getDonor());
-		deadlineBox.setText(scholarship.getDeadline());
+		deadlinePicker.setPromptText(scholarship.getDeadline());
 		amountBox.setText(Integer.toString(scholarship.getAmount()));
 		numberBox.setText(Integer.toString(scholarship.getNumber()));
 		facDrop.setValue(scholarship.getFaculty());

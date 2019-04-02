@@ -32,8 +32,6 @@ public class AdminRecipientController implements Initializable {
 
 	private Main main;
 	private Session session;
-	@FXML private Button signOut, mainMenuButton;
-	@FXML private Label welcomeLabel;
 	@FXML private ChoiceBox<String> scholDrop;
 	@FXML private TableColumn<Student, String> GPACol, nameCol, stuIDCol;
 	@FXML private TableView<Student> table;
@@ -45,16 +43,6 @@ public class AdminRecipientController implements Initializable {
 		this.session = session;
 	}
 	
-	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/Login.fxml");
-	}
-	
-	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {	
-		main.setScene("/view/AdminMain.fxml");
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 	

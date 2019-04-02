@@ -23,8 +23,6 @@ public class AdminScholarshipController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	@FXML private Button signOut, mainMenuButton;
-	@FXML private Label welcomeLabel;
 	@FXML private TableColumn<Scholarship,String> nameCol, donorCol, deadlineCol, facCol, deptCol, typeCol, yearCol;
 	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
 	@FXML private TableView<Scholarship> table;
@@ -39,10 +37,7 @@ public class AdminScholarshipController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
-		
-		//ScholarshipFactory s = new ScholarshipFactory();
-		
+	
 		ObservableList<Scholarship> data = FXCollections.observableArrayList(this.session.getDatabase().getScholarshipsById().values());
 		
 		//table.setItems(data);
@@ -77,15 +72,5 @@ public class AdminScholarshipController implements Initializable {
 		//Add sorted and/or filtered data to table
 		table.setItems(sortedData);
 	}
-	
-	
-	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/Login.fxml");
-	}
-	
-	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {	
-		main.setScene("/view/AdminMain.fxml");
-	}
+
 }
