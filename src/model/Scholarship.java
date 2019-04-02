@@ -157,6 +157,7 @@ public class Scholarship {
         return amount; 
     }
     public void setNumber(String value) { numberProperty().set(Integer.parseInt(value));} 
+    public void setNumber(int value) { numberProperty().set(value); }
     public Integer getNumber() {return numberProperty().get();}
 	public IntegerProperty numberProperty() { 
         if (number == null) number = new SimpleIntegerProperty(this, "number");

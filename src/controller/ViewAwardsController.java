@@ -105,8 +105,12 @@ public class ViewAwardsController implements Initializable {
 			}
 			app.setStatus("accepted"); // Edit application status
 			
-			// Decrement number of awards for this scholarship
-			// If number of awards hits 0, then close the scholarship
+			int num = scholarship.getNumber(); // Decrement the number of awards available
+			num--;
+			scholarship.setNumber(num);
+			if (num <= 0) {	// If number of awards hits 0...
+				scholarship.setStatus("Closed"); // Close the scholarship
+			}
 			
 			awardMessage.setText("Congratulations on your award! You will be notified when your award is disbursed.");
 			awardMessage.setVisible(true);
