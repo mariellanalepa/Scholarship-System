@@ -19,7 +19,7 @@
             <Insets bottom="100.0" />
          </VBox.margin>
       </Label>
-      <ChoiceBox fx:id="awardDrop" prefWidth="150.0" />
+      <ChoiceBox fx:id="awardDrop" prefWidth="300.0" />
       <HBox alignment="CENTER" prefHeight="179.0" prefWidth="1064.0">
          <children>
             <Button mnemonicParsing="false" onAction="#handleAcceptAwardButtonAction" text="Accept Award" translateX="-10.0" />
