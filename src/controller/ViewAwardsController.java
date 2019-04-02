@@ -110,6 +110,8 @@ public class ViewAwardsController implements Initializable {
 			scholarship.setNumber(num);
 			if (num <= 0) {	// If number of awards hits 0...
 				scholarship.setStatus("Closed"); // Close the scholarship
+			} else {
+				scholarship.recalculateTopCandidates(); // Reset the list of top candidates
 			}
 			
 			awardMessage.setText("Congratulations on your award! You will be notified when your award is disbursed.");
@@ -143,11 +145,21 @@ public class ViewAwardsController implements Initializable {
 			}
 			app.setStatus("declined"); // Edit application status
 			
-			// Recalculate top candidates and send new offer
-				// call findtopcondidates on the scholarship object
-				// iterate through list of students
-				// if student does not have an offer for this scholarship
-					// create an offer object and add it to the student object
+			scholarship.recalculateTopCandidates(); // Reset the list of top candidates
+			for (Student s : scholarship.getTopCandidates()) {
+				boolean hasOffer = false;
+				String name = scholarship.getName();
+				ArrayList<Offer> offers = s.getOffers();
+				for (Offer o : offers) {
+					if (o.getScholarshipName().equals(name)) {
+						hasOffer = true;
+					}
+				}
+				if (!hasOffer) { // If student does not have an offer for this award
+					Offer newOffer = new Offer(scholarship, s, "open");
+					s.addOffer(newOffer); // Give them an offer
+				}
+			}
 			
 			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
 			awardMessage.setVisible(true);

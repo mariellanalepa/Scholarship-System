@@ -34,6 +34,7 @@ public class Scholarship {
 	private StringProperty year;
 	private StringProperty status;
 	private StringProperty posted;
+	private float cutoff;
 
 	public Scholarship (Database database, String[] scholarshipData) {
 		this.db = database;
@@ -62,8 +63,24 @@ public class Scholarship {
 	
 	public void addApplication(Application application)
 	{
-		this.applications.add(application);
-		this.findTopCandidates(application);
+		if (applications.isEmpty()) {
+			applications.add(application);
+		} else {
+			boolean insert = false;
+			Student s1 = this.db.getStudents().get(application.getStudentId());
+			for (int i = 0; i < applications.size(); i++) {
+				Student s2 = this.db.getStudents().get(applications.get(i).getStudentId());
+				if (s1.getGPA() > s2.getGPA()) {
+					insert = true;
+					applications.add(i, application); // Insert this application at i
+				}
+			}
+			if (!insert) {
+				// Add to the end of the list if this student has the lowest GPA
+				this.applications.add(application);
+			}
+		}
+		this.findTopCandidates();
 	}
 	
 	/**
@@ -71,32 +88,19 @@ public class Scholarship {
 	 * or modification of application status to "submitted"
 	 * @param application
 	 */
-	public void findTopCandidates(Application application) 
-	{
-		//Only consider application for award if status is "submitted"
-		if (application.getStatus().equals("submitted"))
-		{
-			//Get associated student
-			int studentID = application.getStudentId();
-			Student student = this.db.getStudents().get(studentID);
-					
-			//Re-calculate top candidate
-			for (int s = 0; s < this.topCandidates.length; s++)
-			{
-				//If topCandidates is not yet full
-				if (this.topCandidates[s] == null)
-				{
-					topCandidates[s] = student;
-					break;
-				}
-				//Otherwise check to see if new application's student GPA is higher
-				else if (this.topCandidates[s].getGPA() < student.getGPA())
-				{
-					topCandidates[s] = student;
-					break;
-				}
+	public void findTopCandidates() {
+		for (int i = 0; i < this.topCandidates.length; i++) {
+			if (i < this.applications.size() && this.applications.get(i) != null) {
+				Student student = this.db.getStudents().get(this.applications.get(i).getStudentId());
+				this.topCandidates[i] = student;
 			}
 		}			
+	}
+	
+	public void recalculateTopCandidates() {
+		// Re-instantiate the list of top candidates in case the number of available awards changes
+		this.topCandidates = new Student[this.getNumber()];
+		this.findTopCandidates();
 	}
 	
 	public Student[] getTopCandidates() {

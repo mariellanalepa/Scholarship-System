@@ -122,7 +122,7 @@ public class Application {
     			//Get relevant scholarship
     			Scholarship scholarship = this.db.getScholarshipsById().get(this.getScholarshipId());
     			//Recalculate top candidates 
-    			scholarship.findTopCandidates(this);
+    			scholarship.findTopCandidates();
     		}
     }
     
