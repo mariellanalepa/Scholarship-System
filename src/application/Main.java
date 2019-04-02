@@ -2,10 +2,14 @@ package application;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.Session;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 /**
  * Main for Scholarship Management System
@@ -15,6 +19,8 @@ import javafx.scene.Scene;
 public class Main extends Application {
 	private Stage primaryStage;
 	private Session session;  
+	//Visual bounds determined from screen size
+	private Rectangle2D visualBounds;
 	
 	/*Controller Factory for ensuring controllers is facilitate construction of controllers
 	  which require as parameter SessionDataModel object*/ 
@@ -41,8 +47,14 @@ public class Main extends Application {
 	 */
 	public void init() 
 	{
+		//Session instance corresponding to this program run
 		this.session = new Session();
+		//Create controller factory that will be used to initialize all controllers with dependency
+		//injection
 		this.controllerFactory = new ControllerFactory(this, session);
+		//Get visual bounds from screen size
+		visualBounds = Screen.getPrimary().getVisualBounds();
+		
 	}
 	
 	public void setScene(String url) throws Exception 
@@ -54,8 +66,30 @@ public class Main extends Application {
 		//Get node 'root' corresponding to FXML scene graph
 		Parent root = (Parent) loader.load();
 		//Create scene from root node and set scene to login UI 
-		this.primaryStage.setScene(new Scene(root));
+		this.primaryStage.setScene(new Scene(root, visualBounds.getWidth(), visualBounds.getHeight()));
 		this.primaryStage.show();
+	}
+	
+	/**
+	 * Method for injecting a Pane object into the center pane of a Scene object with root
+	 * BorderPane. Used to keep base layout the same, but modify content of central pane.
+	 * There is an internal call to Main.setScene(String url). 
+	 * @param pane - Pane object that we wish to inject into the scene defined in the FXML
+	 * file specified
+	 * @param url - String specifying the URL of the FXML document corresponding to the BorderPane
+	 * Scene into which we wish to inject
+	 */
+	public void injectPaneIntoScene(String paneUrl) throws Exception
+	{
+		//We make the assumption that this function will not be called unless 
+		//the root is BorderPane
+		BorderPane borderPane = (BorderPane) this.primaryStage.getScene().getRoot();
+		//Create FXML Loader to get Pane to inject
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource(paneUrl));
+		loader.setControllerFactory(controllerFactory);
+		//Get node 'root' corresponding to FXML scene graph
+		Pane pane = (Pane) loader.load();
+		borderPane.setCenter(pane);
 	}
 	
 	@Override

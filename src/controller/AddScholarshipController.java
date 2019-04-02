@@ -20,7 +20,6 @@ public class AddScholarshipController implements Initializable
 {
 	private Main main;
 	private Session session;
-	@FXML private Button signOut, submitButton, mainMenuButton;
 	@FXML private DatePicker deadlinePicker;
 	@FXML private TextField yearBox, donorBox, nameBox, numberBox, amountBox, GPABox, typeBox, departmentBox, facultyBox; 
 	@FXML private Label welcomeLabel, errorLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
@@ -31,17 +30,6 @@ public class AddScholarshipController implements Initializable
 	public AddScholarshipController(Main main, Session session) {
 		this.main = main;
 		this.session = session;
-	}
-	
-	
-	@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/Login.fxml");
-	}
-	
-	@FXML 
-	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/AdminMain.fxml");	
 	}
 	
 	/**
@@ -97,8 +85,9 @@ public class AddScholarshipController implements Initializable
 			//Add scholarship to database
 			this.session.getDatabase().addScholarship(scholarship);
 			
-			//Set scene to Admin Main Page
-			main.setScene("/view/AdminMain.fxml");
+			//Return to Admin "Main Page", i.e.,
+			//Inject new Pane into Scene 
+			main.injectPaneIntoScene("/view/AdminWelcomeText.fxml");
 		}
 		else {
 			errorLabel.setText("Error! Not all boxes contain a value");
@@ -107,7 +96,7 @@ public class AddScholarshipController implements Initializable
 	}
 	/**
 	 * takes in current local date and time and formats it into the desired string format
-	 */
+	 *//*
 	public String dateTimeFormat(LocalDateTime time) {
 		String dateTime = time.toString();
 		String year = dateTime.substring(0, 4)+ " ";
@@ -117,11 +106,10 @@ public class AddScholarshipController implements Initializable
 		String dateTimeString = year + month + day + hms;
 		return dateTimeString;
 				
-	}
+	}*/
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		
 	
 	//	signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
@@ -169,8 +157,6 @@ public class AddScholarshipController implements Initializable
 
 				}
 		});
-		
-		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 	}
 	
 }

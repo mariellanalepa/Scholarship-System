@@ -32,8 +32,7 @@ public class AdminMainController implements Initializable {
 
 	private Main main;
 	private Session session;
-	@FXML private Button signOut, viewScholarshipsButton, createScholarship, deleteButton, editScholarship, viewApplicationsButton, viewRecipientsButton;
-	@FXML private Label welcomeLabel;
+	@FXML private Button mainMenuButton, viewScholarshipsButton, createScholarship, deleteButton, editScholarship, viewApplicationsButton, viewRecipientsButton;
 
 	public AdminMainController(Main main, Session session)
 	{
@@ -41,39 +40,44 @@ public class AdminMainController implements Initializable {
 		this.session = session;
 	}
 	
-	@FXML
+	/*@FXML
 	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {	
 		main.setScene("/view/Login.fxml");
+	}*/
+	
+	@FXML 
+	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {	
+		main.injectPaneIntoScene("/view/AdminWelcomeText.fxml");
 	}
 	
 	@FXML
 	protected void handleScholarshipButtonAction  (ActionEvent event) throws Exception {
-		main.setScene("/view/AdminScholarship.fxml");
+		main.injectPaneIntoScene("/view/AdminScholarship.fxml");
 	}
 	
 	@FXML
 	protected void handleCreateScholarshipButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/AddScholarship.fxml");
+		main.injectPaneIntoScene("/view/AddScholarship.fxml");
 	}
 
 	@FXML
 	protected void handleDeleteButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/DeleteScholarship.fxml");
+		main.injectPaneIntoScene("/view/DeleteScholarship.fxml");
 	}
 	
 	@FXML
 	protected void handleEditScholarshipAction(ActionEvent event) throws Exception {
-		main.setScene("/view/EditScholarship.fxml");
+		main.injectPaneIntoScene("/view/EditScholarship.fxml");
 	}
 	
 	@FXML
 	protected void handleViewRecipientsButtonAction(ActionEvent event) throws Exception {
-		main.setScene("/view/AdminRecipient.fxml");
+		main.injectPaneIntoScene("/view/AdminRecipient.fxml");
 	}
 
 	@FXML
 	protected void handleViewApplicationsAction(ActionEvent event) throws Exception {
-		main.setScene("/view/AdminViewApplications.fxml");
+		main.injectPaneIntoScene("/view/AdminViewApplications.fxml");
 	}
 
 	/*
@@ -81,7 +85,6 @@ public class AdminMainController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
-		
+		//welcomeLabel.setText(welcomeLabel.getText() + " " + session.getUser().getName());
 	}
 }

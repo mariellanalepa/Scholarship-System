@@ -59,10 +59,13 @@ public class LoginController implements Initializable {
 			if (session.getUser() instanceof Admin) {
 				//Set scene to Admin Main Page
 				main.setScene("/view/AdminMain.fxml");
+				//Inject pane into center of BorderPane that is root of Scene
+				main.injectPaneIntoScene("/view/AdminWelcomeText.fxml");
 				
 			} else if (session.getUser() instanceof Student) {
 				//Set scene to Student Main Page
 				main.setScene("/view/StudentMain.fxml");
+				
 			}		
 	}
 
