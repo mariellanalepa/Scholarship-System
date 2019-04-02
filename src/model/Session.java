@@ -41,13 +41,21 @@ public class Session {
 	{
 		this.user = this.db.getUsers().get(username);
 		
-		authenticateUser(password);
 		if (this.user == null)
 		{
 			InvalidUserException e = new InvalidUserException("User not found");
 			throw e;
 		}
 		
+		if (password == null)
+		{
+			InvalidUserException e = new InvalidUserException("Invalid Password");
+			throw e;
+		} else {
+			authenticateUser(password);
+		}
+		
+	
 		
 	}
 
