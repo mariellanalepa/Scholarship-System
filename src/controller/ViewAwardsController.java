@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import model.Application;
 import model.Award;
 import model.Offer;
 import model.Scholarship;
@@ -34,6 +35,7 @@ public class ViewAwardsController implements Initializable {
 	private Session session;
 	private Offer offerOld;
 	private String awardName;
+	private Application app;
 	@FXML protected Button saveAndExitButton, submitButton; 
 	@FXML private Label welcomeLabel, awardMessage;
 	@FXML private ChoiceBox<String> awardDrop;
@@ -93,9 +95,21 @@ public class ViewAwardsController implements Initializable {
 			student.addAward(award); // Add award object to the student object
 										// This will be written to the history database
 										// when the application closes
+			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
+			
+			// Find the application object for this student and this award
+			for (Application a : scholarship.getApplicationsSubmittedOnly()) {
+				if (a.getStudentId() == student.getID()) {
+					app = a;
+				}
+			}
+			app.setStatus("accepted"); // Edit application status
+			
+			// Decrement number of awards for this scholarship
+			// If number of awards hits 0, then close the scholarship
+			
 			awardMessage.setText("Congratulations on your award! You will be notified when your award is disbursed.");
 			awardMessage.setVisible(true);
-			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
 		}
 	}
 	
@@ -109,17 +123,26 @@ public class ViewAwardsController implements Initializable {
 				}
 			}
 			Student student = this.session.getDatabase().getStudents().get(offerOld.getStudentID());
+			Scholarship scholarship = this.session.getDatabase().getScholarshipsByName().get(offerOld.getScholarshipName());
 			Offer offerNew = new Offer(this.session.getDatabase().getScholarshipsByName().get(offerOld.getScholarshipName()), student, "declined");
 			student.addOffer(offerNew); // Add an offer with the edited status
 			// This is done on the student object because, when the database write to
 			// the offerDatabase.csv, it pulls offers from all student objects and writes those to the file
 			student.getOffers().remove(offerOld);
+			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
+			
+			// Find the application object for this student and this award
+			for (Application a : scholarship.getApplicationsSubmittedOnly()) {
+				if (a.getStudentId() == student.getID()) {
+					app = a;
+				}
+			}
+			app.setStatus("declined"); // Edit application status
+			
+			// Recalculate top candidates and send new offer
+			
 			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
 			awardMessage.setVisible(true);
-			
-			// Need to trigger the getTopCandidates and write to the offers file
-			
-			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
 		}
 	}
 	
