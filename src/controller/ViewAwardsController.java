@@ -144,6 +144,10 @@ public class ViewAwardsController implements Initializable {
 			app.setStatus("declined"); // Edit application status
 			
 			// Recalculate top candidates and send new offer
+				// call findtopcondidates on the scholarship object
+				// iterate through list of students
+				// if student does not have an offer for this scholarship
+					// create an offer object and add it to the student object
 			
 			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
 			awardMessage.setVisible(true);
