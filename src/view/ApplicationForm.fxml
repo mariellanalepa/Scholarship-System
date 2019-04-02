@@ -115,7 +115,7 @@
                   <Insets />
                </StackPane.margin>
             </HBox>
-            <Label fx:id="confirmationLabel" alignment="CENTER" prefHeight="26.0" prefWidth="418.0" text="Congratulations! Your application has been successfully submitted." textAlignment="CENTER" textFill="RED" />
+            <Label fx:id="confirmationLabel" alignment="CENTER" prefHeight="26.0" prefWidth="418.0" text="Congratulations! Your application has been successfully submitted." textAlignment="CENTER" textFill="RED" visible="false" />
          </children>
       </StackPane>
    </children>
