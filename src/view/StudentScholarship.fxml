@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentScholarshipController">
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentScholarshipController">
    <children>
       <HBox>
          <children>
@@ -33,7 +32,7 @@
       </TableView>
       <Button fx:id="startApplicationButton" mnemonicParsing="false" onAction="#handleStartApplicationButtonAction" text="Start Application">
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets bottom="20.0" top="20.0" />
          </VBox.margin>
       </Button>
    </children>
