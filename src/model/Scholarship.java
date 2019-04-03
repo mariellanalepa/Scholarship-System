@@ -72,6 +72,7 @@ public class Scholarship {
 				if (s1.getGPA() > s2.getGPA()) {
 					insert = true;
 					applications.add(i, application); // Insert this application at i
+					break;
 				}
 			}
 			if (!insert) {
