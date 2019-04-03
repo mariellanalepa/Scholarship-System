@@ -57,9 +57,15 @@ public class StudentScholarshipController implements Initializable {
 		yearCol.setCellValueFactory(f->f.getValue().yearProperty());
 		table.getColumns().setAll(idCol, nameCol, donorCol, deadlineCol,amtCol, numCol, facCol, deptCol, typeCol, gpaCol, yearCol);
 		
-		//Wrap observable list in filterable list
-		FilteredList<Scholarship> filteredData = new FilteredList<>(data, predicate -> true);
-				
+		//Wrap observable list in filterable list for curation
+		FilteredList<Scholarship> curatedData = new FilteredList<>(data, predicate -> true);	
+		
+		//Call for list to be curated
+		ScholarshipCurator curator = new ScholarshipCurator(curatedData, student);
+		
+		//Wrap curated list in filterable list for search filtering
+		FilteredList<Scholarship> filteredData = new FilteredList<>(curatedData, predicate -> true);
+		
 		//Add ChangeListener to filterField to see when its value changes
 		//ChangeListener is notified whenever the value of filterField.textProperty() changes 	
 		filterField.textProperty().addListener(new ScholarshipFilterListener(filteredData));

@@ -28,7 +28,7 @@ public class EditScholarshipController implements Initializable {
 	@FXML private Label welcomeLabel, errorLabel, editLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
 	@FXML protected ChoiceBox<String> scholDrop, stuDrop, facDrop, depDrop; 
 	ArrayList<String> nameArray = new ArrayList<String>();	
-	private boolean empty = false;
+	private boolean empty = false;	//boolean storing whether the submission contains an empty field
 
 	public EditScholarshipController(Main main, Session session) {
 		this.main = main;
@@ -82,7 +82,7 @@ public class EditScholarshipController implements Initializable {
 		scholarshipData[11] = "Open";		
 		scholarshipData[12] = dateTimeFormat(LocalDateTime.now());
 		
-		if (empty == false) {
+		if (empty == false) {	//there are no empty fields
 			//Delete "old version" of scholarship
 			this.session.getDatabase().deleteScholarship(scholarshipOld);
 			//Add "new version" of scholarship
@@ -91,19 +91,18 @@ public class EditScholarshipController implements Initializable {
 			//Set scene to Admin Main Page
 			main.injectPaneIntoScene("/view/AdminWelcomeText.fxml");
 		}
-		else {
+		else {	//there is an empty field
 			errorLabel.setText("Error! Not all boxes contain a value");
-			
 		}
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		for (Scholarship scholarship : this.session.getDatabase().getScholarshipsById().values())
+		for (Scholarship scholarship : this.session.getDatabase().getScholarshipsById().values())	//add all scholarships' names to nameArray
 		{
 			nameArray.add(scholarship.getName());
-			scholDrop.setItems(FXCollections.observableArrayList(nameArray));
+			scholDrop.setItems(FXCollections.observableArrayList(nameArray));	//set scholarship names into drop down ment
 		}
 	
 		facDrop.setItems(FXCollections.observableArrayList("ANY", "SC", "H", "AR", "EN", "ED"));	
@@ -145,7 +144,11 @@ public class EditScholarshipController implements Initializable {
 				}
 		});
 	}
-	
+	/**
+	 * Fields are filled with the scholarship's current information
+	 * @param event – Edit button is pressed
+	 * @throws Exception
+	 */
 	@FXML
 	public void handleEdit(ActionEvent event) throws Exception 
 	{
