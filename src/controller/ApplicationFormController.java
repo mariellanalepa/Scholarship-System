@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import model.Application;
+import model.Award;
 import model.Scholarship;
 import model.Session;
 import model.Student;
@@ -87,6 +88,9 @@ public class ApplicationFormController implements Initializable
 	{
 		this.application.setDateAdded(LocalDateTime.now().format(formatter));
 		this.application.setStatus("submitted");
+		Student student = (Student) this.session.getUser();
+		Award award = new Award(student, scholarship, "application submitted");
+		student.addAward(award);
 		//this.application.saveApplication();
 		
 		submitButton.setVisible(false);

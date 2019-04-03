@@ -49,7 +49,12 @@ public class StudentMainController implements Initializable {
 	protected void handleViewAwardsButtonAction(ActionEvent event) throws Exception {
 		main.injectPaneIntoScene("/view/Awards.fxml");
 	}
-
+	
+	@FXML
+	protected void handleAwardHistoryButtonAction(ActionEvent event) throws Exception {
+		main.injectPaneIntoScene("/view/AwardHistory.fxml");
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
 		

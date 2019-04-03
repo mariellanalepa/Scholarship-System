@@ -1,1 +1,8 @@
-StudentID,ScholarshipID
+StudentID,ScholarshipID,Status
+12345678,1,application submitted
+30098274,7,awarded
+30065479,1,awarded
+30065479,3,application submitted
+30065479,4,application submitted
+30065479,5,application submitted
+30065479,6,application submitted

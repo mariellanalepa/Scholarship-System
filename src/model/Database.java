@@ -37,7 +37,7 @@ public class Database {
 	final private String applicationDatabaseHeader ="applicationID,studentID,scholarshipID,dateAdded,status\n";
 	final private String scholarshipDatabaseHeader = "IDNumber,Name,Donor,Deadline(dd/MM/yyyy HH:mm:ss),Amount,Number,ReqFac,ReqDept,RecType,ReqGPA,ReqYear,Status,DatePosted(dd/MM/yyyy HH:mm:ss)\n";
 	final private String offerDatabaseHeader = "StudentID,ScholarshipName,OfferStatus\n";
-	final private String awardHistoryHeader = "StudentID,ScholarshipID\n";
+	final private String awardHistoryHeader = "StudentID,ScholarshipID,Status\n";
 	
 	//Maps to store DB objects
 	private HashMap<Integer,Admin> admins;
@@ -301,13 +301,20 @@ public class Database {
 				Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(scholarship.getDeadline());
 				Date now = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(dateTimeFormat(LocalDateTime.now()));
 				if (deadline.compareTo(now) <= 0) {	//deadline has passed
-						
-					if (scholarship.getStatus() == "Open") {		//scholarship is still open
+					if (scholarship.getStatus().compareTo("Open") == 0) {		//scholarship is still open
 						for (Student student : scholarship.getTopCandidates()) {
 							if (student != null) {	
 								Offer offer = new Offer(scholarship, student, "open");	//create offer for each student in top candidates
 								student.addOffer(offer);	 
+								
+								for (Award award : student.getAwards()) {
+									if (offer.getScholarshipName().compareTo(award.getScholarship().getName()) == 0) { 
+										award.setStatus("Offered");	//change status to "Offered" 
+									}
+								}
+							 
 							}
+						
 						}
 					}
 					try { 
@@ -324,7 +331,7 @@ public class Database {
 		//Initialize ArrayList of awards
 		this.awards = new ArrayList<Award>();
 					
-		String[] attributes = new String[2];
+		String[] attributes = new String[3];
 		BufferedReader buffread = null;	
 		String line = "";
 		String delimiter = ",";
@@ -341,6 +348,8 @@ public class Database {
 				award.setStudent(student);
 				Scholarship scholarship = scholarshipsById.get(award.getScholarshipID());
 				award.setScholarship(scholarship);
+				String status = award.getStatus();
+				award.setStatus(status);
 				student.addAward(award); // Add award to the list maintained by student object
 				this.awards.add(award); // Add award to central database
 			}
@@ -586,6 +595,24 @@ public class Database {
 			bw.write(awardHistoryHeader);
 			
 			//write contents of award array
+		/*	for (Student student: students.values()) {
+				if (student.getOffers() != null) {
+						
+						for (Offer offer : student.getOffers()) {
+						//	System.out.println(application.getStatus());
+							
+							if (offer.getStatus().compareTo("submitted") == 0) {
+								Award award = new Award(student, scholarshipsById.get(application.getScholarshipId()), "submitted");
+								student.addAward(award);
+							}
+							else if (offer.getStatus().compareTo("saved") == 0) {
+								Award award = new Award(student, scholarshipsById.get(offer.getScholarshipId()), "application in progress");
+								student.addAward(award);
+							}
+						}
+					}
+			} */
+		
 			for (Student student: students.values()) {
 				if (student.getAwards() != null) {
 
@@ -595,7 +622,10 @@ public class Database {
 						bw.write(line);
 					}
 				}
+	
 			}
+				
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

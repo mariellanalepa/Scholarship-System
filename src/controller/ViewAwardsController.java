@@ -89,8 +89,18 @@ public class ViewAwardsController implements Initializable {
 				// This is done on the student object because, when the database write to
 				// the offerDatabase.csv, it pulls offers from all student objects and writes those to the file
 			student.getOffers().remove(offerOld); // Remove offer from the student
-			Award award = new Award(student, scholarship); // Create a new award object
-			student.addAward(award); // Add award object to the student object
+			String status = "awarded";
+			//Award award = new Award(student, scholarship, status); // Create a new award object
+			for (Award a : student.getAwards()) {
+				if (a.getScholarshipID() == scholarship.getId()) {
+					a.setStatus(status);
+				}
+			}
+			
+			
+			
+			
+		//	student.addAward(award); // Add award object to the student object
 										// This will be written to the history database
 										// when the application closes
 			awardMessage.setText("Congratulations on your award! You will be notified when your award is disbursed.");
@@ -113,12 +123,21 @@ public class ViewAwardsController implements Initializable {
 			student.addOffer(offerNew); // Add an offer with the edited status
 			// This is done on the student object because, when the database write to
 			// the offerDatabase.csv, it pulls offers from all student objects and writes those to the file
+			Scholarship scholarship = this.session.getDatabase().getScholarshipsByName().get(offerOld.getScholarshipName());
+			String status = "declined"; 
+			for (Award a : student.getAwards()) {
+				if (a.getScholarshipID() == scholarship.getId()) {
+					a.setStatus(status);
+				}
+			}
+	//			Award award = new Award(student, scholarship, status);
+		//	student.addAward(award);
 			student.getOffers().remove(offerOld);
+		
 			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
 			awardMessage.setVisible(true);
 			
 			// Need to trigger the getTopCandidates and write to the offers file
-			
 			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
 		}
 	}
