@@ -34,7 +34,6 @@ public class Scholarship {
 	private StringProperty year;
 	private StringProperty status;
 	private StringProperty posted;
-	private float cutoff;
 
 	public Scholarship (Database database, String[] scholarshipData) {
 		this.db = database;
@@ -89,6 +88,7 @@ public class Scholarship {
 	 * @param application
 	 */
 	public void findTopCandidates() {
+		removeClosedApplications();
 		for (int i = 0; i < this.topCandidates.length; i++) {
 			if (i < this.applications.size() && this.applications.get(i) != null) {
 				Student student = this.db.getStudents().get(this.applications.get(i).getStudentId());
@@ -101,6 +101,19 @@ public class Scholarship {
 		// Re-instantiate the list of top candidates in case the number of available awards changes
 		this.topCandidates = new Student[this.getNumber()];
 		this.findTopCandidates();
+	}
+	
+	// Remove applications that are accepted or declined
+	public void removeClosedApplications() {
+		ArrayList<Application> removals = new ArrayList<Application>();
+		for (Application a : this.applications) {
+			if (!a.getStatus().equals("submitted")) {
+				removals.add(a);
+			}
+		}
+		for (Application a : removals) {
+			this.applications.remove(a);
+		}
 	}
 	
 	public Student[] getTopCandidates() {
