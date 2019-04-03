@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import model.Application;
 import model.Award;
 import model.Offer;
 import model.Scholarship;
@@ -34,6 +35,7 @@ public class ViewAwardsController implements Initializable {
 	private Session session;
 	private Offer offerOld;
 	private String awardName;
+	private Application app;
 	@FXML protected Button saveAndExitButton, submitButton; 
 	@FXML private Label welcomeLabel, awardMessage;
 	@FXML private ChoiceBox<String> awardDrop;
@@ -103,9 +105,27 @@ public class ViewAwardsController implements Initializable {
 		//	student.addAward(award); // Add award object to the student object
 										// This will be written to the history database
 										// when the application closes
+			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
+			
+			// Find the application object for this student and this award
+			for (Application a : scholarship.getApplicationsSubmittedOnly()) {
+				if (a.getStudentId() == student.getID()) {
+					app = a;
+				}
+			}
+			app.setStatus("accepted"); // Edit application status
+			
+			int num = scholarship.getNumber(); // Decrement the number of awards available
+			num--;
+			scholarship.setNumber(num);
+			if (num <= 0) {	// If number of awards hits 0...
+				scholarship.setStatus("Closed"); // Close the scholarship
+			} else {
+				scholarship.recalculateTopCandidates(); // Reset the list of top candidates
+			}
+			
 			awardMessage.setText("Congratulations on your award! You will be notified when your award is disbursed.");
 			awardMessage.setVisible(true);
-			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
 		}
 	}
 	
@@ -119,6 +139,7 @@ public class ViewAwardsController implements Initializable {
 				}
 			}
 			Student student = this.session.getDatabase().getStudents().get(offerOld.getStudentID());
+			Scholarship scholarship = this.session.getDatabase().getScholarshipsByName().get(offerOld.getScholarshipName());
 			Offer offerNew = new Offer(this.session.getDatabase().getScholarshipsByName().get(offerOld.getScholarshipName()), student, "declined");
 			student.addOffer(offerNew); // Add an offer with the edited status
 			// This is done on the student object because, when the database write to
@@ -133,12 +154,43 @@ public class ViewAwardsController implements Initializable {
 	//			Award award = new Award(student, scholarship, status);
 		//	student.addAward(award);
 			student.getOffers().remove(offerOld);
+<<<<<<< src/controller/ViewAwardsController.java
 		
 			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
 			awardMessage.setVisible(true);
 			
 			// Need to trigger the getTopCandidates and write to the offers file
 			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
+=======
+			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
+			
+			// Find the application object for this student and this award
+			for (Application a : scholarship.getApplicationsSubmittedOnly()) {
+				if (a.getStudentId() == student.getID()) {
+					app = a;
+				}
+			}
+			app.setStatus("declined"); // Edit application status
+			
+			scholarship.recalculateTopCandidates(); // Reset the list of top candidates
+			for (Student s : scholarship.getTopCandidates()) {
+				boolean hasOffer = false;
+				String name = scholarship.getName();
+				ArrayList<Offer> offers = s.getOffers();
+				for (Offer o : offers) {
+					if (o.getScholarshipName().equals(name)) {
+						hasOffer = true;
+					}
+				}
+				if (!hasOffer) { // If student does not have an offer for this award
+					Offer newOffer = new Offer(scholarship, s, "open");
+					s.addOffer(newOffer); // Give them an offer
+				}
+			}
+			
+			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
+			awardMessage.setVisible(true);
+>>>>>>> src/controller/ViewAwardsController.java
 		}
 	}
 	
