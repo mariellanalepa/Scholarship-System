@@ -3,6 +3,7 @@ applicationID,studentID,scholarshipID,dateAdded,status
 2,30065479,1,2019 03/17/16:11:05,accepted
 12,30064937,2,2019-04-02 14:20:29,submitted
 17,30064937,2,2019-04-02 14:40:21,saved
+18,30064937,2,2019-04-03 09:42:57,submitted
 7,30065479,3,2019,submitted
 16,30064937,3,2019-04-02 14:37:21,submitted
 8,30065479,4,2019,submitted
