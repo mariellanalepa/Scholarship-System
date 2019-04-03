@@ -11,7 +11,7 @@
    <children>
       <StackPane prefHeight="28.0" prefWidth="775.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Upcoming Award Deadlines" wrappingWidth="279.3367118835449" StackPane.alignment="TOP_LEFT">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements" wrappingWidth="279.3367118835449" StackPane.alignment="TOP_LEFT">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -26,7 +26,11 @@
       </StackPane>
       <StackPane prefHeight="234.0" prefWidth="775.0">
          <children>
-            <Label fx:id="lblDeadlines" prefHeight="233.0" prefWidth="775.0" />
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="lblInfo" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="72.0" prefWidth="775.0" />
+               </children>
+            </VBox>
          </children>
       </StackPane>
       <StackPane prefHeight="27.0" prefWidth="775.0">
@@ -47,7 +51,7 @@
       </StackPane>
       <StackPane prefHeight="211.0" prefWidth="775.0">
          <children>
-            <Label fx:id="lblMessage" prefHeight="191.0" prefWidth="764.0" />
+            <Label fx:id="lblMessage" alignment="TOP_LEFT" prefHeight="191.0" prefWidth="764.0" />
          </children>
       </StackPane>
    </children>

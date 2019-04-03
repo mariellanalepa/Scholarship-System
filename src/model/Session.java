@@ -32,7 +32,8 @@ public class Session {
 	}
 
 	/**
-	 * Session instantiates user object (Student/Admin),
+	 * Session checks login information, authenticates the user and
+	 * instantiates user object (Student/Admin),
 	 * and calls initialiazeDatabaseData() if user is valid. 
 	 * @param username : String
 	 * @throws InvalidUserException : not a valid username
@@ -71,13 +72,14 @@ public class Session {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(password.getBytes());
             byte[] bytes = md.digest();
-            //Convert bytes from decimal to hexadecimal format
             StringBuilder sb = new StringBuilder();
+            //Convert bytes from decimal to hexadecimal format
             for(int i=0; i< bytes.length ;i++)
             {
                 sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
             generatedPassword = sb.toString();
+            // call validation method to compare hash values
             if(this.user.checkHash(generatedPassword) != true) {
             	InvalidUserException incorrectPassword = new InvalidUserException("Invalid Password");
             	throw incorrectPassword;
@@ -87,7 +89,6 @@ public class Session {
         {
             e.printStackTrace();
         }
-        System.out.println(generatedPassword);
 		
 	}
 

@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefWidth="800.0" style="-fx-background-color: #8d827a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HeaderController">
+<VBox alignment="CENTER" prefWidth="800.0" style="-fx-background-color: #8d827a;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HeaderController">
    <children>
       <HBox alignment="TOP_RIGHT" prefHeight="26.0" style="-fx-background-color: #cf0722;">
                <children>
-                  <Button fx:id="signOut" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSignOutButtonAction" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #cf0722;" text="Sign out" textFill="WHITE">
+                  <Button fx:id="signOut" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSignOutButtonAction" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: #cf0722;" text="Sign out" textFill="WHITE">
                      <font>
-                        <Font name="SansSerif Bold" size="12.0" />
+                        <Font name="SansSerif Bold" size="14.0" />
                      </font>
                   </Button>
                </children>
