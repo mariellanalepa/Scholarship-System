@@ -1,10 +1,14 @@
 package model;
 
 import java.util.ArrayList;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Student object class
+ * @author Natalie
+ *
+ */
 public class Student extends User {
 	
 	private int studentYear;
@@ -12,10 +16,9 @@ public class Student extends User {
 	private String studentDepartment;
 	private String studentFaculty;
 	private float studentGPA;
-	//List of applications related to this student
-	private ArrayList<Application> applications;
-	private ArrayList<Offer> offers;
-	private ArrayList<Award> awards;
+	private ArrayList<Application> applications; //List of applications related to this student
+	private ArrayList<Offer> offers; //List of offers related to this student
+	private ArrayList<Award> awards; //List of awards related to this student
 	
 	public Student(String[] data) {
 		this.applications = new ArrayList<Application>();
@@ -34,6 +37,8 @@ public class Student extends User {
 	}
 	
 	
+	
+	/* Getter & Setter Methods*/
 	
 	public void addOffer(Offer offer) {
 			this.offers.add(offer);
@@ -70,9 +75,6 @@ public class Student extends User {
 		return this.studentFaculty;
 	}
 	public String getStudentType() {
-		//String type = "";
-		//if(this.studentType.startsWith("U")) { type = "Undergraduate";}
-		//return type;
 		return this.studentType;
 	}
 	public String getStudentGPAString() {
@@ -88,7 +90,7 @@ public class Student extends User {
 	}
 
 	/*
-	 * Following functions are to create StringProperties for display in View Recipients
+	 * Methods for creating StringProperties for display in View Recipients
 	 */
 	public StringProperty studentIDProperty() {
 		if (this.getStudentIDString() != null) {

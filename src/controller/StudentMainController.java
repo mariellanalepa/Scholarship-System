@@ -26,7 +26,8 @@ public class StudentMainController implements Initializable {
 	@FXML 
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
 		//Don't have anything to display in main right now
-		main.injectPaneIntoScene("/view/StudentAwardsMessage.fxml");
+		main.injectPaneIntoScene("/view/StudentWelcomeMessage.fxml");
+		//main.injectPaneIntoScene("/view/StudentAwardsMessage.fxml");
 	}
 	
 	@FXML
@@ -56,8 +57,7 @@ public class StudentMainController implements Initializable {
 	}
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {	
-		
+	public void initialize(URL location, ResourceBundle resources) {
 	}
 
 }

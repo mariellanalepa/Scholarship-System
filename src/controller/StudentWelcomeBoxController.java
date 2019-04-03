@@ -11,13 +11,13 @@ import javafx.scene.control.Label;
 import model.Offer;
 import model.Session;
 
-public class StudentAwardsMessageController implements Initializable {
+public class StudentWelcomeBoxController implements Initializable {
 	
 	private Main main;
 	private Session session;
-	@FXML private Label lblMessage;
+	@FXML private Label lblMessage, lblDeadlines;
 
-	public StudentAwardsMessageController(Main main, Session session) {
+	public StudentWelcomeBoxController(Main main, Session session) {
 		this.main = main;
 		this.session = session;
 	}
@@ -38,7 +38,10 @@ public class StudentAwardsMessageController implements Initializable {
 				lblMessage.setText(lblMessage.getText() + " " + o.getScholarshipName() + "\n"); 
 		    }
 			
+		} else {
+			lblMessage.setText("You currently have no award offers\n");
 		}
+	
 		
 	}
 
