@@ -144,7 +144,6 @@ public class ViewAwardsController implements Initializable {
 			student.addOffer(offerNew); // Add an offer with the edited status
 			// This is done on the student object because, when the database write to
 			// the offerDatabase.csv, it pulls offers from all student objects and writes those to the file
-			Scholarship scholarship = this.session.getDatabase().getScholarshipsByName().get(offerOld.getScholarshipName());
 			String status = "declined"; 
 			for (Award a : student.getAwards()) {
 				if (a.getScholarshipID() == scholarship.getId()) {
@@ -154,14 +153,6 @@ public class ViewAwardsController implements Initializable {
 	//			Award award = new Award(student, scholarship, status);
 		//	student.addAward(award);
 			student.getOffers().remove(offerOld);
-<<<<<<< src/controller/ViewAwardsController.java
-		
-			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
-			awardMessage.setVisible(true);
-			
-			// Need to trigger the getTopCandidates and write to the offers file
-			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
-=======
 			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
 			
 			// Find the application object for this student and this award
@@ -190,7 +181,6 @@ public class ViewAwardsController implements Initializable {
 			
 			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
 			awardMessage.setVisible(true);
->>>>>>> src/controller/ViewAwardsController.java
 		}
 	}
 	
