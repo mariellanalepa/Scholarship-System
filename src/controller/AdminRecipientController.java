@@ -56,15 +56,15 @@ public class AdminRecipientController implements Initializable {
 		//listener to detect change in dropdown menu and add applications to table accordingly
 		scholDrop.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) ->			{
 		String scholarshipName = scholDrop.getValue().toString();	
-		Scholarship current = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);
-		ArrayList<Student> stuList = new ArrayList<Student>();
+		Scholarship current = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);	
+		ArrayList<Student> stuList = new ArrayList<Student>();	//list to hold top candidates for scholarship
 
-			
-		
+			//add all top candidates for the current scholarship to stuList
 			for (Student student : current.getTopCandidates()) {
 				if (student != null) stuList.add(student);
 			}
 		
+			//Set table
 			ObservableList<Student> data = FXCollections.observableArrayList(stuList);
 			table.setItems(data);
 			stuIDCol.setCellValueFactory(f->f.getValue().studentIDProperty()); 

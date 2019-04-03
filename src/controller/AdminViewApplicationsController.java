@@ -29,7 +29,7 @@ public class AdminViewApplicationsController implements Initializable {
 	@FXML private ChoiceBox<String> scholDrop;
 	@FXML private TableColumn<Application, String> stuIDCol, appIDCol, dateCol;
 	@FXML private TableView<Application> table;
-	ArrayList<String> nameArray = new ArrayList<String>();	
+	ArrayList<String> nameArray = new ArrayList<String>();	//array containing names of scholarships
 	
 	public AdminViewApplicationsController(Main main, Session session)
 	{
