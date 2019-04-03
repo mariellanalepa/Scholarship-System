@@ -70,9 +70,10 @@ public class Student extends User {
 		return this.studentFaculty;
 	}
 	public String getStudentType() {
-		String type = "";
-		if(this.studentType.startsWith("U")) { type = "Undergraduate";}
-		return type;
+		//String type = "";
+		//if(this.studentType.startsWith("U")) { type = "Undergraduate";}
+		//return type;
+		return this.studentType;
 	}
 	public String getStudentGPAString() {
 		return Float.toString(studentGPA);
