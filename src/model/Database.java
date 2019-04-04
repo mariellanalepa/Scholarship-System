@@ -168,18 +168,17 @@ public class Database {
 			while ((line = buffread.readLine()) != null) {
 				attributes = line.split(delimiter);
 				
-				//Create Scholarship object
-				Scholarship scholarship = new Scholarship(this,attributes);
-				scholarshipsById.put(scholarship.getId(),scholarship);
-				scholarshipsByName.put(scholarship.getName(), scholarship);
-				
-				//Keep track of the highest numbered ID so always generate unique ID
-				if (scholarship.getId() > this.scholarshipIdCounter)
-				{
-					this.scholarshipIdCounter = scholarship.getId() + 1;
-				}
-				
-				
+				if (attributes.length != 0) {
+					//Create Scholarship object
+					Scholarship scholarship = new Scholarship(this,attributes);
+					scholarshipsById.put(scholarship.getId(),scholarship);
+					scholarshipsByName.put(scholarship.getName(), scholarship);
+					
+					//Keep track of the highest numbered ID so always generate unique ID
+					if (scholarship.getId() > this.scholarshipIdCounter) {
+						this.scholarshipIdCounter = scholarship.getId() + 1;
+					}
+				}				
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -216,26 +215,26 @@ public class Database {
 			while ((line = buffread.readLine()) != null) {
 				attributes = line.split(delimiter);
 				
-				//Create Application object
-				Application application = new Application(this, attributes);
-				
-				//Get Scholarship that this Application is associated with,
-				// and add Application to that Scholarship's Application list
-				Scholarship scholarship = scholarshipsById.get(application.getScholarshipId());
-				scholarship.addApplication(application);
-				//Get Student that this Application is associated with,
-				// and add Application to that Student's Application list
-				Student student = students.get(application.getStudentId());
-				student.addApplication(application);
-				//Finally, add to central database
-				this.applications.put(application.getApplicationId(),application);
-				
-				//Keep track of the highest numbered ID so always generate unique ID
-				if (application.getApplicationId() > this.applicationIdCounter)
-				{
-					this.applicationIdCounter = application.getApplicationId() + 1;
-				}
-				
+				if (attributes.length != 0) {
+					//Create Application object
+					Application application = new Application(this, attributes);
+					
+					//Get Scholarship that this Application is associated with,
+					// and add Application to that Scholarship's Application list
+					Scholarship scholarship = scholarshipsById.get(application.getScholarshipId());
+					scholarship.addApplication(application);
+					//Get Student that this Application is associated with,
+					// and add Application to that Student's Application list
+					Student student = students.get(application.getStudentId());
+					student.addApplication(application);
+					//Finally, add to central database
+					this.applications.put(application.getApplicationId(),application);
+					
+					//Keep track of the highest numbered ID so always generate unique ID
+					if (application.getApplicationId() > this.applicationIdCounter)	{
+						this.applicationIdCounter = application.getApplicationId() + 1;
+					}
+				}				
 			}
 			
 		} catch (FileNotFoundException e) {

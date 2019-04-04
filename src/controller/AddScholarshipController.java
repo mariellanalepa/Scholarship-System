@@ -110,7 +110,6 @@ public class AddScholarshipController implements Initializable
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
 	
 	//	signOut.setOnMouseEntered(e -> signOut.setStyle(HOVERING_SIGNOUT_STYLE));
 	//	signOut.setOnMouseExited(e -> signOut.setStyle(NORMAL_SIGNOUT_STYLE));
@@ -120,7 +119,7 @@ public class AddScholarshipController implements Initializable
 		facDrop.setValue("ANY");
 		depDrop.setItems(FXCollections.observableArrayList("ANY"));
 		depDrop.setValue("ANY");
-		stuDrop.setItems(FXCollections.observableArrayList("ANY", "U", "G", "CS"));
+		stuDrop.setItems(FXCollections.observableArrayList("ANY", "UGRAD", "GRAD", "CS"));
 		stuDrop.setValue("ANY");
 		
 		//listener for facDrop to detect change; so depDrop changes based on the faculty
