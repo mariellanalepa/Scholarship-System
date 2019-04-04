@@ -449,13 +449,7 @@ public class Database {
 	 * @return int value of next scholarship ID
 	 */
 	public int getScholarshipIdCounter() {
-		int id = this.scholarshipIdCounter;
-		//Since this was called, means a scholarship has taken this ID,
-		//need to increment the counter
-		this.scholarshipIdCounter++;
-		System.out.println("Scholarship counter is " + this.scholarshipIdCounter);
-		return id;
-		
+		return this.scholarshipIdCounter;
 	}
 	
 	/**
@@ -643,7 +637,11 @@ public class Database {
 	 * @param scholarship - Scholarship object
 	 */
 	public void addScholarship(Scholarship scholarship) {
+		this.scholarshipIdCounter++;
+		//For testing : print counter (should increment)
+		System.out.println("Scholarship counter is " + this.scholarshipIdCounter);
 		this.scholarshipsById.put(scholarship.getId(),scholarship);
+		this.scholarshipsByName.put(scholarship.getName(),scholarship);
 	}
 	
 	/**

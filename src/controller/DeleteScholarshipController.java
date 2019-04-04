@@ -38,9 +38,10 @@ public class DeleteScholarshipController implements Initializable {
 	@FXML
 	protected void handleDeleteButtonAction(ActionEvent event) throws Exception
 	{
-		int i = nameArray.indexOf(scholarshipSelectDropDown.getValue().toString())+1; //nameArray is 1 shorter than scholArray
+		String name = scholarshipSelectDropDown.getValue(); 
+		System.out.println(name);
 		//Find scholarship in database
-		this.scholarship = this.session.getDatabase().getScholarshipsById().get(i);
+		this.scholarship = this.session.getDatabase().getScholarshipsByName().get(name);
 		//Remove scholarship from database
 		this.session.getDatabase().deleteScholarship(this.scholarship);
 		
