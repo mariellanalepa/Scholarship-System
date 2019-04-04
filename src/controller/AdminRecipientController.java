@@ -24,7 +24,6 @@ import model.Session;
 import model.Student;
 /**
  * Class to view top applicants to a scholarship
- * Note: Names are still not working as of Mar.28/2019
  * @author luclegere
  *
  */
@@ -35,7 +34,7 @@ public class AdminRecipientController implements Initializable {
 	@FXML private ChoiceBox<String> scholDrop;
 	@FXML private TableColumn<Student, String> GPACol, nameCol, stuIDCol;
 	@FXML private TableView<Student> table;
-	ArrayList<String> nameArray = new ArrayList<String>();
+	ArrayList<String> nameArray = new ArrayList<String>();	//array of scholarship names
 
 	
 	public AdminRecipientController(Main main, Session session) {

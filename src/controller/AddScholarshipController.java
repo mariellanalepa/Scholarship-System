@@ -15,7 +15,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Scholarship;
 import model.Session;
-
+/**
+ * Controller class for an admin to add a scholarship to the system
+ * @author luclegere
+ *
+ */
 public class AddScholarshipController implements Initializable
 {
 	private Main main;
@@ -52,6 +56,9 @@ public class AddScholarshipController implements Initializable
 		//Create scholarship ID based on how many items are presently in Scholarships
 		scholarshipData[0] = Integer.toString(this.session.getDatabase().getScholarshipIdCounter());
 
+		/*
+		 * Check if any of the boxes are empty while extracting the data from them
+		 */
 		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
 		else { empty = true;}
 		if (!donorBox.getText().isEmpty()) { scholarshipData[2] = donorBox.getText(); }
@@ -80,7 +87,7 @@ public class AddScholarshipController implements Initializable
 		DateTimeFormatter postedFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
 		scholarshipData[12] = LocalDateTime.now().format(postedFormatter);
 		
-		if (empty == false) {
+		if (empty == false) {	//there are no empty fields
 			Scholarship scholarship = new Scholarship(this.session.getDatabase(),scholarshipData);
 			//Add scholarship to database
 			this.session.getDatabase().addScholarship(scholarship);
@@ -91,22 +98,9 @@ public class AddScholarshipController implements Initializable
 		}
 		else {
 			errorLabel.setText("Error! Not all boxes contain a value");
-				
 		}
 	}
-	/**
-	 * takes in current local date and time and formats it into the desired string format
-	 *//*
-	public String dateTimeFormat(LocalDateTime time) {
-		String dateTime = time.toString();
-		String year = dateTime.substring(0, 4)+ " ";
-		String month = dateTime.substring(5, 7) + "/";
-		String day = dateTime.substring(8, 10) + "/";
-		String hms = dateTime.substring(11, 19);
-		String dateTimeString = year + month + day + hms;
-		return dateTimeString;
-				
-	}*/
+
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -126,34 +120,22 @@ public class AddScholarshipController implements Initializable
 		facDrop.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) ->
 		{
 				if (facDrop.getValue() == "H") {
-					depDrop.setItems(FXCollections.observableArrayList("ANY", "ACCT", "FNCE", "HR", "ENTI", "MKTG"));
-					//depDrop.setValue("ANY");
-           
+					depDrop.setItems(FXCollections.observableArrayList("ANY", "ACCT", "FNCE", "HR", "ENTI", "MKTG"));           
 				}
 				else if (facDrop.getValue() == "SC") {
 					depDrop.setItems(FXCollections.observableArrayList("ANY", "CPSC", "BIOL", "CHEM", "PHYS", "MATH", "GEOL"));
-					//depDrop.setValue("ANY");
-
 				}		
 				else if (facDrop.getValue() == "AR") {
 					depDrop.setItems(FXCollections.observableArrayList("ANY", "ECON", "ENGL", "PSYC", "PHIL"));
-					//depDrop.setValue("ANY");
-
 				}
 				else if (facDrop.getValue() == "EN") {
 					depDrop.setItems(FXCollections.observableArrayList("ANY", "CIVL", "MECH", "SENG", "CHEM"));
-					//depDrop.setValue("ANY");
-
 				}
 				else if (facDrop.getValue() == "ED") {
 					depDrop.setItems(FXCollections.observableArrayList("ANY"));
-					//depDrop.setValue("ANY");
-
 				}
 				else if (facDrop.getValue() == "ANY") {
 					depDrop.setItems(FXCollections.observableArrayList("ANY"));
-					//depDrop.setValue("ANY");
-
 				}
 		});
 	}
