@@ -9,10 +9,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import model.Session;
-
+/**
+ * Controller class for the Admin Main Page. Handles navigation between pages when menu buttons are pressed
+ * using the injectPaneIntoScene method from main
+ * @author Natalie, Mariella
+ *
+ */
 public class AdminMainController implements Initializable {
-
 	private Main main;
+	@SuppressWarnings("unused") //left in for convenient furture expansion
 	private Session session;
 	@FXML private Button mainMenuButton, viewScholarshipsButton, createScholarship, deleteButton, editScholarship, viewApplicationsButton, viewRecipientsButton;
 	@FXML private Label lblInfo;
@@ -61,6 +66,6 @@ public class AdminMainController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		//Nothing to add here
+		//empty method stub
 	}
 }

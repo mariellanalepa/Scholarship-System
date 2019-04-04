@@ -1,20 +1,24 @@
 package controller;
 
-import model.Offer;
 import model.Session;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 
+/**
+ * Controller class for the Student Main Page. Handles navigation between pages when menu buttons are pressed
+ * using the injectPaneIntoScene method from main
+ * @author Natalie, Mariella
+ *
+ */
 public class StudentMainController implements Initializable {
 	
 	private Main main;
+	@SuppressWarnings("unused") //left in for convenient furture expansion
 	private Session session;
 	@FXML private Button mainMenuButton, newApplicationButton, viewScholarshipButton, reviewApplicationButton, viewAwardsButton;
 	
@@ -25,9 +29,7 @@ public class StudentMainController implements Initializable {
 	
 	@FXML 
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {
-		//Don't have anything to display in main right now
 		main.injectPaneIntoScene("/view/StudentWelcomeMessage.fxml");
-		//main.injectPaneIntoScene("/view/StudentAwardsMessage.fxml");
 	}
 	
 	@FXML
@@ -58,6 +60,7 @@ public class StudentMainController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// empty method stub
 	}
 
 }
