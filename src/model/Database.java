@@ -45,7 +45,7 @@ public class Database {
 	private HashMap<String,User> users;	//users key is userName
 	private HashMap<Integer,Scholarship> scholarshipsById;
 	private HashMap<String,Scholarship> scholarshipsByName;
-	private HashMap<Integer,Application> applications;
+	private HashMap<Integer,Application> applicationsById;
 	private ArrayList<Offer> offers;
 	private ArrayList<Award> awards;
 	
@@ -175,7 +175,7 @@ public class Database {
 					scholarshipsByName.put(scholarship.getName(), scholarship);
 					
 					//Keep track of the highest numbered ID so always generate unique ID
-					if (scholarship.getId() > this.scholarshipIdCounter) {
+					if (scholarship.getId() >= this.scholarshipIdCounter) {
 						this.scholarshipIdCounter = scholarship.getId() + 1;
 					}
 				}				
@@ -201,7 +201,7 @@ public class Database {
 	 */
 	private void initApplications() {	
 		//Initialize hashmap
-		this.applications = new HashMap<Integer,Application>();
+		this.applicationsById = new HashMap<Integer,Application>();
 		
 		String[] attributes = new String[8];
 		BufferedReader buffread = null;
@@ -228,10 +228,10 @@ public class Database {
 					Student student = students.get(application.getStudentId());
 					student.addApplication(application);
 					//Finally, add to central database
-					this.applications.put(application.getApplicationId(),application);
+					this.applicationsById.put(application.getApplicationId(),application);
 					
 					//Keep track of the highest numbered ID so always generate unique ID
-					if (application.getApplicationId() > this.applicationIdCounter)	{
+					if (application.getApplicationId() >= this.applicationIdCounter)	{
 						this.applicationIdCounter = application.getApplicationId() + 1;
 					}
 				}				
@@ -428,8 +428,8 @@ public class Database {
 	 * Getter method for applications in database
 	 * @return Hashmap of applications, where key is Application ID
 	 */
-	public HashMap<Integer,Application> getApplications() {
-		return this.applications;
+	public HashMap<Integer,Application> getApplicationsById() {
+		return this.applicationsById;
 	}
 	
 	/**
@@ -437,11 +437,7 @@ public class Database {
 	 * @return int value of next application ID
 	 */
 	public int getApplicationIdCounter() {
-		int id = this.applicationIdCounter;
-		//Since this was called, means an application has taken this ID,
-		//need to increment the counter
-		this.applicationIdCounter++;
-		return id;
+		return this.applicationIdCounter;
 	}
 	
 	/**
@@ -512,7 +508,13 @@ public class Database {
 			bw.write(applicationDatabaseHeader);
 			
 			//write contents of map
-			for (Scholarship scholarship: scholarshipsById.values())
+			for (Application application : applicationsById.values())
+			{
+				String line = String.join(",",application.toStringArray());
+				line += "\n";
+				bw.write(line);
+			}
+			/*for (Scholarship scholarship: scholarshipsById.values())
 			{
 				for (Application application: scholarship.getApplications())
 				{
@@ -521,7 +523,7 @@ public class Database {
 					bw.write(line);
 				}
 				
-			}
+			}*/
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -658,21 +660,25 @@ public class Database {
 	 * @param application - Application object
 	 */
 	public void addApplication(Application application) {
-		this.applications.put(application.getApplicationId(),application);
+		//Increment application id counter
+		this.applicationIdCounter++;
+		
+		this.applicationsById.put(application.getApplicationId(),application);
 		//Find associated student, add application to their list of applications
 		int studentId = application.getStudentId();
-		if (studentId != 0)
-		{
-			Student student = this.students.get(studentId);
-			student.addApplication(application);
-		}
+		
+		//Add to student's list of applications
+		Student student = this.students.get(studentId);
+		student.addApplication(application);
+		System.out.println("Application added to student");
+		
 		//Find associated scholarship, add application to its list of applications
 		int scholarshipId = application.getScholarshipId();
-		if (scholarshipId != 0)
-		{
-			Scholarship scholarship = this.scholarshipsById.get(scholarshipId);
-			scholarship.addApplication(application);
-		}		
+		//Add to scholarship's list of applications
+		Scholarship scholarship = this.scholarshipsById.get(scholarshipId);
+		scholarship.addApplication(application);
+		System.out.println("Application added to scholarship");
+				
 	}
 	
 	public ArrayList<Offer> getOffersByStudentID(Integer id) {

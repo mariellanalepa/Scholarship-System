@@ -64,23 +64,34 @@ public class Scholarship {
 	{
 		if (applications.isEmpty()) {
 			applications.add(application);
+			System.out.println("Application has been added to Scholarship for " + application.getStudentId());
 		} else {
 			boolean insert = false;
+			//Student associated with application that is being added
 			Student s1 = this.db.getStudents().get(application.getStudentId());
 			for (int i = 0; i < applications.size(); i++) {
+				//Student associated with application already in list
+				
 				Student s2 = this.db.getStudents().get(applications.get(i).getStudentId());
 				if (s1.getGPA() > s2.getGPA()) {
 					insert = true;
 					applications.add(i, application); // Insert this application at i
+					System.out.println("Application has been added to Scholarship for " + application.getStudentId());
 					break;
 				}
 			}
 			if (!insert) {
 				// Add to the end of the list if this student has the lowest GPA
 				this.applications.add(application);
+				System.out.println("Application has been added to Scholarship for " + application.getStudentId());
 			}
 		}
 		this.findTopCandidates();
+		for (Application applicationN : this.applications)
+		{
+			System.out.println("Applicant is " + this.db.getStudents().get(applicationN.getStudentId()).getFirstName());
+		}
+			
 	}
 	
 	/**
