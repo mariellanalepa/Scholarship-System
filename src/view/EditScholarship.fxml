@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="434.0" prefWidth="611.0" vgap="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditScholarshipController">
+<GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="434.0" prefWidth="611.0" vgap="20.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditScholarshipController">
    <columnConstraints>
       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="200.0" />
@@ -25,14 +25,16 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Label fx:id="nameLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Scholarship Name" GridPane.rowIndex="1">
+      <ChoiceBox fx:id="scholDrop" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
          <GridPane.margin>
             <Insets right="150.0" />
          </GridPane.margin>
-         <graphic>
-            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
-         </graphic>
-      </Label>
+      </ChoiceBox>
+      <Button fx:id="Edit" mnemonicParsing="false" onAction="#handleEdit" text="Edit" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+         <GridPane.margin>
+            <Insets left="200.0" />
+         </GridPane.margin>
+      </Button>
       <TextField fx:id="nameBox" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="150.0" />
@@ -43,6 +45,47 @@
             <Insets left="150.0" />
          </GridPane.margin>
       </TextField>
+      <DatePicker fx:id="deadlinePicker" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="150.0" />
+         </GridPane.margin>
+      </DatePicker>
+      <TextField fx:id="amountBox" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="150.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="numberBox" prefHeight="17.0" prefWidth="104.0" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="150.0" />
+         </GridPane.margin>
+      </TextField>
+      <ChoiceBox fx:id="facDrop" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="150.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+      <ChoiceBox fx:id="depDrop" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="150.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+      <ChoiceBox fx:id="stuDrop" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="150.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+      <TextField fx:id="GPABox" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="150.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="yearBox" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="150.0" />
+         </GridPane.margin>
+      </TextField>
+      <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSubmitButtonAction" text="Submit" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
       <Label GridPane.rowIndex="2" />
       <Label fx:id="deadlineLabel" layoutX="-10.0" layoutY="-10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Deadline" GridPane.rowIndex="3">
          <GridPane.margin>
@@ -64,27 +107,7 @@
             <Insets right="150.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="amountBox" GridPane.rowIndex="4">
-         <GridPane.margin>
-            <Insets left="150.0" />
-         </GridPane.margin>
-      </TextField>
-      <TextField fx:id="numberBox" prefHeight="17.0" prefWidth="104.0" GridPane.rowIndex="5">
-         <GridPane.margin>
-            <Insets left="150.0" />
-         </GridPane.margin>
-      </TextField>
       <Label layoutX="250.0" layoutY="145.0" GridPane.rowIndex="1" />
-      <TextField fx:id="GPABox" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <GridPane.margin>
-            <Insets left="150.0" />
-         </GridPane.margin>
-      </TextField>
-      <TextField fx:id="yearBox" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <GridPane.margin>
-            <Insets left="150.0" />
-         </GridPane.margin>
-      </TextField>
       <Label fx:id="facultyLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Faculty" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="150.0" />
@@ -116,38 +139,15 @@
             <Insets right="150.0" />
          </GridPane.margin>
       </Label>
-      <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSubmitButtonAction" text="Submit" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
-      <ChoiceBox fx:id="scholDrop" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+      <Label fx:id="editLabel" text="Which Scholarship Would You Like To Edit?" />
+      <Label fx:id="errorLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Label fx:id="nameLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Scholarship Name" GridPane.rowIndex="1">
+         <graphic>
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+         </graphic>
          <GridPane.margin>
             <Insets right="150.0" />
          </GridPane.margin>
-      </ChoiceBox>
-      <Button fx:id="Edit" mnemonicParsing="false" onAction="#handleEdit" text="Edit" GridPane.columnIndex="1" GridPane.halignment="LEFT">
-         <GridPane.margin>
-            <Insets left="200.0" />
-         </GridPane.margin>
-      </Button>
-      <ChoiceBox fx:id="facDrop" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets left="150.0" />
-         </GridPane.margin>
-      </ChoiceBox>
-      <ChoiceBox fx:id="depDrop" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets left="150.0" />
-         </GridPane.margin>
-      </ChoiceBox>
-      <ChoiceBox fx:id="stuDrop" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets left="150.0" />
-         </GridPane.margin>
-      </ChoiceBox>
-      <Label fx:id="editLabel" text="Which Scholarship Would You Like To Edit?" />
-      <Label fx:id="errorLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <DatePicker fx:id="deadlinePicker" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets left="150.0" />
-         </GridPane.margin>
-      </DatePicker>
+      </Label>
    </children>
 </GridPane>
