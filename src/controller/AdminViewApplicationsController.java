@@ -43,11 +43,17 @@ public class AdminViewApplicationsController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		System.out.println("AdminViewApplicationController initialized");
 		
 		//write scholarships to the dropdown menu
 		for (Scholarship scholarship : this.session.getDatabase().getScholarshipsById().values())
 		{
-
+			System.out.println("Scholarship is " +scholarship.getName());
+			System.out.println("Applications for this scholarships are from:");
+			for (Application application : scholarship.getApplications())
+			{
+				System.out.println(session.getDatabase().getStudents().get(application.getStudentId()).getName());
+			}
 			nameArray.add(scholarship.getName());
 			scholDrop.setItems(FXCollections.observableArrayList(nameArray));
 		}
@@ -55,7 +61,7 @@ public class AdminViewApplicationsController implements Initializable {
 		//listener to detect change in dropdown menu and add applications to table accordingly
 		scholDrop.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) ->
 		{
-			String scholarshipName = scholDrop.getValue().toString();		//name of selected scholarship
+			String scholarshipName = scholDrop.getValue();		//name of selected scholarship
 			Scholarship current = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);		//select scholarship
 			//set table
 			ObservableList<Application> data = FXCollections.observableArrayList(current.getApplications());
