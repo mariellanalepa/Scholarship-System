@@ -10,13 +10,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import model.Session;
-
+/**
+ * Controller class for the Header pane used throughout the project.
+ * Customized welcome message with the user's name.
+ * Handles the redirection when the sign out button is pushed.
+ *
+ */
 public class HeaderController implements Initializable {
-	
 	private Main main;
 	private Session session;
 	@FXML private Button signOut;
 	@FXML private Label welcomeLabel;
+	
 	//CSS styling
 	String HOVERING_SIGNOUT_STYLE = "-fx-background-color: #cf0722; -fx-opacity: 70%; -fx-underline: true;";
 	String NORMAL_SIGNOUT_STYLE = "-fx-background-color: #cf0722; -fx-text-fill: white;";
