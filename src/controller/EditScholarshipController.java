@@ -52,7 +52,7 @@ public class EditScholarshipController implements Initializable {
 		empty = false; 
 		
 		//Get scholarship name
-		String scholarshipName = scholDrop.getValue().toString();
+		String scholarshipName = scholDrop.getValue();
 		Scholarship scholarshipOld = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);
 		
 		scholarshipData[0] = Integer.toString(scholarshipOld.getId());
@@ -69,7 +69,7 @@ public class EditScholarshipController implements Initializable {
 		if (!donorBox.getText().isEmpty()) { scholarshipData[2] = donorBox.getText(); }
 		else { 			empty = true; }
 		if (deadlinePicker.getValue() != null) { scholarshipData[3] = deadlinePicker.getValue().format(deadlineFormatter) + " 23:59"; }
-		else { 	empty = true;	}
+		else { 	scholarshipData[3] = deadlinePicker.getPromptText();	}
 		if (!amountBox.getText().isEmpty()) { scholarshipData[4] = amountBox.getText(); }
 		else { 			empty = true;}
 		if (!numberBox.getText().isEmpty()) { scholarshipData[5] = numberBox.getText(); }
@@ -114,7 +114,7 @@ public class EditScholarshipController implements Initializable {
 		 */
 		facDrop.setItems(FXCollections.observableArrayList("ANY", "SC", "H", "AR", "EN", "ED"));	
 		depDrop.setItems(FXCollections.observableArrayList("ANY"));
-		stuDrop.setItems(FXCollections.observableArrayList("ANY", "U", "G", "CS"));
+		stuDrop.setItems(FXCollections.observableArrayList("ANY", "UGRAD", "GRAD", "CS"));
 		
 		//listener for facDrop to detect change; so depDrop changes based on the faculty
 		facDrop.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) ->
@@ -159,7 +159,7 @@ public class EditScholarshipController implements Initializable {
 	@FXML
 	public void handleEdit(ActionEvent event) throws Exception 
 	{
-		String scholarshipName = scholDrop.getValue().toString();
+		String scholarshipName = scholDrop.getValue();
 		Scholarship scholarship = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);
 		nameBox.setText(scholarship.getName());
 		donorBox.setText(scholarship.getDonor());
