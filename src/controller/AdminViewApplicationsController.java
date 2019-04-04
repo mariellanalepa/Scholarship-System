@@ -20,7 +20,10 @@ import javafx.scene.control.TableView;
 import model.Application;
 import model.Scholarship;
 import model.Session;
-
+/**
+ * Controller class for an admin to view the application to a specific scholarship
+ *
+ */
 public class AdminViewApplicationsController implements Initializable {
 
 	private Main main;
@@ -52,8 +55,9 @@ public class AdminViewApplicationsController implements Initializable {
 		//listener to detect change in dropdown menu and add applications to table accordingly
 		scholDrop.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) ->
 		{
-			String scholarshipName = scholDrop.getValue().toString();	
-			Scholarship current = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);
+			String scholarshipName = scholDrop.getValue().toString();		//name of selected scholarship
+			Scholarship current = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);		//select scholarship
+			//set table
 			ObservableList<Application> data = FXCollections.observableArrayList(current.getApplications());
 			FilteredList<Application> filteredData = new FilteredList<>(data, p -> true);
 			table.setItems(filteredData);

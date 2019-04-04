@@ -17,7 +17,9 @@ import javafx.scene.control.TextField;
 import model.Session;
 import model.Scholarship;
 import java.util.ArrayList;
-
+/**
+ * Controller class for an admin to select a scholarship and edit its properties
+ */
 public class EditScholarshipController implements Initializable {
 	
 	private Main main;
@@ -27,7 +29,7 @@ public class EditScholarshipController implements Initializable {
 	@FXML private TextField yearBox, donorBox, nameBox, numberBox, amountBox, GPABox; 
 	@FXML private Label welcomeLabel, errorLabel, editLabel, deadlineLabel, yearLabel, donorLabel, nameLabel, amountLabel, numberLabel, GPALabel, typeLabel, departmentLabel, facultyLabel;
 	@FXML protected ChoiceBox<String> scholDrop, stuDrop, facDrop, depDrop; 
-	ArrayList<String> nameArray = new ArrayList<String>();	
+	ArrayList<String> nameArray = new ArrayList<String>();	//array list of scholarship names
 	private boolean empty = false;	//boolean storing whether the submission contains an empty field
 
 	public EditScholarshipController(Main main, Session session) {
@@ -59,6 +61,9 @@ public class EditScholarshipController implements Initializable {
 		//To be used to format date entered in DatePicker 
 		DateTimeFormatter deadlineFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
 		
+		/*
+		 * check if boxes are empty before extracting data
+		 */
 		if (!nameBox.getText().isEmpty()) { scholarshipData[1] = nameBox.getText();}
 		else { empty = true;}
 		if (!donorBox.getText().isEmpty()) { scholarshipData[2] = donorBox.getText(); }
@@ -101,10 +106,12 @@ public class EditScholarshipController implements Initializable {
 		
 		for (Scholarship scholarship : this.session.getDatabase().getScholarshipsById().values())	//add all scholarships' names to nameArray
 		{
-			nameArray.add(scholarship.getName());
-			scholDrop.setItems(FXCollections.observableArrayList(nameArray));	//set scholarship names into drop down ment
+			nameArray.add(scholarship.getName());	
+			scholDrop.setItems(FXCollections.observableArrayList(nameArray));	//set scholarship names into drop down menu
 		}
-	
+		/*
+		 * Set drop down menus with intitial values
+		 */
 		facDrop.setItems(FXCollections.observableArrayList("ANY", "SC", "H", "AR", "EN", "ED"));	
 		depDrop.setItems(FXCollections.observableArrayList("ANY"));
 		stuDrop.setItems(FXCollections.observableArrayList("ANY", "U", "G", "CS"));
@@ -177,6 +184,6 @@ public class EditScholarshipController implements Initializable {
 		String hms = dateTime.substring(11, 19);
 		String dateTimeString = year + month + day + hms;
 		return dateTimeString;			
-	}
+	} 
 		
 }

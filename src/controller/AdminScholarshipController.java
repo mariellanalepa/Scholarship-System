@@ -18,7 +18,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import model.Session;
 import model.Scholarship;
-
+/**
+ * Controller class for an admin to create a new scholarship 
+ * and add it to the system
+ *
+ */
 public class AdminScholarshipController implements Initializable { 
 	
 	private Main main;

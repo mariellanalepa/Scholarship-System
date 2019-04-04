@@ -1,14 +1,18 @@
 package model;
-
+/**
+ * Offer object class representing an offer for a scholarship that has been sent to a student
+ */
 public class Offer {
 
 	private Scholarship scholarship;
-	private Student student;
+	private Student student;	
 	private String status;	//should be 'sent', 'accepted', or 'declined'
 	private int studentID;
 	private String scholarshipName;
 	
-	
+	/*
+	 * Constructors to create new offers
+	 */
 	public Offer(Scholarship scholarship, Student student, String status) {
 		this.scholarship = scholarship;
 		this.student = student;
@@ -17,12 +21,16 @@ public class Offer {
 		this.studentID = student.getID();
 	}
 	
+	
 	public Offer(Database database, String[] attributes) {
-		this.setStudentID(Integer.parseInt(attributes[0]));
+		//attributes contains student ID, scholarship name and offer status
+		this.setStudentID(Integer.parseInt(attributes[0]));	
 		this.setScholarshipName(attributes[1]);
 		this.setStatus(attributes[2]);		
 	}
-	
+	/*
+	 * Getters and setters for offer properties
+	 */
 	public void setScholarshipName(String name) {
 		this.scholarshipName = name;
 	}

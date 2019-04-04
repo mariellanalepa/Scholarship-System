@@ -14,7 +14,11 @@ import model.Session;
 import model.Scholarship;
 import java.util.ArrayList;
 
-
+/**
+ * Controller for an admin to delete a selected scholarship from the system
+ * @author luclegere
+ *
+ */
 public class DeleteScholarshipController implements Initializable {
 	
 	private Main main;
@@ -22,8 +26,8 @@ public class DeleteScholarshipController implements Initializable {
 	@FXML protected Label deleteLabel;
 	@FXML protected Button deleteButton;
 	@FXML protected ChoiceBox<String> scholarshipSelectDropDown; 
-	ArrayList<String> nameArray = new ArrayList<String>();
-	private Scholarship scholarship;
+	ArrayList<String> nameArray = new ArrayList<String>();	//array of scholarship names
+	private Scholarship scholarship;	//scholarship to be deleted
 	
 	
 	public DeleteScholarshipController(Main main, Session session) {
@@ -46,7 +50,7 @@ public class DeleteScholarshipController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-			
+		//set drop down menu with scholarships
 		for (Scholarship scholarship : this.session.getDatabase().getScholarshipsById().values())
 		{
 			nameArray.add(scholarship.getName());
