@@ -50,7 +50,7 @@ public class StudentWelcomeBoxController implements Initializable {
 		}
 	
 		/* Populating the "Announcements" field*/
-		lblInfo.setText("No new announcements, please check back later!");
+		lblInfo.setText("No announcements, check back later!");
 	}
 
 }

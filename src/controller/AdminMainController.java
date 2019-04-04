@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import model.Session;
 
 public class AdminMainController implements Initializable {
@@ -14,17 +15,13 @@ public class AdminMainController implements Initializable {
 	private Main main;
 	private Session session;
 	@FXML private Button mainMenuButton, viewScholarshipsButton, createScholarship, deleteButton, editScholarship, viewApplicationsButton, viewRecipientsButton;
+	@FXML private Label lblInfo;
 
 	public AdminMainController(Main main, Session session)
 	{
 		this.main = main;
 		this.session = session;
 	}
-	
-	/*@FXML
-	protected void handleSignOutButtonAction(ActionEvent event) throws Exception {	
-		main.setScene("/view/Login.fxml");
-	}*/
 	
 	@FXML 
 	protected void handleMainMenuButtonAction(ActionEvent event) throws Exception {	
@@ -61,9 +58,7 @@ public class AdminMainController implements Initializable {
 		main.injectPaneIntoScene("/view/AdminViewApplications.fxml");
 	}
 
-	/*
-	 * Update scholarships to closed if deadline has passed. Placed in this class only temporarily
-	 */
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//Nothing to add here
