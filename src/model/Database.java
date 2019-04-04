@@ -670,15 +670,12 @@ public class Database {
 		//Add to student's list of applications
 		Student student = this.students.get(studentId);
 		student.addApplication(application);
-		System.out.println("Application added to student");
 		
 		//Find associated scholarship, add application to its list of applications
 		int scholarshipId = application.getScholarshipId();
 		//Add to scholarship's list of applications
 		Scholarship scholarship = this.scholarshipsById.get(scholarshipId);
 		scholarship.addApplication(application);
-		System.out.println("Application added to scholarship");
-				
 	}
 	
 	public ArrayList<Offer> getOffersByStudentID(Integer id) {

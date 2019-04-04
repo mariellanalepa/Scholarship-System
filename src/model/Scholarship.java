@@ -15,6 +15,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Scholarship {
 	private ArrayList<Application> applications;	//List of applications related to this scholarships
+	private ArrayList<Application> removals;
 	private Student[] topCandidates;	//Top candidate(s) based on GPA of submitted scholarships
 	private Database db;
 	
@@ -35,6 +36,7 @@ public class Scholarship {
 	public Scholarship (Database database, String[] scholarshipData) {
 		this.db = database;
 		this.applications = new ArrayList<Application>();
+		this.removals = new ArrayList<Application>();
 		this.setId(scholarshipData[0]);
 		this.setName(scholarshipData[1]);
 		this.setDonor(scholarshipData[2]);
@@ -58,32 +60,31 @@ public class Scholarship {
 	
 	/**
 	 * TODO
-	 * @param application
+	 * @param newApplication
 	 */
-	public void addApplication(Application application)
+	public void addApplication(Application newApplication)
 	{
-		if (applications.isEmpty()) {
-			applications.add(application);
-			System.out.println("Application has been added to Scholarship for " + application.getStudentId());
+		if (this.applications.isEmpty()) {
+			this.applications.add(newApplication);
+			System.out.println("Application has been added to Scholarship for " + db.getStudents().get(newApplication.getStudentId()).getName());
 		} else {
 			boolean insert = false;
 			//Student associated with application that is being added
-			Student s1 = this.db.getStudents().get(application.getStudentId());
-			for (int i = 0; i < applications.size(); i++) {
-				//Student associated with application already in list
-				
-				Student s2 = this.db.getStudents().get(applications.get(i).getStudentId());
+			Student s1 = this.db.getStudents().get(newApplication.getStudentId());
+			for (int i = 0; i < this.applications.size(); i++) {
+				//Student associated with application already in list	
+				Student s2 = this.db.getStudents().get(this.applications.get(i).getStudentId());
 				if (s1.getGPA() > s2.getGPA()) {
 					insert = true;
-					applications.add(i, application); // Insert this application at i
-					System.out.println("Application has been added to Scholarship for " + application.getStudentId());
+					this.applications.add(i, newApplication); // Insert this application at i
+					System.out.println("Application has been added to Scholarship for " + db.getStudents().get(newApplication.getStudentId()).getName());
 					break;
 				}
 			}
 			if (!insert) {
 				// Add to the end of the list if this student has the lowest GPA
-				this.applications.add(application);
-				System.out.println("Application has been added to Scholarship for " + application.getStudentId());
+				this.applications.add(newApplication);
+				System.out.println("Application has been added to Scholarship for " + db.getStudents().get(newApplication.getStudentId()).getName());
 			}
 		}
 		this.findTopCandidates();
@@ -123,13 +124,13 @@ public class Scholarship {
 	 * Remove applications that are accepted or declined
 	 */
 	public void removeClosedApplications() {
-		ArrayList<Application> removals = new ArrayList<Application>();
+		
 		for (Application a : this.applications) {
 			if (!a.getStatus().equals("submitted")) {
-				removals.add(a);
+				this.removals.add(a);
 			}
 		}
-		for (Application a : removals) {
+		for (Application a : this.removals) {
 			this.applications.remove(a);
 		}
 	}
@@ -165,7 +166,10 @@ public class Scholarship {
 	
 	public ArrayList<Application> getApplications() 
 	{
-		return this.applications;
+		ArrayList<Application> allSubmittedApplications = new ArrayList<Application>();
+		allSubmittedApplications.addAll(this.applications);
+		allSubmittedApplications.addAll(this.removals);
+		return allSubmittedApplications;
 	}
 	
 	public ArrayList<Application> getApplicationsSubmittedOnly() {
