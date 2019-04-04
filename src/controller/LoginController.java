@@ -14,9 +14,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+/**
+ * Controller class for Login page. Gets the user input, 
+ * performs user authentication, and initializes the appropriate user
+ * @author Natalie
+ *
+ */
 public class LoginController implements Initializable {
-	
 	private Main main;
 	private Session session;
 	protected static String invalidLogin = "Invalid username or password, please try again";
@@ -36,7 +40,6 @@ public class LoginController implements Initializable {
 		//Get student ID from text field
 		String userName = usernameField.getText().toLowerCase();
 		String password = passwordField.getText();
-		System.out.println(userName);
 	
 		/* Call login from session
 		 * try to create new student, if input is not valid (integer) 
@@ -47,9 +50,7 @@ public class LoginController implements Initializable {
 
 		} catch(InvalidUserException notValidUser) {
 			errorLabel.setText(invalidLogin);
-			System.out.println(notValidUser);
-			System.out.println(userName);
-			System.out.println(password);
+			
 			// Reset stage
 			Stage stage = (Stage) errorLabel.getScene().getWindow();		
 			stage.show();
