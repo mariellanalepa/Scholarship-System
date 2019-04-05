@@ -21,18 +21,21 @@ import javafx.scene.layout.Pane;
 public class Main extends Application {
 	private Stage primaryStage;
 	private Session session;  
-	//Visual bounds determined from screen size
-	private Rectangle2D visualBounds;
+	private Rectangle2D visualBounds;   //Visual bounds determined from screen size
 	
 	/*Controller Factory for ensuring controllers is facilitate construction of controllers
-	  which require as parameter SessionDataModel object*/ 
+	  which require as parameters Session and Main objects*/ 
 	private ControllerFactory controllerFactory;
 	
 	@Override
+	/**
+	 * Entry point for application
+	 */
 	public void start(Stage primaryStage) throws Exception
 	{
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("University of Calgary Scholarship Management System");
+		//Set the initial scene to login
 		this.setScene("/view/Login.fxml");
 		
 	}
@@ -43,9 +46,9 @@ public class Main extends Application {
 	
 	@Override
 	/**
-	 * The application initialization method. This is the first method called after construction of the 
-	 * Application object, and precedes call to start(javafx.stage.Stage). Here we place any objects that
-	 * must be initialized prior to application start. Note that we should not Scene or Stage objects here. 
+	 * The Main application initialization method. This is the first method called after construction of the 
+	 * JavaFX Application object, and precedes call to start(javafx.stage.Stage). Here we place any objects that
+	 * must be initialized prior to program start. Note that we should not instantiate Scene or Stage objects here. 
 	 */
 	public void init() 
 	{

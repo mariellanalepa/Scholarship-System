@@ -14,20 +14,24 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+/************************ CSV formats ****************************/
 // STUDENT CSV: username,StudentID,FName,LName,Type,Year,Faculty,Department,GPA
-// APPLICATION CSV : applicationID	studentID	scholarshipID	dateAdded	status
-// SCHOLARSHIP CSV: IDNumber	Name	Donor	Deadline(dd/MM/yyyy HH:mm:ss)	Amount	Number	ReqFac	ReqDept	RecType	ReqGPA	ReqYear	Status	DatePosted(dd/MM/yyyy HH:mm:ss)
-// AWARD HISTORY CSV: StudentID, ScholarshipID
+// APPLICATION CSV : applicationID,studentID,scholarshipID,dateAdded,status
+// SCHOLARSHIP CSV: IDNumber,Name,Donor,Deadline(yyyy-MM-dd HH:mm:ss),Amount,Number,ReqFac,ReqDept	RecType,ReqGPA,ReqYear,Status,DatePosted(yyyy-MM-dd HH:mm:ss)
+// AWARD HISTORY CSV: StudentID,ScholarshipID
+
 /**
  * Database class. Contains all functions that perform I/O on the csv files, and is the abstract store
  * of objects corresponding to database entries (e.g., Applications, Scholarships, Users, etc.)
- * @author Natalie
+ * @author Natalie, Mariella
  */
-
 public class Database {
+	// Counters to use for assigning unique database IDs to scholarships
+	// and applications
 	private int scholarshipIdCounter = 0;
 	private int applicationIdCounter = 0;
 	
+	// CSV file names (our "database")
 	final private String adminDatabase = "res/adminDatabase.csv";
 	final private String studentDatabase = "res/studentDatabase.csv";
 	final private String scholarshipDatabase = "res/scholarshipDatabase.csv";
@@ -39,7 +43,8 @@ public class Database {
 	final private String offerDatabaseHeader = "StudentID,ScholarshipName,OfferStatus\n";
 	final private String awardHistoryHeader = "StudentID,ScholarshipID,Status\n";
 	
-	//Maps to store DB objects
+	// Maps to store Database instance variables (User, Scholarship, 
+	// Application, and Award objects)
 	private HashMap<Integer,Admin> admins;
 	private HashMap<Integer,Student> students;
 	private HashMap<String,User> users;	//users key is userName
@@ -50,11 +55,20 @@ public class Database {
 	private ArrayList<Award> awards;
 	
 	
-	
+	/**
+	 * Database class to create our "virtual	object database" with
+	 * which we can interact in Object-Oriented manner. Creates 
+	 * objects for all Database entries, including Users (Admins and
+	 * Students), Applications, Scholarships, and Awards.
+	 */
 	public Database() {
+		
+		// Initialize User map
 		this.users = new HashMap<String,User>();
 		
-		//Initialization must be done in this order 
+		// Initialization must be done in this order so that objects
+		// instantiated later can receive references of earlier
+		// instantiated objects
 		initAdmins();
 		initStudents();
 		initScholarships();
@@ -64,13 +78,15 @@ public class Database {
 	}
 	
 	/**
-	 * Initialize database admin entries to Admin object  s
+	 * Initialize database admin entries to Admin objects
 	 */
 	private void initAdmins() 
 	{
-		//Initialize hashmap
+		// Initialize hashmap
 		admins = new HashMap<Integer,Admin>();
 		
+		// Read the CSV file to extract attributes for
+		// Admin object, and create object
 		String[] attributes = new String[8];
 		BufferedReader buffread = null;
 		String line = "";
@@ -113,6 +129,8 @@ public class Database {
 		//Initialize hashmap
 		students = new HashMap<Integer,Student>();
 		
+		// Read the CSV file to extract attributes for
+		// Student object, and create object
 		String[] attributes = new String[3];
 		BufferedReader buffread = null;
 		String line = "";
@@ -156,6 +174,8 @@ public class Database {
 		scholarshipsById = new HashMap<Integer,Scholarship>();
 		scholarshipsByName = new HashMap<String,Scholarship>();
 		
+		// Read the CSV file to extract attributes for
+		// Scholarship object, and create object
 		String[] attributes = new String[8];
 		BufferedReader buffread = null;
 		String line = "";
@@ -199,10 +219,13 @@ public class Database {
 	/**
 	 * Initialize database application entries to Application objects
 	 */
-	private void initApplications() {	
+	private void initApplications() 
+	{	
 		//Initialize hashmap
 		this.applicationsById = new HashMap<Integer,Application>();
 		
+		// Read the CSV file to extract attributes for
+		// Application object, and create object
 		String[] attributes = new String[8];
 		BufferedReader buffread = null;
 		String line = "";
@@ -252,7 +275,8 @@ public class Database {
 		}	
 	}
 	
-	private void initOffers() {
+	private void initOffers() 
+	{
 		//Initialize ArrayList of offers
 		this.offers = new ArrayList<Offer>();
 
@@ -291,6 +315,9 @@ public class Database {
 			} catch (ParseException e) {	e.printStackTrace(); }
 		}
 		
+		// Now Read the CSV file to extract attributes for
+		// Offers that have just been assigned, and create 
+		// Offer object
 		String[] attributes = new String[3];
 		BufferedReader buffread = null;	
 		String line = "";
@@ -328,10 +355,13 @@ public class Database {
 		
 	}
 	
-	private void initAwardHistory() {
+	private void initAwardHistory() 
+	{
 		//Initialize ArrayList of awards
 		this.awards = new ArrayList<Award>();
 					
+		// Read the CSV file to extract attributes for
+		// Award object, and create object
 		String[] attributes = new String[3];
 		BufferedReader buffread = null;	
 		String line = "";
@@ -591,24 +621,6 @@ public class Database {
 			// write appropriate header for database
 			bw.write(awardHistoryHeader);
 			
-			//write contents of award array
-		/*	for (Student student: students.values()) {
-				if (student.getOffers() != null) {
-						
-						for (Offer offer : student.getOffers()) {
-						//	System.out.println(application.getStatus());
-							
-							if (offer.getStatus().compareTo("submitted") == 0) {
-								Award award = new Award(student, scholarshipsById.get(application.getScholarshipId()), "submitted");
-								student.addAward(award);
-							}
-							else if (offer.getStatus().compareTo("saved") == 0) {
-								Award award = new Award(student, scholarshipsById.get(offer.getScholarshipId()), "application in progress");
-								student.addAward(award);
-							}
-						}
-					}
-			} */
 		
 			for (Student student: students.values()) {
 				if (student.getAwards() != null) {
@@ -641,9 +653,9 @@ public class Database {
 	 * @param scholarship - Scholarship object
 	 */
 	public void addScholarship(Scholarship scholarship) {
+		
+		// Increment scholarship counter 
 		this.scholarshipIdCounter++;
-		//For testing : print counter (should increment)
-		System.out.println("Scholarship counter is " + this.scholarshipIdCounter);
 		this.scholarshipsById.put(scholarship.getId(),scholarship);
 		this.scholarshipsByName.put(scholarship.getName(),scholarship);
 	}
@@ -680,6 +692,11 @@ public class Database {
 		scholarship.addApplication(application);
 	}
 	
+	/**
+	 * Method to retrieve award offers based on Student id
+	 * @param id - Student id 
+	 * @return List of offers (empty if none)
+	 */
 	public ArrayList<Offer> getOffersByStudentID(Integer id) {
 		
 		ArrayList<Offer> studentOffers = new ArrayList<Offer>();
@@ -693,31 +710,13 @@ public class Database {
 		
 	}
 	
+	/**
+	 * Method to retrieve all award offers
+	 * @return List of all offers
+	 */
 	public ArrayList<Offer> getOffers() {
 		return this.offers;
 	}
-	
-	/**
-	 * Main method for testing this class
-	 * @param args -- from command line (none used)
-	 */
-//	public static void main(String[] args) {
-//		Database db = new Database();
-//		
-//		for (Student student : db.getStudents().values())
-//		{
-//			System.out.println(student.getFirstName());
-//			
-//			for (Application application : student.getApplications())
-//			{
-//				System.out.println(db.getScholarshipsById().get(application.getScholarshipId()).getName());
-//			}
-//		}
-//		
-//		db.close();
-//			
-//	}
-	
 	
 }
 	

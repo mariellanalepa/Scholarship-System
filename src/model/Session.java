@@ -98,14 +98,29 @@ public class Session {
 		return this.user;
 	}
 	
+	/**
+	 * Method to retrieve the scholarship which has been selected in this session via
+	 * GUI (can be used for edit, deletion, or application submission)
+	 * @return Scholarship that user has selected
+	 */
 	public Scholarship getScholarshipSelection() {
 		return this.selectedScholarship;
 	}
 	
+	/**
+	 * Method to set Scholarship visually selected via GUI so that is it "globally" 
+	 * accessible (at least, accessible to classes which have reference of Session
+	 * via dependency injection) 
+	 * @param Scholarship selected by user
+	 */
 	public void setScholarshipSelection(Scholarship scholarship) {
 		this.selectedScholarship = scholarship;
 	}
 	
+	/**
+	 * Return the database instance associated with this program Session
+	 * @return Database associated with this session
+	 */
 	public Database getDatabase() {
 		return this.db;
 	}
