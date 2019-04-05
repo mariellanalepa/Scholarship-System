@@ -255,7 +255,42 @@ public class Database {
 	private void initOffers() {
 		//Initialize ArrayList of offers
 		this.offers = new ArrayList<Offer>();
-			
+
+		/*
+		 * filter through scholarships. If they are open and should be closed, their status is updated to
+		 * closed and the top recipients at that moment are given offers
+		 */
+		//Go through scholarships compare their closing date/time with current date/time
+		for (Scholarship scholarship : this.getScholarshipsById().values()) {
+			try {
+				Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(scholarship.getDeadline());
+				Date now = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(dateTimeFormat(LocalDateTime.now()));
+				if (deadline.compareTo(now) <= 0) {	//deadline has passed
+					if (scholarship.getStatus().compareTo("Open") == 0) {		//scholarship is still open
+						for (Student student : scholarship.getTopCandidates()) {
+							if (student != null) {	
+								Offer offer = new Offer(scholarship, student, "open");	//create offer for each student in top candidates
+								student.addOffer(offer);	 
+								this.offers.add(offer);	//add the offers to the list of offers
+								for (Award award : student.getAwards()) {
+									if (offer.getScholarshipName().compareTo(award.getScholarship().getName()) == 0) { 
+										award.setStatus("Offered");	//change status to "Offered" 
+									}
+								}
+							 
+							}
+						
+						}
+					}
+					try { 
+						scholarship.setStatus("Closed");	
+					} catch (Exception e) { 
+						e.printStackTrace(); 
+					}
+				}				
+			} catch (ParseException e) {	e.printStackTrace(); }
+		}
+		
 		String[] attributes = new String[3];
 		BufferedReader buffread = null;	
 		String line = "";
@@ -289,41 +324,8 @@ public class Database {
 					e.printStackTrace();
 				}
 			}
-		}
-		/*
-		 * filter through scholarships. If they are open and should be closed, their status is updated to
-		 * closed and the top recipients at that moment are given offers
-		 */
-		//Go through scholarships compare their closing date/time with current date/time
-		for (Scholarship scholarship : this.getScholarshipsById().values()) {
-			try {
-				Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(scholarship.getDeadline());
-				Date now = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(dateTimeFormat(LocalDateTime.now()));
-				if (deadline.compareTo(now) <= 0) {	//deadline has passed
-					if (scholarship.getStatus().compareTo("Open") == 0) {		//scholarship is still open
-						for (Student student : scholarship.getTopCandidates()) {
-							if (student != null) {	
-								Offer offer = new Offer(scholarship, student, "open");	//create offer for each student in top candidates
-								student.addOffer(offer);	 
-								
-								for (Award award : student.getAwards()) {
-									if (offer.getScholarshipName().compareTo(award.getScholarship().getName()) == 0) { 
-										award.setStatus("Offered");	//change status to "Offered" 
-									}
-								}
-							 
-							}
-						
-						}
-					}
-					try { 
-						scholarship.setStatus("Closed");	
-					} catch (Exception e) { 
-						e.printStackTrace(); 
-					}
-				}				
-			} catch (ParseException e) {	e.printStackTrace(); }
-		}
+		}//
+		
 	}
 	
 	private void initAwardHistory() {

@@ -93,11 +93,11 @@ public class Award {
 	}
 	
 	public StringProperty scholarshipNameProperty() {
-		if (this.getScholarship().getName() != null) {
+		if (this.getScholarship() != null && this.getScholarship().getName() != null) {
 			StringProperty scholName = new SimpleStringProperty(this.getScholarship().getName());
 			return scholName;
 		}
-		return new SimpleStringProperty(this, "ScholarshipName");
+		return new SimpleStringProperty(this, "ScholasrshipName");
 	}
 	
 }

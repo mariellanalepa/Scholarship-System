@@ -167,18 +167,19 @@ public class ViewAwardsController implements Initializable {
 			for (Student s : scholarship.getTopCandidates()) {
 				boolean hasOffer = false;
 				String name = scholarship.getName();
-				ArrayList<Offer> offers = s.getOffers();
+				if (s != null) {ArrayList<Offer> offers = s.getOffers();
 				for (Offer o : offers) {
 					if (o.getScholarshipName().equals(name)) {
 						hasOffer = true;
 					}
-				}
+				} 
+				
 				if (!hasOffer) { // If student does not have an offer for this award
 					Offer newOffer = new Offer(scholarship, s, "open");
 					s.addOffer(newOffer); // Give them an offer
 				}
 			}
-			
+			}
 			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
 			awardMessage.setVisible(true);
 		}
