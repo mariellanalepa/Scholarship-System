@@ -8,14 +8,15 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+
 /**
  * Scholarship object class.
  * @author Natalie
  *
  */
 public class Scholarship {
-	private ArrayList<Application> applications;	//List of applications related to this scholarships
-	private ArrayList<Application> removals;
+	private ArrayList<Application> applications;	//List of applications related to this scholarship
+	private ArrayList<Application> removals; // List of closed applications related to this scholarship
 	private Student[] topCandidates;	//Top candidate(s) based on GPA of submitted scholarships
 	private Database db;
 	
@@ -56,14 +57,13 @@ public class Scholarship {
 		this.topCandidates = new Student[this.getNumber()];
 	}
 	
-
-	
 	/**
-	 * TODO
-	 * @param newApplication
+	 * Add a submitted application to the list for this scholarship. Insert
+	 * the new application in the sorted list by GPA. The top candidates are then
+	 * recalculated.
+	 * @param newApplication - The application object to be added
 	 */
-	public void addApplication(Application newApplication)
-	{
+	public void addApplication(Application newApplication) {
 		if (this.applications.isEmpty()) {
 			this.applications.add(newApplication);
 			System.out.println("Application has been added to Scholarship for " + db.getStudents().get(newApplication.getStudentId()).getName());
@@ -87,21 +87,18 @@ public class Scholarship {
 				System.out.println("Application has been added to Scholarship for " + db.getStudents().get(newApplication.getStudentId()).getName());
 			}
 		}
-		this.findTopCandidates();
-		for (Application applicationN : this.applications)
-		{
-			System.out.println("Applicant is " + this.db.getStudents().get(applicationN.getStudentId()).getFirstName());
-		}
-			
+		
+		this.findTopCandidates(); // Recalculate top candidates			
 	}
 	
 	/**
-	 * Helper method to calculate top candidates with addition of new application
-	 * or modification of application status to "submitted"
-	 * @param application
+	 * Reconstructs the list of top candidates for this award. First, closed applications
+	 * are removed from the list. Then N candidates are pulled from the sorted list of
+	 * applications, where N is the number of available awards.
 	 */
 	public void findTopCandidates() {
 		removeClosedApplications();
+		
 		for (int i = 0; i < this.topCandidates.length; i++) {
 			if (i < this.applications.size() && this.applications.get(i) != null) {
 				Student student = this.db.getStudents().get(this.applications.get(i).getStudentId());
@@ -111,7 +108,8 @@ public class Scholarship {
 	}
 	
 	/**
-	 * TODO
+	 * Reconstructs the list of top candidates for this award in the event the
+	 * number of available awards changes (ex. if an award is accepted).
 	 */
 	public void recalculateTopCandidates() {
 		// Re-instantiate the list of top candidates in case the number of available awards changes
@@ -120,11 +118,11 @@ public class Scholarship {
 	}
 	
 	/**
-	 * TODO
-	 * Remove applications that are accepted or declined
+	 * If a student accepts or declines an award, their application is closed. 
+	 * The application is removed from the sorted list of applicants to avoid
+	 * being considered as a top candidate. The list of removals is maintained.
 	 */
-	public void removeClosedApplications() {
-		
+	public void removeClosedApplications() {		
 		for (Application a : this.applications) {
 			if (!a.getStatus().equals("submitted")) {
 				this.removals.add(a);
@@ -136,9 +134,9 @@ public class Scholarship {
 	}
 	
 	/**
-	 * TODO
-     * Method to aid in writing scholarship data to file upon program termination.
-     */
+	 * Helper method to turn attributes into a string array for printing.
+	 * @return The String array of attributes
+	 */
     public String[] toStringArray() {
     		String[] scholarshipString = new String[13];
     		scholarshipString[0] = Integer.toString(this.getId());
@@ -158,14 +156,13 @@ public class Scholarship {
     		return scholarshipString;
     }
 	
+    
 	/* Getters & Setters */
-	
 	public Student[] getTopCandidates() {
 		return this.topCandidates;
 	}
 	
-	public ArrayList<Application> getApplications() 
-	{
+	public ArrayList<Application> getApplications() {
 		ArrayList<Application> allSubmittedApplications = new ArrayList<Application>();
 		allSubmittedApplications.addAll(this.applications);
 		allSubmittedApplications.addAll(this.removals);
@@ -174,11 +171,9 @@ public class Scholarship {
 	
 	public ArrayList<Application> getApplicationsSubmittedOnly() {
 		ArrayList<Application> submittedApps = new ArrayList<Application>();
-		for (Application application : this.getApplications())
-		{
+		for (Application application : this.getApplications()) {
 			String status = application.getStatus();
-			if (status.equals("submitted"))
-			{
+			if (status.equals("submitted"))	{
 				submittedApps.add(application);
 			}
 		}
@@ -266,8 +261,6 @@ public class Scholarship {
     public StringProperty postedProperty() { 
         if (posted == null) posted = new SimpleStringProperty(this, "posted");
         return posted; 
-    } 
-    
-    
+    }     
     
 }

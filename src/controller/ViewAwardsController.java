@@ -2,8 +2,7 @@
  * Controller to handle viewing, accepting, and declining awards.
  * Student is shown a drop down menu of awards based on open offers they have.
  * Student can accept or decline the award. A confirmation message will be printed,
- * and the status of the offer in the offerDatabase will be updated from 'open'
- * to either 'accepted' or 'declined'
+ * and updates to the database are made. 
  * @author Jasmine Roebuck
  */
 
@@ -35,11 +34,10 @@ public class ViewAwardsController implements Initializable {
 	private Session session;
 	private Offer offerOld;
 	private String awardName;
-	private Application app;
 	@FXML protected Button saveAndExitButton, submitButton; 
 	@FXML private Label welcomeLabel, awardMessage;
 	@FXML private ChoiceBox<String> awardDrop;
-	private ObservableList<String> list;
+	private ObservableList<String> list; // List that populates the dropdown
 	ArrayList<String> awardArray = new ArrayList<String>();
 
 	//CSS styling
@@ -51,6 +49,10 @@ public class ViewAwardsController implements Initializable {
 		this.session = session;
 	}
 	
+	/**
+	 * Set up the FXML window. Populate the dropdown list and add set up a listener
+	 * that will detect when changes are made to the dropdown selection.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
@@ -75,9 +77,17 @@ public class ViewAwardsController implements Initializable {
 			});
 		}
 	
+	/**
+	 * If a student accepts an award offer, update the status of that offer. Update the status
+	 * of the application for that award, and decrement the number of awards available for
+	 * the scholarship. If the number of awards hits 0, close the scholarship. Recalculate
+	 * the top candidates for the award. Finally, print a confirmation message to the screen.
+	 * @param event
+	 * @throws Exception
+	 */
 	@FXML
 	protected void handleAcceptAwardButtonAction(ActionEvent event) throws Exception {
-		// Only act if a selection has been made in the dropdown menu
+		// Only do something if a selection has been made in the dropdown menu
 		if (!awardDrop.getSelectionModel().isEmpty()) {
 			for (Offer o : session.getDatabase().getOffersByStudentID(session.getUser().getID())) {
 				if (o.getScholarshipName().equals(awardName)) {
@@ -91,29 +101,21 @@ public class ViewAwardsController implements Initializable {
 				// This is done on the student object because, when the database write to
 				// the offerDatabase.csv, it pulls offers from all student objects and writes those to the file
 			student.getOffers().remove(offerOld); // Remove offer from the student
-			String status = "awarded";
-			//Award award = new Award(student, scholarship, status); // Create a new award object
+			// Update the award status
 			for (Award a : student.getAwards()) {
 				if (a.getScholarshipID() == scholarship.getId()) {
-					a.setStatus(status);
+					a.setStatus("awarded");
 				}
-			}
+			}		
 			
-			
-			
-			
-		//	student.addAward(award); // Add award object to the student object
-										// This will be written to the history database
-										// when the application closes
 			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
 			
 			// Find the application object for this student and this award
 			for (Application a : scholarship.getApplicationsSubmittedOnly()) {
 				if (a.getStudentId() == student.getID()) {
-					app = a;
+					a.setStatus("accepted"); // Edit application status
 				}
 			}
-			app.setStatus("accepted"); // Edit application status
 			
 			int num = scholarship.getNumber(); // Decrement the number of awards available
 			num--;
@@ -129,9 +131,17 @@ public class ViewAwardsController implements Initializable {
 		}
 	}
 	
+	/**
+	 * If a student declines an award offer, update the status of that offer. Update the status
+	 * of the application for that award. Recalculates the top candidates for this scholarship and
+	 * sends an offer to the next candidate on the list. Finally, a confirmation message is
+	 * printed to the screen.
+	 * @param event
+	 * @throws Exception
+	 */
 	@FXML
 	protected void handleDeclineAwardButtonAction(ActionEvent event) throws Exception {
-		// Only act if a selection has been made in the dropdown menu
+		// Only do something if a selection has been made in the dropdown menu
 		if (!awardDrop.getSelectionModel().isEmpty()) {
 			for (Offer o : session.getDatabase().getOffersByStudentID(session.getUser().getID())) {
 				if (o.getScholarshipName().equals(awardName)) {
@@ -144,47 +154,45 @@ public class ViewAwardsController implements Initializable {
 			student.addOffer(offerNew); // Add an offer with the edited status
 			// This is done on the student object because, when the database write to
 			// the offerDatabase.csv, it pulls offers from all student objects and writes those to the file
-			String status = "declined"; 
 			for (Award a : student.getAwards()) {
 				if (a.getScholarshipID() == scholarship.getId()) {
-					a.setStatus(status);
+					a.setStatus("declined");
 				}
 			}
-	//			Award award = new Award(student, scholarship, status);
-		//	student.addAward(award);
-			student.getOffers().remove(offerOld);
+			
+			student.getOffers().remove(offerOld); // Remove old offer from Student
 			list.remove(offerOld.getScholarshipName()); // Refresh the dropdown list
 			
 			// Find the application object for this student and this award
 			for (Application a : scholarship.getApplicationsSubmittedOnly()) {
 				if (a.getStudentId() == student.getID()) {
-					app = a;
+					a.setStatus("declined"); // Edit application status
 				}
 			}
-			app.setStatus("declined"); // Edit application status
 			
 			scholarship.recalculateTopCandidates(); // Reset the list of top candidates
+			// Find the next top candidate who does not yet have an offer for this award
 			for (Student s : scholarship.getTopCandidates()) {
 				boolean hasOffer = false;
 				String name = scholarship.getName();
-				if (s != null) {ArrayList<Offer> offers = s.getOffers();
-				for (Offer o : offers) {
-					if (o.getScholarshipName().equals(name)) {
-						hasOffer = true;
-					}
-				} 
+				if (s != null) {
+					ArrayList<Offer> offers = s.getOffers();
+					for (Offer o : offers) {
+						if (o.getScholarshipName().equals(name)) {
+							hasOffer = true; // Student has an offer for this scholarship
+						}
+					} 
 				
-				if (!hasOffer) { // If student does not have an offer for this award
-					Offer newOffer = new Offer(scholarship, s, "open");
-					s.addOffer(newOffer); // Give them an offer
+					if (!hasOffer) { // If student does not have an offer for this award
+						Offer newOffer = new Offer(scholarship, s, "open");
+						s.addOffer(newOffer); // Give them an offer
+					}
 				}
 			}
-			}
+			
 			awardMessage.setText("Thank you for your consideration. You have successfully declined this award.");
 			awardMessage.setVisible(true);
 		}
 	}
-	
-	
 
 }
