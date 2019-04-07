@@ -3,6 +3,11 @@ package model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Award object class
+ * @author Jasmine Roebuck
+ *
+ */
 public class Award {
 
 	private Scholarship scholarship;
@@ -11,6 +16,12 @@ public class Award {
 	private int studentID;
 	private String status;
 	
+	/**
+	 * Object constructor
+	 * @param student - The student who is offered this award
+	 * @param scholarship - The scholarship this award is from
+	 * @param status - 'open', 'accepted', or 'declined'
+	 */
 	public Award(Student student, Scholarship scholarship, String status) {
 		this.scholarship = scholarship;
 		this.student = student;
@@ -19,12 +30,18 @@ public class Award {
 		this.status = status;
 	}
 	
+	/**
+	 * Constructor to build award objects from the database file
+	 * @param database - Database manager
+	 * @param attributes - String array of award attributes
+	 */
 	public Award(Database database, String[] attributes) {
 		this.setStudentID(Integer.parseInt(attributes[0]));	
 		this.setScholarshipID(Integer.parseInt(attributes[1]));
 		this.setStatus(attributes[2]);
 	}
 	
+	// Setter & Getter methods
 	public void setScholarship(Scholarship s) {
 		this.scholarship = s;
 	}
@@ -61,8 +78,13 @@ public class Award {
 		return this.studentID;
 	}
 	
+	public String getStatus() {
+		return this.status;
+	}
+	
     /**
-     * Method to aid in writing application data to file upon program termination.
+     * Helper method to help with print formatting
+     * @return A string array of the object's attributes
      */
     public String[] toStringArray() {
     		String[] awardString = new String[3  ];
@@ -71,10 +93,11 @@ public class Award {
     		awardString[2] = this.getStatus();
     		return awardString;
     }
-
-	public String getStatus() {
-		return this.status;
-	}
+    
+    /**
+     * Helper methods to create StringProperties for display in TableViews
+     * @return The appropriate StringProperty
+     */
 	public StringProperty scholarshipIDProperty() {
 		
 		if (Integer.toString(this.getScholarshipID()) != null) {
