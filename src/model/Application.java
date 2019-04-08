@@ -35,6 +35,7 @@ public class Application {
 	
 	/**
 	 * Constructor for re-creating an Application object from CSV file data
+	 * @param database : database object containing pertinent data
 	 * @param applicationData : String[] application data from application database
 	 */
 	//applicationID		studentID	scholarshipID datesubmitted	status
@@ -59,7 +60,8 @@ public class Application {
 	
 	/**
 	 * Constructor for Application that should only be called from Submit Application interface
-	 * @param id
+	 * @param database - database object containing pertinent data
+	 * @param id - int representing the application id
 	 */
 	public Application(Database database, int id) {
 		//Id should come from session.getDatabase().getApplications().size()

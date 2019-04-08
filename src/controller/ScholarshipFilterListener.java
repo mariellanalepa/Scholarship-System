@@ -63,7 +63,7 @@ public class ScholarshipFilterListener implements ChangeListener<String> {
 			for (String attribute : scholarship.toStringArray())
 			if (attribute.toLowerCase().contains(lowerCaseFilterField))
 			{
-				//Field matchs filter
+				//Field matches filter
 				return true;
 			}
 			//No match

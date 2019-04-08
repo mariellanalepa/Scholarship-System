@@ -18,7 +18,10 @@ import model.Award;
 import model.Scholarship;
 import model.Session;
 import model.Student;
-
+/**
+ * Controller that allows students to view their application form
+ *
+ */
 public class ApplicationFormController implements Initializable
 {	
 	private Main main;
@@ -31,6 +34,11 @@ public class ApplicationFormController implements Initializable
 	//Formatter for current system time: yyyy-MM-dd HH:mm:ss format
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
 
+	/**
+	 * Constructor for ApplicationFormController
+	 * @param main - reference to main
+	 * @param session - reference to the current session
+	 */
 	public ApplicationFormController(Main main, Session session) {
 		this.main = main;
 		this.session = session;
@@ -47,7 +55,6 @@ public class ApplicationFormController implements Initializable
 		
 		if (this.scholarship != null)
 		{
-			//System.out.println(this.scholarship.getName());
 			SCHOLARSHIP_FIELD.setText(this.scholarship.getName());
 		}
 		
@@ -59,12 +66,12 @@ public class ApplicationFormController implements Initializable
 		applicationData[4] = "saved";
 		
 		Application a = new Application(this.session.getDatabase(), applicationData);
-		//a.setScholarshipName(m.getScholarshipName(Integer.valueOf(a.getScholarshipId())));
 		this.application = a;
 		
 		//Add application to database
 		this.session.getDatabase().addApplication(application);
 		
+		//Auto-fill application with student data
 		FNAME_FIELD.setText(student.getFirstName());
 		LNAME_FIELD.setText(student.getLastName());
 		ID_FIELD.setText(student.getStudentIDString());
@@ -79,7 +86,6 @@ public class ApplicationFormController implements Initializable
 	@FXML
 	protected void handleSaveAndExitButtonAction(ActionEvent event) throws Exception
 	{
-		//this.application.saveApplication();
 		main.injectPaneIntoScene("/view/StudentAwardsMessage.fxml");
 	}
 	
@@ -91,24 +97,12 @@ public class ApplicationFormController implements Initializable
 		Student student = (Student) this.session.getUser();
 		Award award = new Award(student, scholarship, "application submitted");
 		student.addAward(award);
-		//this.application.saveApplication();
 		
 		submitButton.setVisible(false);
 		saveAndExitButton.setVisible(false);
 		
 		confirmationLabel.setVisible(true);
 	}
-	
-	/*private String dateTimeFormat(LocalDateTime time) {
-		String dateTime = time.toString();
-		String year = dateTime.substring(0, 4)+ " ";
-		String month = dateTime.substring(5, 7) + "/";
-		String day = dateTime.substring(8, 10) + "/";
-		String hms = dateTime.substring(11, 19);
-		String dateTimeString = year + month + day + hms;
-		return dateTimeString;
-				
-	}*/
 }
 
 

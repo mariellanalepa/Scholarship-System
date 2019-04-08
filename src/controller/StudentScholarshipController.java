@@ -18,7 +18,11 @@ import javafx.scene.control.TextField;
 import model.Session;
 import model.Student;
 import model.Scholarship;
-
+/**
+ * Controller class for an student to view scholarships for which
+ * they are eligible and to select a scholarship to apply to.
+ *
+ */
 public class StudentScholarshipController implements Initializable { 
 	
 	private Main main;
@@ -28,7 +32,12 @@ public class StudentScholarshipController implements Initializable {
 	@FXML private TableColumn<Scholarship,Number> idCol, amtCol, numCol, gpaCol;
 	@FXML private TableView<Scholarship> table;
 	@FXML private TextField filterField;	
-	
+
+	/**
+	 * Constructor for StudentScholarshipController
+	 * @param main - reference to main
+	 * @param session - reference to the current session
+	 */
 	public StudentScholarshipController(Main main, Session session) {
 		this.main = main;
 		this.session = session;

@@ -6,8 +6,9 @@ import model.Scholarship;
 import model.Student;
 
 /**
- * Custom ChangeListener for Scholarship table filtering
- * Listens for changes to the filter field 
+ * Curator to filter scholarships students can see so that only scholarships
+ * they are eligible for appear. 
+ * @author David
  *
  */
 public class ScholarshipCurator {
@@ -17,6 +18,7 @@ public class ScholarshipCurator {
 	/**
 	 * Constructor for the ScholarshipCurator
 	 * @param curatedData - the filtered list whose data we are curating for the current student
+	 * @param student - the current student object to be curated for
 	 */
 	public ScholarshipCurator(FilteredList<Scholarship> curatedData, Student student) {
 		this.student = student;
@@ -48,18 +50,25 @@ public class ScholarshipCurator {
 			{
 				int minYear;
 				int studentYear = Integer.parseInt(student.getStudentYearString());
+				// Three different cases for contents for the year field in the scholarship
+				// Year is "X+" where X is an integer value
 				if (scholarship.getYear().length() == 2){
 					minYear = Integer.parseInt(scholarship.getYear().substring(0, 1));
 					if (minYear <= studentYear){
+						// Fields all match
 						return true;
 					}
 				}
+				// Year is "Any"
 				else if (scholarship.getYear().toLowerCase().contains("any")){
+					// Fields all match
 					return true;
 				}
+				// Year is "X" where X is an integer value
 				else{
 					minYear = Integer.parseInt(scholarship.getYear());
 					if (minYear == studentYear){
+						// Fields all match
 						return true;
 					}
 				}

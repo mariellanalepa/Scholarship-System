@@ -17,7 +17,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
+/**
+ * Controller that allows students to view their application history 
+ *
+ */
 
 public class ApplicationHistoryController implements Initializable {
 	
@@ -29,7 +32,11 @@ public class ApplicationHistoryController implements Initializable {
 	@FXML private TableView<Application> table;
 	@FXML protected Label confirmationLabel;
 	
-	
+	/**
+	 * Constructor for ApplicationHistoryController
+	 * @param main - reference to main
+	 * @param session - reference to the current session
+	 */
 	public ApplicationHistoryController(Main main, Session session) {
 		this.main = main;
 		this.session = session;
@@ -64,7 +71,6 @@ public class ApplicationHistoryController implements Initializable {
 
 		table.setItems(data);
 		applicationIdCol.setCellValueFactory(f->f.getValue().applicationIDProperty());
-		//scholarshipIdCol.setCellValueFactory(f->f.getValue().studentIdProperty());
 		scholarshipNameCol.setCellValueFactory(f->f.getValue().scholarshipNameProperty());
 		deadlineCol.setCellValueFactory(f->f.getValue().scholarshipDeadlineProperty());
 		status.setCellValueFactory(f->f.getValue().statusProperty());
