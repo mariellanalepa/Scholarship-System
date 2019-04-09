@@ -19,7 +19,6 @@ public class Scholarship {
 	private ArrayList<Application> removals; // List of closed applications related to this scholarship
 	private Student[] topCandidates;	//Top candidate(s) based on GPA of submitted scholarships
 	private Database db;
-	
 	private IntegerProperty id;
 	private StringProperty name;
 	private StringProperty donor;
@@ -261,6 +260,7 @@ public class Scholarship {
     public StringProperty postedProperty() { 
         if (posted == null) posted = new SimpleStringProperty(this, "posted");
         return posted; 
-    }     
+    }
+
     
 }

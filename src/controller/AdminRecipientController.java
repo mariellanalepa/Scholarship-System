@@ -19,11 +19,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Application;
+import model.Offer;
 import model.Scholarship;
 import model.Session;
 import model.Student;
 /**
- * Class to view top applicants to a scholarship
+ * Class to view recipients of a scholarship
  * @author luclegere
  *
  */
@@ -57,18 +58,29 @@ public class AdminRecipientController implements Initializable {
 		String scholarshipName = scholDrop.getValue().toString();	
 		Scholarship current = this.session.getDatabase().getScholarshipsByName().get(scholarshipName);	
 		ArrayList<Student> stuList = new ArrayList<Student>();	//list to hold top candidates for scholarship
-
 			//add all top candidates for the current scholarship to stuList
-			for (Student student : current.getTopCandidates()) {
-				if (student != null) stuList.add(student);
-			}
+		ArrayList<Offer> offers = this.session.getDatabase().getOffers();
 		
-			//Set table
-			ObservableList<Student> data = FXCollections.observableArrayList(stuList);
-			table.setItems(data);
-			stuIDCol.setCellValueFactory(f->f.getValue().studentIDProperty()); 
-			GPACol.setCellValueFactory(f->f.getValue().GPAProperty());	
-			nameCol.setCellValueFactory(f->f.getValue().nameProperty());	
+		/*
+		 * sort through all offers, adding their corresponding students to the list if they
+		 * both match the selected scholarship and are accepted
+		 */
+		for (Offer o : offers) {	
+			if (o.getScholarshipName().compareTo(current.getName()) == 0) {	//if the scholarship is the one selected
+				if (o.getStatus().compareTo("accepted") == 0) {	//if the offer is accepted
+					stuList.add(this.session.getDatabase().getStudents().get(o.getStudentID()));
+				}
+			}
+		}
+		
+	
+		
+		//Set table
+		ObservableList<Student> data = FXCollections.observableArrayList(stuList);
+		table.setItems(data);
+		stuIDCol.setCellValueFactory(f->f.getValue().studentIDProperty()); 
+		GPACol.setCellValueFactory(f->f.getValue().GPAProperty());	
+		nameCol.setCellValueFactory(f->f.getValue().nameProperty());	
 								
 		});
 		
