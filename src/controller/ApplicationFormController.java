@@ -86,7 +86,7 @@ public class ApplicationFormController implements Initializable
 	@FXML
 	protected void handleSaveAndExitButtonAction(ActionEvent event) throws Exception
 	{
-		main.injectPaneIntoScene("/view/StudentAwardsMessage.fxml");
+		main.injectPaneIntoScene("/view/StudentWelcomeMessage.fxml");
 	}
 	
 	@FXML
