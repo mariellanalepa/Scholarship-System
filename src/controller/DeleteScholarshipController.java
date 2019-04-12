@@ -39,7 +39,6 @@ public class DeleteScholarshipController implements Initializable {
 	protected void handleDeleteButtonAction(ActionEvent event) throws Exception
 	{
 		String name = scholarshipSelectDropDown.getValue(); 
-		System.out.println(name);
 		//Find scholarship in database
 		this.scholarship = this.session.getDatabase().getScholarshipsByName().get(name);
 		//Remove scholarship from database

@@ -11,9 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.Application;
 import model.Award;
-import model.Scholarship;
 import model.Session;
 import model.Student;
 
@@ -24,6 +22,7 @@ import model.Student;
  *
  */
 public class AwardHistoryController implements Initializable {
+	@SuppressWarnings("unused")
 	private Main main;
 	private Session session;
 	private Student student;

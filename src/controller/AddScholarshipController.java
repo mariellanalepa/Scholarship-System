@@ -8,7 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -80,7 +79,6 @@ public class AddScholarshipController implements Initializable
 		else {			empty = true; }
 		if (!yearBox.getText().isEmpty()) { scholarshipData[10] = yearBox.getText();}
 		else {			empty = true; }
-		System.out.println(empty);
 		scholarshipData[11] = "Open";
 		
 		//Get current system time, and format to follow yyyy-MM-dd HH:mm:ss format

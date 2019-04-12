@@ -65,7 +65,6 @@ public class Scholarship {
 	public void addApplication(Application newApplication) {
 		if (this.applications.isEmpty()) {
 			this.applications.add(newApplication);
-			System.out.println("Application has been added to Scholarship for " + db.getStudents().get(newApplication.getStudentId()).getName());
 		} else {
 			boolean insert = false;
 			//Student associated with application that is being added
@@ -76,14 +75,12 @@ public class Scholarship {
 				if (s1.getGPA() > s2.getGPA()) {
 					insert = true;
 					this.applications.add(i, newApplication); // Insert this application at i
-					System.out.println("Application has been added to Scholarship for " + db.getStudents().get(newApplication.getStudentId()).getName());
 					break;
 				}
 			}
 			if (!insert) {
 				// Add to the end of the list if this student has the lowest GPA
 				this.applications.add(newApplication);
-				System.out.println("Application has been added to Scholarship for " + db.getStudents().get(newApplication.getStudentId()).getName());
 			}
 		}
 		

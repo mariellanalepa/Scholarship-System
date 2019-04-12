@@ -2,8 +2,6 @@ package application;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -59,7 +57,7 @@ public class Main extends Application {
 		this.controllerFactory = new ControllerFactory(this, session);
 		//Get visual bounds from screen size
 		visualBounds = Screen.getPrimary().getVisualBounds();
-		//visualBounds = new Rectangle2D(0, 0, 1400, 600);
+		
 		
 	}
 	

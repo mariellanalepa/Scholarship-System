@@ -30,6 +30,7 @@ import model.Student;
 
 public class ViewAwardsController implements Initializable {
 	
+	@SuppressWarnings("unused")
 	private Main main;
 	private Session session;
 	private Offer offerOld;

@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -44,6 +43,7 @@ public class StudentScholarshipController implements Initializable {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -70,6 +70,7 @@ public class StudentScholarshipController implements Initializable {
 		FilteredList<Scholarship> curatedData = new FilteredList<>(data, predicate -> true);	
 		
 		//Call for list to be curated
+		@SuppressWarnings("unused")
 		ScholarshipCurator curator = new ScholarshipCurator(curatedData, student);
 		
 		//Wrap curated list in filterable list for search filtering

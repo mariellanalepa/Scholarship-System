@@ -2,23 +2,16 @@ package controller;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.Application;
 import model.Offer;
 import model.Scholarship;
 import model.Session;
@@ -30,6 +23,7 @@ import model.Student;
  */
 public class AdminRecipientController implements Initializable {
 
+	@SuppressWarnings("unused")
 	private Main main;
 	private Session session;
 	@FXML private ChoiceBox<String> scholDrop;

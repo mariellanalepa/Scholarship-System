@@ -1,6 +1,5 @@
 package controller;
 import model.Application;
-import model.Scholarship;
 import model.Session;
 import model.Student;
 
@@ -10,7 +9,6 @@ import java.util.ResourceBundle;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,6 +22,7 @@ import javafx.scene.control.TableView;
 
 public class ApplicationHistoryController implements Initializable {
 	
+	@SuppressWarnings("unused")
 	private Main main;
 	private Session session;
 	private Student student;
@@ -60,6 +59,7 @@ public class ApplicationHistoryController implements Initializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
