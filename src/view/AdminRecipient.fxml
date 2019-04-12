@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminRecipientController">
+   <children>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <ChoiceBox fx:id="scholDrop" prefWidth="150.0" />
+            <TextField fx:id="filter" promptText="Search Filter...">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></TextField>
+         </children>
+      </HBox>
+      <TableView fx:id="table" prefHeight="600.0" prefWidth="600.0">
+         <columns>
+            <TableColumn fx:id="nameCol" maxWidth="1000.0" minWidth="100.0" prefWidth="200.0" text="Name" />
+            <TableColumn fx:id="stuIDCol" maxWidth="1000.0" minWidth="100.0" prefWidth="200.0" text="Student ID" />
+            <TableColumn fx:id="GPACol" maxWidth="1000.0" minWidth="100.0" prefWidth="200.0" text="GPA" />
+         </columns>
+      </TableView>
+   </children>
+</VBox>

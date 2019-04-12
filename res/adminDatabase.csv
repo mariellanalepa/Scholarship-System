@@ -1,2 +1,2 @@
-username,AdminID,FName,LName
-jane.doe,98765432,Jane,Doe
+username,AdminID,FName,LName,hash
+jane.doe,98765432,Jane,Doe,e95e294e1feb382c08f435e509e121be

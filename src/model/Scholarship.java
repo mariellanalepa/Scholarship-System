@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -7,7 +9,16 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Scholarship object class.
+ * @author Natalie
+ *
+ */
 public class Scholarship {
+	private ArrayList<Application> applications;	//List of applications related to this scholarship
+	private ArrayList<Application> removals; // List of closed applications related to this scholarship
+	private Student[] topCandidates;	//Top candidate(s) based on GPA of submitted scholarships
+	private Database db;
 	private IntegerProperty id;
 	private StringProperty name;
 	private StringProperty donor;
@@ -21,9 +32,11 @@ public class Scholarship {
 	private StringProperty year;
 	private StringProperty status;
 	private StringProperty posted;
-	private final String scholarshipDatabase = "res/scholarshipDatabase.csv";
-	//CSV COLUMNS: IDNumber	Name	Donor	Deadline(dd/MM/yyyy HH:mm:ss)	Amount	Number	ReqFac	ReqDept	RecType	ReqGPA	ReqYear	Status	DatePosted(dd/MM/yyyy HH:mm:ss)
-	public Scholarship (String[] scholarshipData) {
+
+	public Scholarship (Database database, String[] scholarshipData) {
+		this.db = database;
+		this.applications = new ArrayList<Application>();
+		this.removals = new ArrayList<Application>();
 		this.setId(scholarshipData[0]);
 		this.setName(scholarshipData[1]);
 		this.setDonor(scholarshipData[2]);
@@ -37,22 +50,133 @@ public class Scholarship {
 		this.setYear(scholarshipData[10]);
 		this.setStatus(scholarshipData[11]);
 		this.setPosted(scholarshipData[12]);
+		
+		//Make as many positions for top candidate as number of scholarships
+		//to be awarded
+		this.topCandidates = new Student[this.getNumber()];
 	}
 	
-	public boolean saveScholarship(String[] scholarshipData) {
-		CsvReader c = new CsvReader();
-		boolean success = c.addScholarshipEntry(scholarshipData);
-		return success;
-	}
-
-	public boolean deleteScholarship(int index) throws Exception {
-		CsvReader c = new CsvReader();
-		c.getDatabaseForDelete(scholarshipDatabase);
-		boolean success = c.deleteScholarshipEntry(index);
-		return success;
+	/**
+	 * Add a submitted application to the list for this scholarship. Insert
+	 * the new application in the sorted list by GPA. The top candidates are then
+	 * recalculated.
+	 * @param newApplication - The application object to be added
+	 */
+	public void addApplication(Application newApplication) {
+		if (this.applications.isEmpty()) {
+			this.applications.add(newApplication);
+		} else {
+			boolean insert = false;
+			//Student associated with application that is being added
+			Student s1 = this.db.getStudents().get(newApplication.getStudentId());
+			for (int i = 0; i < this.applications.size(); i++) {
+				//Student associated with application already in list	
+				Student s2 = this.db.getStudents().get(this.applications.get(i).getStudentId());
+				if (s1.getGPA() > s2.getGPA()) {
+					insert = true;
+					this.applications.add(i, newApplication); // Insert this application at i
+					break;
+				}
+			}
+			if (!insert) {
+				// Add to the end of the list if this student has the lowest GPA
+				this.applications.add(newApplication);
+			}
+		}
+		
+		this.findTopCandidates(); // Recalculate top candidates			
 	}
 	
-	/* following code adapted from Oracle Docs
+	/**
+	 * Reconstructs the list of top candidates for this award. First, closed applications
+	 * are removed from the list. Then N candidates are pulled from the sorted list of
+	 * applications, where N is the number of available awards.
+	 */
+	public void findTopCandidates() {
+		removeClosedApplications();
+		
+		for (int i = 0; i < this.topCandidates.length; i++) {
+			if (i < this.applications.size() && this.applications.get(i) != null) {
+				Student student = this.db.getStudents().get(this.applications.get(i).getStudentId());
+				this.topCandidates[i] = student;
+			}
+		}			
+	}
+	
+	/**
+	 * Reconstructs the list of top candidates for this award in the event the
+	 * number of available awards changes (ex. if an award is accepted).
+	 */
+	public void recalculateTopCandidates() {
+		// Re-instantiate the list of top candidates in case the number of available awards changes
+		this.topCandidates = new Student[this.getNumber()];
+		this.findTopCandidates();
+	}
+	
+	/**
+	 * If a student accepts or declines an award, their application is closed. 
+	 * The application is removed from the sorted list of applicants to avoid
+	 * being considered as a top candidate. The list of removals is maintained.
+	 */
+	public void removeClosedApplications() {		
+		for (Application a : this.applications) {
+			if (!a.getStatus().equals("submitted")) {
+				this.removals.add(a);
+			}
+		}
+		for (Application a : this.removals) {
+			this.applications.remove(a);
+		}
+	}
+	
+	/**
+	 * Helper method to turn attributes into a string array for printing.
+	 * @return The String array of attributes
+	 */
+    public String[] toStringArray() {
+    		String[] scholarshipString = new String[13];
+    		scholarshipString[0] = Integer.toString(this.getId());
+    		scholarshipString[1] = this.getName();
+    		scholarshipString[2] = this.getDonor();
+    		scholarshipString[3] = this.getDeadline();
+    		scholarshipString[4] = Integer.toString(this.getAmount());
+    		scholarshipString[5] = Integer.toString(this.getNumber());
+    		scholarshipString[6] = this.getFaculty();
+    		scholarshipString[7] = this.getDepartment();
+    		scholarshipString[8] = this.getType();
+    		scholarshipString[9] = Float.toString(this.getGpa());
+    		scholarshipString[10] = this.getYear();
+    		scholarshipString[11] = this.getStatus();
+    		scholarshipString[12] = this.getPosted();
+    		
+    		return scholarshipString;
+    }
+	
+    
+	/* Getters & Setters */
+	public Student[] getTopCandidates() {
+		return this.topCandidates;
+	}
+	
+	public ArrayList<Application> getApplications() {
+		ArrayList<Application> allSubmittedApplications = new ArrayList<Application>();
+		allSubmittedApplications.addAll(this.applications);
+		allSubmittedApplications.addAll(this.removals);
+		return allSubmittedApplications;
+	}
+	
+	public ArrayList<Application> getApplicationsSubmittedOnly() {
+		ArrayList<Application> submittedApps = new ArrayList<Application>();
+		for (Application application : this.getApplications()) {
+			String status = application.getStatus();
+			if (status.equals("submitted"))	{
+				submittedApps.add(application);
+			}
+		}
+		return submittedApps;
+	}
+	
+	/* The following code adapted from Oracle Docs
 	 * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html
 	 */
 	public void setId(String value) { idProperty().set(Integer.parseInt(value)); }
@@ -86,6 +210,7 @@ public class Scholarship {
         return amount; 
     }
     public void setNumber(String value) { numberProperty().set(Integer.parseInt(value));} 
+    public void setNumber(int value) { numberProperty().set(value); }
     public Integer getNumber() {return numberProperty().get();}
 	public IntegerProperty numberProperty() { 
         if (number == null) number = new SimpleIntegerProperty(this, "number");
@@ -132,6 +257,7 @@ public class Scholarship {
     public StringProperty postedProperty() { 
         if (posted == null) posted = new SimpleStringProperty(this, "posted");
         return posted; 
-    } 
+    }
+
     
 }

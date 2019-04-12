@@ -1,5 +1,7 @@
-username,StudentID,FName,LName,Type,Year,Faculty,Department,GPA
-s,12345678,FNAME,LNAME,UGRAD,1,SC,CPSC,4
-john.doe,30065479,John,Doe,UGRAD,2,SC,CPSC,2.8
-beth.jones,30026793,Beth,Jones,UGRAD,3,AR,ENGL,3.5
-carrie.smith,30098274,Carrie,Smith,UGRAD,4,EN,ENCL,3.6
+username,StudentID,FName,LName,Type,Year,Faculty,Department,GPA,hash
+user,12345678,FNAME,LNAME,UGRAD,1,SC,CPSC,4,5f4dcc3b5aa765d61d8327deb882cf99
+natalie.dean,30065479,Natalie,Dean,UGRAD,2,SC,CPSC,4,1f3870be274f6c49b3e31a0c6728957f
+jasmine.roebuck,30037334,Jasmine,Roebuck,UGRAD,2,AR,ENGL,3.6,72b302bf297a228a75730123efef7c41
+luc.legere,30098274,Luc,Legere,UGRAD,4,EN,CHEM,3.4,fe01d67a002dfa0f3ac084298142eccd
+mariella.nalepa,30064937,Mariella,Nalepa,GRAD,1,SC,MATH,3.2,8893dc16b1b2534bab7b03727145a2bb
+david.roberts,30097495,David,Roberts,UGRAD,3,ED,WAS,3,b781cbb29054db12f88f08c6e161c199

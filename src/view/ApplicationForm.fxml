@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApplicationFormController">
+   <children>
+      <GridPane alignment="TOP_CENTER" hgap="20.0" vgap="20.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="250.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Student ID" GridPane.rowIndex="1">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+            </Label>
+            <Label text="Last name" GridPane.rowIndex="2">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+            </Label>
+            <Label text="GPA" GridPane.rowIndex="4">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+            </Label>
+            <Label text="Faculty" GridPane.rowIndex="5">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+            </Label>
+            <Label prefHeight="17.0" prefWidth="104.0" text="Department" GridPane.rowIndex="6">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+            </Label>
+            <Label text="Year" GridPane.rowIndex="7">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+            </Label>
+            <Label text="First Name" GridPane.rowIndex="3">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+            </Label>
+            <Label id="SID_FIELD" fx:id="ID_FIELD" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label id="LNAME_FIELD" fx:id="LNAME_FIELD" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label id="FNAME_FIELD" fx:id="FNAME_FIELD" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label id="GPA_FIELD" fx:id="GPA_FIELD" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="FACULTY_FIELD" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="DEPT_FIELD" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="YEAR_FIELD" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Student Type" GridPane.rowIndex="8">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="TYPE_FIELD" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+            </Label>
+            <Label text="Scholarship">
+               <font>
+                  <Font name="SansSerif Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="SCHOLARSHIP_FIELD" GridPane.columnIndex="1" />
+         </children>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </GridPane>
+      <StackPane>
+         <VBox.margin>
+            <Insets bottom="20.0" top="20.0" />
+         </VBox.margin>
+         <children>
+            <HBox alignment="CENTER" prefHeight="27.0" prefWidth="613.0">
+               <children>
+                  <Button fx:id="saveAndExitButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSaveAndExitButtonAction" prefHeight="27.0" prefWidth="200.0" text="Save &amp; Return to Dashboard">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="submitButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSubmitButtonAction" prefHeight="27.0" prefWidth="152.0" text="Submit">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </HBox>
+            <Label fx:id="confirmationLabel" alignment="CENTER" prefHeight="26.0" prefWidth="418.0" text="Congratulations! Your application has been successfully submitted." textAlignment="CENTER" textFill="RED" visible="false" />
+         </children>
+      </StackPane>
+   </children>
+</VBox>

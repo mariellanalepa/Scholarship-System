@@ -1,25 +1,21 @@
 package model;
 
-public class Admin {
-	private int adminID;
-	private String username;
-	private String adminFirstName;
-	private String adminLastName;
-	
-	public Admin(String usr) {
-		CsvReader c = new CsvReader();
-		String[] data = c.getAdminData(usr);
-		this.username = data[0];
-		this.adminID = Integer.valueOf(data[1]);
-		this.adminFirstName = data[2];
-		this.adminLastName = data[3];
-	}
+/**
+ * Admin object class
+ * @author Natalie
+ *
+ */
+public class Admin extends User {
 
-	public String getFirstName() {
-		return this.adminFirstName;
-	}
-	public String getLastName() {
-		return this.adminLastName;
+	/**
+	 * Constructor for a new Admin object
+	 */
+	public Admin(String[] data) {
+		this.userName = data[0];
+		this.userID = Integer.valueOf(data[1]);
+		this.firstName = data[2];
+		this.lastName = data[3];
+		this.passwordHash = data[4];
 	}
 
 }

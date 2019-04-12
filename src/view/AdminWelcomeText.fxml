@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="538.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminMainController">
+   <children>
+      <StackPane prefHeight="28.0" prefWidth="775.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements" wrappingWidth="279.3367118835449" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </Text>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </StackPane>
+      <StackPane prefHeight="234.0" prefWidth="775.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="lblInfo" text="No announcements, check back later!" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="72.0" prefWidth="775.0" />
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>

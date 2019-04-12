@@ -1,12 +1,7 @@
 applicationID,studentID,scholarshipID,dateAdded,status
-0,12345678,1,today,open
-1,12345678,1,today,open
-2,12345678,1,today,open
-3,10000000,1,today,open
-4,10000000,1,today,open
-5,10000000,1,today,open
-6,12345678,1,today,submitted
-7,12345678,1,today,submitted
-8,12345678,1,today,submitted
-9,12345678,1,2019 03/17/16:11:05,submitted
-10,12345678,1,2019 03/17/16:11:11,open
+0,30064937,3,2019-04-04 14:23:31,submitted
+1,30097495,5,2019-04-04 14:52:33,submitted
+2,30065479,2,2019-04-04 14:58:45,submitted
+3,30098274,1,2019-04-04 15:04:26,submitted
+4,30037334,0,2019-04-04 15:15:52,submitted
+5,30065479,0,2019-04-07 11:00:08,submitted
