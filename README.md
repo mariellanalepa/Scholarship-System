@@ -10,6 +10,6 @@ Student Users:
   mariella.nalepa -> pear  
   david.roberts -> grape  
   
-Admin User:
+Admin User:  
   jane.doe -> poodle  
 
