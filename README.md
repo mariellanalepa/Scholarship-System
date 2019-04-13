@@ -1,5 +1,9 @@
 # SENG 300 Project
 
+To run:  
+  Load the project into eclipse  
+  Run as a Java Application (from Main.java)
+
 Authentication information:
 
 Student Users:  
