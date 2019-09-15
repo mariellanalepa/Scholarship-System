@@ -5,7 +5,7 @@ Five-member group project completed for an introductory software engineering cou
 
 A desktop application for the hypothetical management of student scholarships was developed using JavaFX and FXML, an XML-based language provided by JavaFX for building UIs independent of the application logic. The application architecture follows the MVC (Model-View-Controller) pattern. 
 
-While the assigned project was contrived and a database was not expected to be implemented in backend due to the varying experience and knowledge of project members, it was a valuable experience for version-controlled parallel development, team self-organization, code refactoring, and even understanding and application of architectural patterns. 
+While the assigned project was contrived and a true database was not expected to be implemented in backend due to the varying experience and knowledge of project members, it was a valuable experience for version-controlled parallel development, team self-organization, code refactoring, and even understanding and application of architectural patterns. 
 
 <p align="center">
   <img src="res/screenshot01.png" width="50%" height="50%">
