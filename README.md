@@ -7,6 +7,8 @@ A desktop application for the hypothetical management of student scholarships wa
 
 While the assigned project was contrived and a true database was not expected to be implemented in backend due to the varying experience and knowledge of project members, it was a valuable experience for version-controlled parallel development, team self-organization, code refactoring, and even understanding and application of architectural patterns. 
 
+Original repo on university's GitLab server. 
+
 <p align="center">
   <img src="res/screenshot01.png" width="50%" height="50%">
   <img src="res/screenshot03.png" width="50%" height="50%">
